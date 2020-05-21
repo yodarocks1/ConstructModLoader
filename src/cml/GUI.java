@@ -297,10 +297,6 @@ public class GUI extends Application {
             this.activeModsGroup = getActiveModsGroup(this.scroll, 250, 0);
             root.getChildren().addAll(this.activeModsGroup);
         });
-        root.setOnMouseClicked((MouseEvent event) -> {
-            sliderOffset += 0.1;
-            System.out.println(sliderOffset);
-        });
 
         Scene scene = new Scene(root, 601, 679);
 
@@ -340,8 +336,6 @@ public class GUI extends Application {
             }
         }
     }
-
-    double sliderOffset = 6;
 
     public List<Node> getActiveModsGroup(double scroll, double height, double offset) {
 
@@ -436,9 +430,7 @@ public class GUI extends Application {
         slider.setScaleX(0.5);
         slider.setScaleY(0.5);
         slider.setTranslateX(295);
-        double sliderY = Math.max(-107, offset - determineSliderOffset(height, scrollMin, scrollMax) + 18 - (height / 2) + (((scroll + scrollMin) / (scrollMax - scrollMin)) * (height - 20)));
-        System.out.println(sliderY);
-        slider.setTranslateY(sliderY);
+        slider.setTranslateY(Math.max(-107, offset - determineSliderOffset(height, scrollMin, scrollMax) + 18 - (height / 2) + (((scroll + scrollMin) / (scrollMax - scrollMin)) * (height - 20))));
         if (height >= scrollMax - scrollMin) {
             slider.disableProperty().set(true);
         } else {
