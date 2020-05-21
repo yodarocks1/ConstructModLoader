@@ -18,6 +18,6 @@ public class Constants {
     public static final String CONSTRUCT_FOLDER = "C:\\Program Files (x86)\\Construct\\";
     public static final String MODS_FOLDER = Constants.CONSTRUCT_FOLDER + "mods";
     public static final String VERSION = "A.0.0";
-    public static final String LAUNCH_COMMAND = "steam://rungameid/387990";
+    public static final String LAUNCH_COMMAND = "start steam://rungameid/387990";
     public static final ZoneOffset ZONE = OffsetDateTime.now().getOffset();
 }
