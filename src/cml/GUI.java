@@ -503,4 +503,10 @@ public class GUI extends Application {
         return result;
     }
 
+    
+    //Because NetBeans refuses to recognize the Main class as the main class...
+    public static void main(String[] args) {
+        Main.main(args);
+    }
+    
 }
