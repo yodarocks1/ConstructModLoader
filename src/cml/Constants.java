@@ -15,7 +15,7 @@ import java.time.ZoneOffset;
 public class Constants {
 
     public static final String SCRAP_MECHANIC_FOLDER = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Scrap Mechanic\\";
-    public static final String CONSTRUCT_FOLDER = System.getenv("APPDATA") + "\\Construct\\";
+    public static final String CONSTRUCT_FOLDER = "C:\\Program Files (x86)\\Construct\\";
     public static final String MODS_FOLDER = Constants.CONSTRUCT_FOLDER + "mods";
     public static final String VERSION = "A.0.0";
     public static final String LAUNCH_COMMAND = "steam://rungameid/387990";
