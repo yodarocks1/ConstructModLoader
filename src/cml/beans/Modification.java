@@ -5,7 +5,6 @@
  */
 package cml.beans;
 
-import cml.GUI;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -69,13 +68,11 @@ public class Modification {
     public void disable() {
         enabledFile.delete();
         this.enabled = false;
-        GUI.resetChangeTime();
     }
 
     public void enable() {
         try {
             enabledFile.createNewFile();
-            GUI.resetChangeTime();
         } catch (IOException ex) {
             Logger.getLogger(Modification.class.getName()).log(Level.SEVERE, "Failed to enable modification " + this.name, ex);
         }

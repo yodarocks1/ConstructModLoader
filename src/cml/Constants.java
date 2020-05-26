@@ -14,10 +14,8 @@ import java.time.ZoneOffset;
  */
 public class Constants {
 
-    public static final String SCRAP_MECHANIC_FOLDER = System.getProperty("ScrapFolder", "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Scrap Mechanic\\");
-    public static final String CONSTRUCT_FOLDER = "C:\\Program Files (x86)\\Construct\\";
-    public static final String MODS_FOLDER = Constants.CONSTRUCT_FOLDER + "mods";
-    public static final String VERSION = "A.0.0";
-    public static final String LAUNCH_COMMAND = "start steam://rungameid/387990";
+    public static final String FOLDERS_LOCATION = "C:\\Program Files (x86)\\Construct\\folders.txt";
+    public static final String VERSION = "A.1.0";
+    public static final String LAUNCH_COMMAND = "rundll32 url.dll,FileProtocolHandler steam://rungameid/387990";
     public static final ZoneOffset ZONE = OffsetDateTime.now().getOffset();
 }

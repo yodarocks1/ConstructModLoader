@@ -1,0 +1,20 @@
+.list-view .list-cell:empty {
+-fx-background-color: #434343;
+visibility: hidden
+}
+.list-view {
+-fx-background-color: #434343
+}
+.list-view .list-cell:filled:even {
+-fx-background-color: #494949
+}
+.list-view .list-cell:filled:odd {
+-fx-background-color: #454545
+}
+
+.list-view .scroll-bar:vertical .increment-arrow,
+.list-view .scroll-bar:vertical .decrement-arrow,
+.list-view .scroll-bar:vertical .increment-button,
+.list-view .scroll-bar:vertical .decrement-button {
+-fx-padding:0
+}

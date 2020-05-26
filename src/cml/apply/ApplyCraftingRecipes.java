@@ -6,6 +6,7 @@
 package cml.apply;
 
 import cml.Constants;
+import cml.Main;
 import cml.beans.Modification;
 import java.io.File;
 import java.io.IOException;
@@ -26,8 +27,8 @@ import java.util.stream.Collectors;
 public class ApplyCraftingRecipes implements IApplicator {
 
     public static final String CRAFTING_RECIPES_FOLDER_RELATIVE = "\\Crafting Recipes\\";
-    public static final String SM_CRAFTING_RECIPES_FOLDER = Constants.SCRAP_MECHANIC_FOLDER + "Survival\\CraftingRecipes\\";
-    public static final String VANILLA_CRAFTING_RECIPES_FOLDER = Constants.CONSTRUCT_FOLDER + "vanilla\\CraftingRecipes\\";
+    public static final String SM_CRAFTING_RECIPES_FOLDER = Main.scrapMechanicFolder + "Survival\\CraftingRecipes\\";
+    public static final String VANILLA_CRAFTING_RECIPES_FOLDER = Main.vanillaFolder + "CraftingRecipes\\";
 
     private List<Modification> activeModifications;
 
@@ -81,7 +82,7 @@ public class ApplyCraftingRecipes implements IApplicator {
                     outputFile.delete();
                     Files.write(outputFile.toPath(), addRecipes(Files.readAllLines(recipeListFile.toPath()).stream().collect(Collectors.joining("\n")), recipeListToMods.get(recipeList).toArray(new String[0])).getBytes(), StandardOpenOption.CREATE);
                 } catch (IOException ex) {
-                    Logger.getLogger(ApplyScripts.class.getName()).log(Level.SEVERE, "Recipe list " + recipeList + " could not be written", ex);
+                    Logger.getLogger(ApplyCraftingRecipes.class.getName()).log(Level.SEVERE, "Recipe list " + recipeList + " could not be written", ex);
                 }
             } else if (!recipeListToMods.getOrDefault(recipeList, new ArrayList()).isEmpty()) {
                 throw new UnsupportedOperationException("This recipe list or new recipe lists are not yet supported."); //Requires the deletion of recipe lists that are added by now-disabled mods.

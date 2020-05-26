@@ -6,6 +6,7 @@
 package cml.apply;
 
 import cml.Constants;
+import cml.Main;
 import cml.beans.Item;
 import cml.beans.Modification;
 import java.io.File;
@@ -27,12 +28,12 @@ public class ApplyObjects implements IApplicator {
 
     //ShapeSets
     public static final String SHAPESETS_RELATIVE = "\\Objects\\Database\\shapesets.txt";
-    public static final String SM_SHAPESETS_LOCATION = Constants.SCRAP_MECHANIC_FOLDER + "Survival\\Objects\\Database\\shapesets.json";
-    public static final String VANILLA_SHAPESETS_LOCATION = Constants.CONSTRUCT_FOLDER + "vanilla\\Objects\\Database\\shapesets.json";
+    public static final String SM_SHAPESETS_LOCATION = Main.scrapMechanicFolder + "Survival\\Objects\\Database\\shapesets.json";
+    public static final String VANILLA_SHAPESETS_LOCATION = Main.vanillaFolder + "Survival\\Objects\\Database\\shapesets.json";
 
     //SurvivalItems
-    public static final String SM_SURVIVALITEMS_LOCATION = Constants.SCRAP_MECHANIC_FOLDER + "Survival\\Scripts\\game\\survival_items.lua";
-    public static final String VANILLA_SURVIVALITEMS_LOCATION = Constants.CONSTRUCT_FOLDER + "vanilla\\Scripts\\game\\survival_items.lua";
+    public static final String SM_SURVIVALITEMS_LOCATION = Main.scrapMechanicFolder + "Survival\\Scripts\\game\\survival_items.lua";
+    public static final String VANILLA_SURVIVALITEMS_LOCATION = Main.vanillaFolder + "Survival\\Scripts\\game\\survival_items.lua";
 
     private List<Item> items;
     private List<Modification> activeModifications;
