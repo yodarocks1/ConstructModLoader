@@ -17,54 +17,22 @@
 package cml;
 
 import cml.beans.Profile;
-import static cml.Images.BACK;
-import static cml.Images.BACK_PRESS;
-import static cml.Images.BACK_SELECT;
-import static cml.Images.BLANK;
-import static cml.Images.DELETE;
-import static cml.Images.DELETE_PRESS_ANIM;
-import static cml.Images.DELETE_SELECT_ANIM;
-import static cml.Images.ENABLER_BOTH;
-import static cml.Images.ENABLER_OFF;
-import static cml.Images.ENABLER_OFF_SELECT;
-import static cml.Images.ENABLER_ON;
-import static cml.Images.ENABLER_ON_SELECT;
-import static cml.Images.ICON;
-import static cml.Images.LAUNCH;
-import static cml.Images.LAUNCH_PRESS;
-import static cml.Images.LAUNCH_SELECT;
-import static cml.Images.LAUNCH_SOUND;
-import static cml.Images.OPEN;
-import static cml.Images.OPEN_PRESS;
-import static cml.Images.OPEN_SELECT;
-import static cml.Images.PROFILE;
-import static cml.Images.PROFILES;
-import static cml.Images.PROFILES_PRESS;
-import static cml.Images.PROFILES_SELECT;
-import static cml.Images.PROFILE_PRESS;
-import static cml.Images.PROFILE_SELECT;
-import static cml.Images.SCROLL;
-import static cml.Images.SCROLL_B;
-import static cml.Images.SCROLL_B_DISABLE;
-import static cml.Images.SCROLL_B_PRESS;
-import static cml.Images.SCROLL_B_SELECT;
-import static cml.Images.SCROLL_DISABLE;
-import static cml.Images.SCROLL_PRESS;
-import static cml.Images.SCROLL_SELECT;
-import static cml.Images.SETTINGS;
-import static cml.Images.SETTINGS_PRESS;
-import static cml.Images.SETTINGS_SELECT;
 import cml.beans.Modification;
+import cml.beans.SceneEvent;
+import cml.beans.SceneEvent.IconChange;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -80,11 +48,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -104,24 +76,32 @@ import javafx.stage.Stage;
 public class NewGUI extends Application {
 
     private final List<Thread> THREADS = new ArrayList();
+    
 
     @Override
     public void start(Stage stage) throws Exception {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        //stage.setResizable(true);
-        //stage.setTitle("Construct Mod Loader - V+" + Constants.VERSION);
-        /*stage.heightProperty().addListener((obs, oldValue, newValue) -> {
-            makeStage(stage);
-        });
-        stage.widthProperty().addListener((obs, oldValue, newValue) -> {
-            makeStage(stage);
-        });*/
-        //makeStage(stage);
         Parent root = FXMLLoader.load(getClass().getResource("MainGUI.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getClassLoader().getResource("media/listViewStyles.css").toExternalForm());
 
-        stage.getIcons().add(ICON);
+        scene.addEventHandler(SceneEvent.ICON_CHANGE, (event) -> {
+            if (event.getData() instanceof IconChange) {
+                IconChange icons = (IconChange) event.getData();
+                switch (icons.changeType.id) {
+                    case 0:
+                        stage.getIcons().addAll(icons.icons);
+                        break;
+                    case 1:
+                        stage.getIcons().removeAll(icons.icons);
+                        break;
+                    case 2:
+                        stage.getIcons().setAll(icons.icons);
+                }
+            }
+        });
+
+        stage.setTitle("Construct Mod Loader - V" + Constants.VERSION);
+        stage.getIcons().add(Images.ICON);
         stage.setMinWidth(500);
         stage.setScene(scene);
         stage.show();
@@ -133,44 +113,22 @@ public class NewGUI extends Application {
         THREADS.forEach((thread) -> {
             thread.interrupt();
         });
+        SpriteAnimation.THREADS.forEach((thread) -> {
+            thread.interrupt();
+        });
         try {
             String lines = Main.scrapMechanicFolder + "\n" + Main.vanillaFolder + "\n" + Main.modsFolder;
             Files.write(new File(Constants.FOLDERS_LOCATION).toPath(), lines.getBytes(), StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
         } catch (AccessDeniedException ex) {
-            Logger.getLogger(NewGUI.class.getName()).log(Level.SEVERE, "Could not access " + Constants.FOLDERS_LOCATION + " - make sure you have granted Administrator Privileges", ex);
+            ErrorManager.printNonUserError("Folders - AccessDeniedException: Make sure you have given the program Administrator Privileges! (" + Constants.FOLDERS_LOCATION + ")");
+        }
+        System.err.close();
+        if (Main.errFile.length() < 10) {
+            Main.errFile.deleteOnExit();
         }
     }
-//
-//    public void makeStage(Stage stage) {
-//        /*AnchorPane pane = new AnchorPane();
-//        
-//        pane.getChildren().add(HEADER);
-//        pane.getChildren().add(FOOTER);
-//        pane.getChildren().add(FOOTER_CENTER);
-//        
-//        //BACKGROUND
-//        pane.setBackground(BACKGROUND);
-//        pane.setPadding(new Insets(0));
-//        
-//        //HEADER
-//        AnchorPane.setLeftAnchor(HEADER, 0.1);
-//        AnchorPane.setRightAnchor(HEADER, 0.1);
-//        AnchorPane.setTopAnchor(HEADER, 0.0);
-//        
-//        //FOOTER
-//        AnchorPane.setLeftAnchor(FOOTER, 0.1);
-//        AnchorPane.setRightAnchor(FOOTER, 0.1);
-//        AnchorPane.setBottomAnchor(FOOTER, 0.0);
-//        
-//        //FOOTER_CENTER
-//        AnchorPane.setBottomAnchor(FOOTER_CENTER, 0.0);
-//        
-//        
-//        Scene scene = new Scene(pane);
-//        stage.setScene(scene);*/
-//        //stage.show();
-//    }
 
+    //<editor-fold defaultstate="collapsed" desc="Main Overlay">
     @FXML
     private AnchorPane pane;
     @FXML
@@ -229,18 +187,32 @@ public class NewGUI extends Application {
         });
 
         launchButton.setOnMouseEntered((event) -> {
-            if (!launching) {
-                launchButton.setImage(LAUNCH_SELECT);
+            if (!launching && !ErrorManager.isStateError()) {
+                launchButton.setImage(Images.LAUNCH_SELECT);
             }
         });
         launchButton.setOnMouseExited((event) -> {
-            if (!launching) {
-                launchButton.setImage(LAUNCH);
+            if (!launching && !ErrorManager.isStateError()) {
+                launchButton.setImage(Images.LAUNCH);
             }
         });
         launchButton.setOnMousePressed((event) -> {
-            launchButton.setImage(LAUNCH_PRESS);
-            launch();
+            if (Main.activeProfile.get().getDirectory() != null) {
+                launchButton.setImage(Images.LAUNCH_PRESS);
+                launch();
+            } else {
+                ErrorManager.addStateCause("ActiveProfile == null");
+                menuView.setValue(3);
+            }
+        });
+        ErrorManager.State.addListener((obs, oldValue, newValue) -> {
+            if (newValue.isError()) {
+                launchButton.setImage(Images.LAUNCH_ERROR);
+                launchButton.fireEvent(new SceneEvent(SceneEvent.ICON_CHANGE, new IconChange(IconChange.IconChangeType.SET, Images.ICON_ERROR)));
+            } else if (oldValue.isError()) {
+                launchButton.setImage(Images.LAUNCH);
+                launchButton.fireEvent(new SceneEvent(SceneEvent.ICON_CHANGE, new IconChange(IconChange.IconChangeType.SET, Images.ICON)));
+            }
         });
 
         initializeMenu();
@@ -255,43 +227,120 @@ public class NewGUI extends Application {
         @Override
         public void run() {
             launching = true;
-            launchButton.setImage(LAUNCH_PRESS);
+            launchButton.setImage(Images.LAUNCH_PRESS);
             launchButton.setMouseTransparent(true);
-            MediaPlayer mediaPlayer = new MediaPlayer(LAUNCH_SOUND);
+            MediaPlayer mediaPlayer = new MediaPlayer(Images.LAUNCH_SOUND);
             mediaPlayer.setOnEndOfMedia(mediaPlayer::dispose);
             mediaPlayer.play();
             try {
-                Thread.sleep(10000);
+                Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(NewGUI.class.getName()).log(Level.INFO, "Launch thread interrupted", ex);
             }
             Main.launchGame();
             launching = false;
-            launchButton.setImage(LAUNCH);
+            new SceneEvent(SceneEvent.ICON_CHANGE, new IconChange(IconChange.IconChangeType.SET, Images.ICON_SUCCESS)).fire(launchButton);
+            launchButton.setImage(Images.LAUNCH);
             launchButton.setMouseTransparent(false);
         }
     };
 
     public void launch() {
         if (!launching) {
-            new Thread(launchRunnable).start();
+            Thread launchThread = new Thread(launchRunnable);
+            launchThread.start();
+            THREADS.add(launchThread);
         }
     }
 
+    long successTime = 0;
+    int runningSuccess = 0;
+    private final Runnable successRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (runningSuccess > 0 && !ErrorManager.isStateError()) {
+                launchButton.setImage(Images.LAUNCH);
+                new SceneEvent(SceneEvent.ICON_CHANGE, new IconChange(IconChange.IconChangeType.SET, Images.ICON)).fire(launchButton);
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(NewGUI.class.getName()).log(Level.INFO, "Pre-success thread interrupted");
+                }
+            }
+            if (!ErrorManager.isStateError()) {
+                new SceneEvent(SceneEvent.ICON_CHANGE, new IconChange(IconChange.IconChangeType.SET, Images.ICON_SUCCESS)).fire(launchButton);
+                launchButton.setImage(Images.LAUNCH_SUCCESS);
+            }
+            long t = successTime;
+            runningSuccess++;
+            try {
+                Thread.sleep(t);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(NewGUI.class.getName()).log(Level.INFO, "Success thread interrupted");
+            }
+            if (runningSuccess == 1 && !ErrorManager.isStateError()) {
+                new SceneEvent(SceneEvent.ICON_CHANGE, new IconChange(IconChange.IconChangeType.SET, Images.ICON)).fire(launchButton);
+                launchButton.setImage(Images.LAUNCH);
+            }
+            runningSuccess--;
+        }
+    };
+
+    public void showSuccess(long time) {
+        if (!ErrorManager.isStateError()) {
+            successTime = time;
+            Thread successThread = new Thread(successRunnable);
+            successThread.start();
+            THREADS.add(successThread);
+        }
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Main Menu Pane">
     @FXML
     private AnchorPane mainMenuPane;
-    int oldMenuView = 0;
+    @FXML
+    private ImageView mainMenuBackground;
+    @FXML
+    private Rectangle mainMenuOverlay;
+    @FXML
+    private Text launchText;
 
+    private void centerImage(ImageView imageView) {
+        Image img = imageView.getImage();
+        if (img != null) {
+
+            double ratioX = imageView.getFitWidth() / img.getWidth();
+            double ratioY = imageView.getFitHeight() / img.getHeight();
+
+            double reducCoeff = 0;
+            if (ratioX >= ratioY) {
+                reducCoeff = ratioY;
+            } else {
+                reducCoeff = ratioX;
+            }
+
+            double w = img.getWidth() * reducCoeff;
+            double h = img.getHeight() * reducCoeff;
+
+            imageView.setTranslateX((imageView.getFitWidth() - w) / 2);
+            imageView.setTranslateY((imageView.getFitHeight() - h) / 2);
+
+        }
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Menu Items">
     public void toggleSettings() {
-        menuView.setValue(menuView.getValue() == 1 ? oldMenuView : 1);
+        menuView.setValue(menuView.getValue() == 1 ? 0 : 1);
     }
 
     public void toggleProfile() {
-        menuView.setValue(menuView.getValue() == 2 ? oldMenuView : 2);
+        menuView.setValue(menuView.getValue() == 2 ? 0 : 2);
     }
 
     public void toggleProfiles() {
-        menuView.setValue(menuView.getValue() == 3 ? oldMenuView : 3);
+        menuView.setValue(menuView.getValue() == 3 ? 0 : 3);
     }
 
     private boolean settingsIsSelected = false;
@@ -299,61 +348,77 @@ public class NewGUI extends Application {
     private boolean profilesIsSelected = false;
 
     private void initializeMenu() {
+        mainMenuBackground.setFitWidth(mainMenuOverlay.getWidth());
+        mainMenuBackground.setFitHeight(mainMenuOverlay.getHeight());
+        centerImage(mainMenuBackground);
+        mainMenuOverlay.setWidth(mainMenuPane.getWidth());
+        mainMenuPane.widthProperty().addListener((obs, oldValue, newValue) -> {
+            mainMenuBackground.setFitWidth(newValue.doubleValue());
+            centerImage(mainMenuBackground);
+            mainMenuOverlay.setWidth(newValue.doubleValue());
+            launchText.setLayoutX((newValue.doubleValue() / 2) - 19);
+        });
+        mainMenuPane.heightProperty().addListener((obs, oldValue, newValue) -> {
+            mainMenuBackground.setFitHeight(newValue.doubleValue());
+            centerImage(mainMenuBackground);
+        });
         cmlSettings.setOnMouseEntered((event) -> {
-            cmlSettings.setImage(menuView.getValue() == 1 ? BACK_SELECT : SETTINGS_SELECT);
+            cmlSettings.setImage(menuView.getValue() == 1 ? Images.BACK_SELECT : Images.SETTINGS_SELECT);
             settingsIsSelected = true;
         });
         cmlSettings.setOnMouseExited((event) -> {
-            cmlSettings.setImage(menuView.getValue() == 1 ? BACK : SETTINGS);
+            cmlSettings.setImage(menuView.getValue() == 1 ? Images.BACK : Images.SETTINGS);
             settingsIsSelected = false;
         });
         cmlSettings.setOnMousePressed((event) -> {
-            cmlSettings.setImage(menuView.getValue() == 1 ? BACK_PRESS : SETTINGS_PRESS);
+            cmlSettings.setImage(menuView.getValue() == 1 ? Images.BACK_PRESS : Images.SETTINGS_PRESS);
         });
         cmlSettings.setOnMouseReleased((event) -> {
-            cmlSettings.setImage(menuView.getValue() == 1 ? BACK : SETTINGS);
+            cmlSettings.setImage(menuView.getValue() == 1 ? Images.BACK : Images.SETTINGS);
         });
 
         cmlProfile.setOnMouseEntered((event) -> {
-            cmlProfile.setImage(menuView.getValue() == 2 ? BACK_SELECT : PROFILE_SELECT);
+            cmlProfile.setImage(menuView.getValue() == 2 ? Images.BACK_SELECT : Images.PROFILE_SELECT);
             profileIsSelected = true;
         });
         cmlProfile.setOnMouseExited((event) -> {
-            cmlProfile.setImage(menuView.getValue() == 2 ? BACK : PROFILE);
+            cmlProfile.setImage(menuView.getValue() == 2 ? Images.BACK : Images.PROFILE);
             profileIsSelected = false;
         });
         cmlProfile.setOnMousePressed((event) -> {
-            cmlProfile.setImage(menuView.getValue() == 2 ? BACK_PRESS : PROFILE_PRESS);
+            cmlProfile.setImage(menuView.getValue() == 2 ? Images.BACK_PRESS : Images.PROFILE_PRESS);
         });
         cmlProfile.setOnMouseReleased((event) -> {
-            cmlProfile.setImage(menuView.getValue() == 2 ? BACK : PROFILE);
+            cmlProfile.setImage(menuView.getValue() == 2 ? Images.BACK : Images.PROFILE);
         });
 
         cmlProfiles.setOnMouseEntered((event) -> {
-            cmlProfiles.setImage(menuView.getValue() == 3 ? BACK_SELECT : PROFILES_SELECT);
+            cmlProfiles.setImage(menuView.getValue() == 3 ? Images.BACK_SELECT : Images.PROFILES_SELECT);
             profilesIsSelected = true;
         });
         cmlProfiles.setOnMouseExited((event) -> {
-            cmlProfiles.setImage(menuView.getValue() == 3 ? BACK : PROFILES);
+            cmlProfiles.setImage(menuView.getValue() == 3 ? Images.BACK : Images.PROFILES);
             profilesIsSelected = false;
         });
         cmlProfiles.setOnMousePressed((event) -> {
-            cmlProfiles.setImage(menuView.getValue() == 3 ? BACK_PRESS : PROFILES_PRESS);
+            cmlProfiles.setImage(menuView.getValue() == 3 ? Images.BACK_PRESS : Images.PROFILES_PRESS);
         });
         cmlProfiles.setOnMouseReleased((event) -> {
-            cmlProfiles.setImage(menuView.getValue() == 3 ? BACK : PROFILES);
+            cmlProfiles.setImage(menuView.getValue() == 3 ? Images.BACK : Images.PROFILES);
         });
         menuView.addListener((obs, oldValue, newValue) -> {
-            oldMenuView = oldValue.intValue();
-            cmlSettings.setImage(newValue.intValue() == 1 ? (settingsIsSelected ? BACK_SELECT : BACK) : (settingsIsSelected ? SETTINGS_SELECT : SETTINGS));
-            cmlProfile.setImage(newValue.intValue() == 2 ? (profileIsSelected ? BACK_SELECT : BACK) : (profileIsSelected ? PROFILE_SELECT : PROFILE));
-            cmlProfiles.setImage(newValue.intValue() == 3 ? (profilesIsSelected ? BACK_SELECT : BACK) : (profilesIsSelected ? PROFILES_SELECT : PROFILES));
+            cmlSettings.setImage(newValue.intValue() == 1 ? (settingsIsSelected ? Images.BACK_SELECT : Images.BACK) : (settingsIsSelected ? Images.SETTINGS_SELECT : Images.SETTINGS));
+            cmlProfile.setImage(newValue.intValue() == 2 ? (profileIsSelected ? Images.BACK_SELECT : Images.BACK) : (profileIsSelected ? Images.PROFILE_SELECT : Images.PROFILE));
+            cmlProfiles.setImage(newValue.intValue() == 3 ? (profilesIsSelected ? Images.BACK_SELECT : Images.BACK) : (profilesIsSelected ? Images.PROFILES_SELECT : Images.PROFILES));
             mainMenuPane.setVisible(newValue.intValue() == 0);
             settingsPane.setVisible(newValue.intValue() == 1);
             profilePane.setVisible(newValue.intValue() == 2);
+            profileListPane.setVisible(newValue.intValue() == 3);
         });
     }
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Settings Pane">
     @FXML
     private FlowPane settingsPane;
     @FXML
@@ -372,7 +437,7 @@ public class NewGUI extends Application {
         updateAvailable.addListener((obs, oldValue, newValue) -> {
             if (newValue.length() > 0) {
                 updateButton.setDisable(false);
-                updateAvailableText.setText("Update Available: " + Constants.VERSION + " -> " + newValue);
+                updateAvailableText.setText("Update Available: V" + Constants.VERSION + " -> " + newValue);
                 updateAvailableText.setVisible(true);
             } else {
                 updateButton.setDisable(true);
@@ -385,15 +450,20 @@ public class NewGUI extends Application {
         smFolder.setOnAction((event) -> {
             String text = smFolder.getText();
             Main.scrapMechanicFolder = (text.endsWith("/") || text.endsWith("\\") ? text : (text.contains("\\") ? text + "\\" : text + "/"));
+            Main.verifySMFolder();
+            this.showSuccess(3000);
         });
         modsFolder.setOnAction((event) -> {
             String text = modsFolder.getText();
             Main.modsFolder = (text.endsWith("/") || text.endsWith("\\") ? text : (text.contains("\\") ? text + "\\" : text + "/"));
-            Main.activeProfile.setValue(new Profile(new File(text).listFiles()[0]));
+            Main.updateProfileList();
+            this.showSuccess(3000);
         });
         vanillaFolder.setOnAction((event) -> {
             String text = vanillaFolder.getText();
             Main.vanillaFolder = (text.endsWith("/") || text.endsWith("\\") ? text : (text.contains("\\") ? text + "\\" : text + "/"));
+            Main.verifyVanillaFolder();
+            this.showSuccess(3000);
         });
     }
 
@@ -404,11 +474,95 @@ public class NewGUI extends Application {
     public void update() {
         Main.update();
     }
+    
+    public void openLogs() {
+        Main.openLogs();
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Profile List Pane">
+    @FXML
+    private AnchorPane profileListPane;
+    @FXML
+    public ListView profileListView;
 
     private void initializeProfiles() {
-
+        profileListView.getItems().addAll(fromProfileList(Main.profileList.getValue()));
+        Main.profileList.addListener((obs, oldValue, newValue) -> {
+            if (newValue != null) {
+                profileListView.getItems().setAll(fromProfileList(newValue));
+            } else {
+                Label errorLabel = new Label("Invalid mods folder");
+                errorLabel.setTextFill(Color.RED);
+                profileListView.getItems().setAll(errorLabel);
+            }
+        });
     }
 
+    private List<Node> fromProfileList(List<Profile> profiles) {
+        List<Node> nodes = new ArrayList();
+        for (Profile profile : profiles) {
+            HBox hBox = new HBox(8);
+            Line separator0 = new Line(0, -10, 0, 10);
+            separator0.setStroke(Color.WHITE);
+            ImageView icon = new ImageView(profile.getIcon());
+            icon.setFitHeight(24);
+            icon.setPreserveRatio(true);
+            Line separator1 = new Line(0, -10, 0, 10);
+            separator1.setStroke(Color.WHITE);
+            Line separator2 = new Line(0, -10, 0, 10);
+            separator2.setStroke(Color.WHITE);
+            Label name = new Label(profile.getName());
+            name.setTextFill(Color.WHITE);
+            Label description = new Label(profile.getDescription());
+            description.setTextFill(Color.WHITE);
+
+            hBox.getChildren().addAll(selectProfileNode(profile), separator0, icon, separator1, name, separator2, description);
+            nodes.add(hBox);
+            System.out.println(" Detected Profile: " + profile.getName());
+        }
+        return nodes;
+    }
+
+    private Node selectProfileNode(Profile profile) {
+        ImageView iv = new ImageView();
+        iv.setPreserveRatio(true);
+        BooleanBinding isSelectedProfile = Main.activeProfile.isEqualTo(profile);
+        if (isSelectedProfile.getValue()) {
+            iv.setImage(Images.ENABLER_ON);
+        } else {
+            iv.setImage(Images.ENABLER_OFF);
+        }
+        iv.setOnMouseEntered((event) -> {
+            iv.setImage(isSelectedProfile.getValue() ? Images.ENABLER_ON : Images.ENABLER_OFF_SELECT);
+        });
+        iv.setOnMouseExited((event) -> {
+            iv.setImage(isSelectedProfile.getValue() ? Images.ENABLER_ON : Images.ENABLER_OFF);
+        });
+        iv.setOnMousePressed((event) -> {
+            if (!isSelectedProfile.getValue()) {
+                iv.setImage(Images.ENABLER_BOTH);
+                Main.activeProfile.setValue(profile);
+            }
+        });
+        iv.setOnMouseReleased((event) -> {
+            iv.setImage(isSelectedProfile.getValue() ? Images.ENABLER_ON : Images.ENABLER_OFF);
+        });
+        iv.setPreserveRatio(true);
+        iv.setFitHeight(24);
+        Main.activeProfile.addListener((obs, oldValue, newValue) -> {
+            if (oldValue.equals(profile)) {
+                iv.setImage(Images.ENABLER_OFF);
+            } else if (newValue.equals(profile)) {
+                System.out.println("Profile switched from " + oldValue.getName() + " to " + newValue.getName());
+                iv.setImage(Images.ENABLER_ON);
+            }
+        });
+        return iv;
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Profile Pane">
     @FXML
     private AnchorPane profilePane;
     @FXML
@@ -424,7 +578,7 @@ public class NewGUI extends Application {
     @FXML
     private ImageView profileScrollBar;
     @FXML
-    private AnchorPane modsListPane;
+    private AnchorPane profileScrollPane;
     @FXML
     private Rectangle modsListBackground;
     @FXML
@@ -446,35 +600,45 @@ public class NewGUI extends Application {
         profileNameText.setText(Main.activeProfile.getValue().getName());
         profileImage.setImage(Main.activeProfile.getValue().getIcon());
         openProfileFolder.setMouseTransparent(true);
-        openProfileFolder.setImage(BLANK);
+        openProfileFolder.setImage(Images.BLANK);
         deleteProfile.setMouseTransparent(true);
-        deleteProfile.setImage(BLANK);
+        deleteProfile.setImage(Images.BLANK);
         profilePane.widthProperty().addListener((obs, oldValue, newValue) -> {
             profileTopBorder.setWidth(newValue.doubleValue());
+            modsListBackground.setWidth(newValue.doubleValue() - 32);
         });
         profilePane.heightProperty().addListener((obs, oldValue, newValue) -> {
-            modsListVBox.setMaxHeight(newValue.doubleValue() - 235);
-            modsListVBox.setPrefHeight(newValue.doubleValue() - 235);
+            modsListBackground.setHeight(newValue.doubleValue() - 96);
+        });
+        profileScrollPane.heightProperty().addListener((obs, oldValue, newValue) -> {
+            profileSliderBackground.setHeight(newValue.doubleValue());
         });
         Main.activeProfile.addListener((obs, oldValue, newValue) -> {
             profileNameText.setText(newValue.getName());
             profileImage.setImage(newValue.getIcon());
-            openProfileFolder.setMouseTransparent(false);
-            openProfileFolder.setImage(OPEN);
-            deleteProfile.setMouseTransparent(false);
-            deleteProfile.setImage(DELETE);
-            modsListVBox.getItems().clear();
-            modsListVBox.getItems().addAll(fromModList(newValue.getModifications()));
+            modsListVBox.getItems().setAll(fromModList(newValue.getModifications()));
             Main.activeModifications = Main.activeProfile.get().getActiveModifications();
+            if (newValue.getDirectory() != null) {
+                openProfileFolder.setMouseTransparent(false);
+                openProfileFolder.setImage(Images.OPEN);
+                deleteProfile.setMouseTransparent(false);
+                deleteProfile.setImage(Images.DELETE);
+                ErrorManager.removeStateCause("ActiveProfile == null");
+            } else {
+                openProfileFolder.setMouseTransparent(true);
+                openProfileFolder.setImage(Images.BLANK);
+                deleteProfile.setMouseTransparent(true);
+                deleteProfile.setImage(Images.BLANK);
+            }
         });
         openProfileFolder.setOnMouseEntered((event) -> {
-            openProfileFolder.setImage(OPEN_SELECT);
+            openProfileFolder.setImage(Images.OPEN_SELECT);
         });
         openProfileFolder.setOnMouseExited((event) -> {
-            openProfileFolder.setImage(OPEN);
+            openProfileFolder.setImage(Images.OPEN);
         });
         openProfileFolder.setOnMousePressed((event) -> {
-            openProfileFolder.setImage(OPEN_PRESS);
+            openProfileFolder.setImage(Images.OPEN_PRESS);
             try {
                 Runtime.getRuntime().exec("explorer.exe /select," + Main.activeProfile.getValue().getDirectory().getAbsolutePath());
             } catch (IOException ex) {
@@ -482,40 +646,41 @@ public class NewGUI extends Application {
             }
         });
         openProfileFolder.setOnMouseReleased((event) -> {
-            openProfileFolder.setImage(OPEN);
+            openProfileFolder.setImage(Images.OPEN);
         });
         deleteProfile.setOnMouseEntered((event) -> {
-            deleteProfile.setImage(DELETE_SELECT_ANIM);
+            if (!Images.DELETE_SELECT_ANIM.isAnimated() && !Images.DELETE_PRESS_ANIM.isAnimated() && !deleteProfile.getImage().equals(Images.DELETE_PRESS_FINAL)) {
+                Images.DELETE_SELECT_ANIM.animate(deleteProfile);
+            }
         });
         deleteProfile.setOnMouseExited((event) -> {
-            deleteProfile.setImage(DELETE);
-        });
-        deleteProfile.setOnMousePressed((event) -> {
-            deleteProfile.setImage(DELETE_PRESS_ANIM);
+            if (!Images.DELETE_PRESS_ANIM.isAnimated() && !deleteProfile.getImage().equals(Images.DELETE_PRESS_FINAL)) {
+                deleteProfile.setImage(Images.DELETE);
+            }
         });
 
         profileScrollBar.setOnMouseEntered((event) -> {
             if (scrollEnabled.get()) {
-                profileScrollBar.setImage(SCROLL_SELECT);
+                profileScrollBar.setImage(Images.SCROLL_SELECT);
             }
             scrollSelected = true;
         });
         profileScrollBar.setOnMouseExited((event) -> {
             if (scrollEnabled.get()) {
-                profileScrollBar.setImage(SCROLL);
+                profileScrollBar.setImage(Images.SCROLL);
             }
             scrollSelected = false;
         });
         profileScrollBar.setOnMousePressed((event) -> {
             if (scrollEnabled.get()) {
-                profileScrollBar.setImage(SCROLL_PRESS);
+                profileScrollBar.setImage(Images.SCROLL_PRESS);
                 scrollCenter = event.getSceneY();
                 scrollTranslate = profileScrollBar.getTranslateY();
             }
         });
         profileScrollBar.setOnMouseReleased((event) -> {
             if (scrollEnabled.get()) {
-                profileScrollBar.setImage(scrollSelected ? SCROLL_SELECT : SCROLL);
+                profileScrollBar.setImage(scrollSelected ? Images.SCROLL_SELECT : Images.SCROLL);
             }
         });
         profileScrollBar.addEventHandler(MouseEvent.MOUSE_DRAGGED, (event) -> {
@@ -525,60 +690,60 @@ public class NewGUI extends Application {
                 double y = scrollTranslate + (event.getSceneY() - scrollCenter);
                 y = y > yMax ? yMax : (y < 0 ? 0 : y);
                 scroll.setValue(y / yMax);
-                profileScrollBar.setImage(SCROLL_PRESS);
+                profileScrollBar.setImage(Images.SCROLL_PRESS);
             }
         });
         scrollEnabled.addListener((obs, oldValue, newValue) -> {
             if (newValue && !oldValue) {
-                profileScrollBar.setImage(scrollSelected ? SCROLL_SELECT : SCROLL);
-                profileScrollButtonTop.setImage(SCROLL_B);
-                profileScrollButtonBottom.setImage(SCROLL_B);
+                profileScrollBar.setImage(scrollSelected ? Images.SCROLL_SELECT : Images.SCROLL);
+                profileScrollButtonTop.setImage(Images.SCROLL_B);
+                profileScrollButtonBottom.setImage(Images.SCROLL_B);
             } else {
-                profileScrollBar.setImage(SCROLL_DISABLE);
-                profileScrollButtonTop.setImage(SCROLL_B_DISABLE);
-                profileScrollButtonBottom.setImage(SCROLL_B_DISABLE);
+                profileScrollBar.setImage(Images.SCROLL_DISABLE);
+                profileScrollButtonTop.setImage(Images.SCROLL_B_DISABLE);
+                profileScrollButtonBottom.setImage(Images.SCROLL_B_DISABLE);
             }
         });
         profileScrollButtonTop.setOnMouseEntered((event) -> {
             if (scrollEnabled.get()) {
-                profileScrollButtonTop.setImage(SCROLL_B_SELECT);
+                profileScrollButtonTop.setImage(Images.SCROLL_B_SELECT);
             }
         });
         profileScrollButtonTop.setOnMouseExited((event) -> {
             if (scrollEnabled.get()) {
-                profileScrollButtonTop.setImage(SCROLL_B);
+                profileScrollButtonTop.setImage(Images.SCROLL_B);
             }
         });
         profileScrollButtonTop.setOnMousePressed((event) -> {
             if (scrollEnabled.get()) {
                 scroll.set(Math.max(0, scroll.get() - 0.05));
-                profileScrollButtonTop.setImage(SCROLL_B_PRESS);
+                profileScrollButtonTop.setImage(Images.SCROLL_B_PRESS);
             }
         });
         profileScrollButtonTop.setOnMouseReleased((event) -> {
             if (scrollEnabled.get()) {
-                profileScrollButtonTop.setImage(SCROLL_B);
+                profileScrollButtonTop.setImage(Images.SCROLL_B);
             }
         });
         profileScrollButtonBottom.setOnMouseEntered((event) -> {
             if (scrollEnabled.get()) {
-                profileScrollButtonBottom.setImage(SCROLL_B_SELECT);
+                profileScrollButtonBottom.setImage(Images.SCROLL_B_SELECT);
             }
         });
         profileScrollButtonBottom.setOnMouseExited((event) -> {
             if (scrollEnabled.get()) {
-                profileScrollButtonBottom.setImage(SCROLL_B);
+                profileScrollButtonBottom.setImage(Images.SCROLL_B);
             }
         });
         profileScrollButtonBottom.setOnMousePressed((event) -> {
             if (scrollEnabled.get()) {
                 scroll.set(Math.min(1, scroll.get() + 0.05));
-                profileScrollButtonBottom.setImage(SCROLL_B_PRESS);
+                profileScrollButtonBottom.setImage(Images.SCROLL_B_PRESS);
             }
         });
         profileScrollButtonBottom.setOnMouseReleased((event) -> {
             if (scrollEnabled.get()) {
-                profileScrollButtonBottom.setImage(SCROLL_B);
+                profileScrollButtonBottom.setImage(Images.SCROLL_B);
             }
         });
 
@@ -597,24 +762,16 @@ public class NewGUI extends Application {
                     scroll.setValue(newValue.doubleValue() / modsListScroll.getMax());
                 });
                 modsListScroll.visibleProperty().addListener((obs, oldValue, newValue) -> {
-                    if (newValue != oldValue) {
+                    if (!Objects.equals(newValue, oldValue)) {
                         scrollEnabled.setValue(newValue);
                     }
                 });
                 scrollEnabled.setValue(modsListScroll.isVisible());
-                modsListVBox.removeEventHandler(MouseEvent.ANY, this);
+                modsListVBox.removeEventHandler(MouseEvent.MOUSE_ENTERED, this);
             }
         };
-        modsListPane.setOnMouseEntered(oneTimeEvent);
-
-        modsListPane.widthProperty().addListener((obs, oldValue, newValue) -> {
-            modsListBackground.setWidth(newValue.doubleValue());
-        });
-        modsListPane.heightProperty().addListener((obs, oldValue, newValue) -> {
-            modsListBackground.setHeight(newValue.doubleValue());
-            profileSliderBackground.setHeight(newValue.doubleValue());
-        });
-        Main.activeProfile.setValue(new Profile(new File(Main.modsFolder).listFiles()[0]));
+        modsListVBox.addEventHandler(MouseEvent.MOUSE_ENTERED, oneTimeEvent);
+        Main.activeProfile.setValue(Profile.EMPTY);
     }
 
     private List<Node> fromModList(List<Modification> activeMods) {
@@ -632,34 +789,48 @@ public class NewGUI extends Application {
 
             hBox.getChildren().addAll(enablerNode(mod), separator1, name, separator2, description);
             nodes.add(hBox);
-            System.out.println(mod.getName());
+            System.out.println(" Detected mod: " + mod.getName());
         }
         return nodes;
     }
 
     private Node enablerNode(Modification mod) {
         ImageView iv = new ImageView();
+        boolean[] selected = new boolean[] {false};
         if (mod.isEnabled()) {
-            iv.setImage(ENABLER_ON);
+            iv.setImage(Images.ENABLER_ON);
         } else {
-            iv.setImage(ENABLER_OFF);
+            iv.setImage(Images.ENABLER_OFF);
         }
         iv.setOnMouseEntered((event) -> {
-            iv.setImage(mod.isEnabled() ? ENABLER_ON_SELECT : ENABLER_OFF_SELECT);
+            iv.setImage(mod.isEnabled() ? Images.ENABLER_ON_SELECT : Images.ENABLER_OFF_SELECT);
+            selected[0] = true;
         });
         iv.setOnMouseExited((event) -> {
-            iv.setImage(mod.isEnabled() ? ENABLER_ON : ENABLER_OFF);
+            iv.setImage(mod.isEnabled() ? Images.ENABLER_ON : Images.ENABLER_OFF);
+            selected[0] = false;
         });
         iv.setOnMousePressed((event) -> {
-            iv.setImage(ENABLER_BOTH);
-            if (mod.isEnabled()) {
+            iv.setImage(Images.ENABLER_BOTH);
+            boolean isEnabled = mod.isEnabled();
+            if (isEnabled) {
                 mod.disable();
             } else {
                 mod.enable();
             }
+            if (isEnabled == mod.isEnabled()) {
+                ErrorManager.printNonUserError("Enabler - AccessDeniedException: Make sure you have given the program Administrator Privileges!");
+            }
         });
         iv.setOnMouseReleased((event) -> {
-            iv.setImage(mod.isEnabled() ? ENABLER_ON : ENABLER_OFF);
+            iv.setImage(mod.isEnabled() ? Images.ENABLER_ON : Images.ENABLER_OFF);
+        });
+        mod.enabledListener.addListener((obs, oldValue, newValue) -> {
+            if (selected[0]) {
+                iv.setImage(mod.isEnabled() ? Images.ENABLER_ON_SELECT : Images.ENABLER_OFF_SELECT);
+            } else {
+                iv.setImage(mod.isEnabled() ? Images.ENABLER_ON : Images.ENABLER_OFF);
+            }
         });
         iv.setPreserveRatio(true);
         iv.setFitHeight(24);
@@ -667,15 +838,32 @@ public class NewGUI extends Application {
     }
 
     public void deleteActiveProfile() {
-        System.out.println("[ERROR] Deletion of profiles is currently not supported.");
+        deleteProfile.setMouseTransparent(true);
+        deleteProfile.setImage(Images.DELETE_PRESS_START);
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Delete " + Main.activeProfile.getValue().getName() + " profile?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.YES) {
+            if (Boolean.valueOf(System.getProperty("omodify", "true"))) {
+                Main.activeProfile.getValue().delete();
+                Images.DELETE_SELECT_ANIM.halt();
+                Images.DELETE_PRESS_ANIM.animate(deleteProfile);
+            } else {
+                System.out.println("[WARNING] Deletion is disabled when -Domodify=false");
+            }
+        } else {
+            deleteProfile.setImage(Images.DELETE);
+            System.out.println("[INFO] Deletion cancelled");
+            deleteProfile.setMouseTransparent(false);
+        }
     }
 
     public void openProfileProperties() {
         System.out.println("[ERROR] Editing of profile properties is currently not supported.");
     }
+    //</editor-fold>
 
     //Because NetBeans won't recognize my Main class as the main class...
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Main.main(args);
     }
 

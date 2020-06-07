@@ -15,10 +15,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cml.from.fraser.neil;
+package cml.lib.fraser.neil;
 
-import cml.from.fraser.neil.DiffMatchPatch.Operation;
-import static cml.from.fraser.neil.DiffMatchPatch.unescapeForEncodeUriCompatability;
+import cml.lib.fraser.neil.DiffMatchPatch.Operation;
+import static cml.lib.fraser.neil.DiffMatchPatch.unescapeForEncodeUriCompatability;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -324,7 +324,7 @@ public class Patch {
      * boolean values.
      */
     public static Object[] apply(LinkedList<Patch> patches, String text) {
-        if (patches.isEmpty()) {
+        if (patches == null || patches.isEmpty()) {
             return new Object[]{text, new boolean[0]};
         }
 
@@ -600,6 +600,9 @@ public class Patch {
      * @return Text representation of patches.
      */
     public static String toText(List<Patch> patches) {
+        if (patches == null) {
+            return "";
+        }
         StringBuilder text = new StringBuilder();
         patches.forEach((aPatch) -> {
             text.append(aPatch);
@@ -706,21 +709,5 @@ public class Patch {
             }
         }
         return patches;
-    }
-    
-    public static boolean isCompatible(LinkedList<Patch> patches1, LinkedList<Patch> patches2) {
-        for (Patch patch1 : patches1) {
-            for (Patch patch2 : patches2) {
-                if ((patch1.start1 <= patch2.start1 && patch2.start1 <= patch1.start1 + patch1.length1) ||
-                        (patch1.start1 <= patch2.start1 + patch2.length1 && patch2.start1 + patch2.length1 <= patch1.start1 + patch1.length1) ||
-                        (patch2.start1 < patch1.start1 && patch1.start1 < patch2.start1 + patch2.length1) ||
-                        (patch1.start2 <= patch2.start2 && patch2.start2 <= patch1.start2 + patch1.length2) ||
-                        (patch1.start2 <= patch2.start2 + patch2.length2 && patch2.start2 + patch2.length2 <= patch1.start2 + patch1.length2) ||
-                        (patch2.start2 < patch1.start2 && patch1.start2 < patch2.start2 + patch2.length2)) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 }

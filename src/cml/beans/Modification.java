@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 /**
  *
@@ -23,6 +25,7 @@ public class Modification {
     private String description;
     private boolean enabled;
     private File enabledFile;
+    public BooleanProperty enabledListener;
 
     public Modification(File directory) {
         this.directory = directory;
@@ -30,10 +33,11 @@ public class Modification {
         try ( BufferedReader br = Files.newBufferedReader(new File(directory.toPath() + "/description.txt").toPath())) {
             this.description = br.lines().reduce("Description: ", String::concat);
         } catch (IOException ex) {
-            Logger.getLogger(Modification.class.getName()).log(Level.SEVERE, "Modification " + this.name + " does not contain file `description.txt`", ex);
+            Logger.getLogger(Modification.class.getName()).log(Level.WARNING, "Modification {0} does not contain file `description.txt`", this.name);
         }
         enabledFile = new File(directory.getAbsolutePath() + "\\enabled");
         this.enabled = Files.exists(enabledFile.toPath());
+        this.enabledListener = new SimpleBooleanProperty(this.enabled);
     }
 
     public File getDirectory() {
@@ -68,11 +72,14 @@ public class Modification {
     public void disable() {
         enabledFile.delete();
         this.enabled = false;
+        this.enabledListener.setValue(false);
     }
 
     public void enable() {
         try {
             enabledFile.createNewFile();
+            this.enabled = true;
+            this.enabledListener.setValue(true);
         } catch (IOException ex) {
             Logger.getLogger(Modification.class.getName()).log(Level.SEVERE, "Failed to enable modification " + this.name, ex);
         }

@@ -5,12 +5,10 @@
  */
 package cml.apply;
 
-import cml.Constants;
 import cml.Main;
 import cml.beans.Modification;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -27,8 +24,7 @@ import java.util.stream.Collectors;
 public class ApplyCraftingRecipes implements IApplicator {
 
     public static final String CRAFTING_RECIPES_FOLDER_RELATIVE = "\\Crafting Recipes\\";
-    public static final String SM_CRAFTING_RECIPES_FOLDER = Main.scrapMechanicFolder + "Survival\\CraftingRecipes\\";
-    public static final String VANILLA_CRAFTING_RECIPES_FOLDER = Main.vanillaFolder + "CraftingRecipes\\";
+    public static final String SM_CRAFTING_RECIPES_FOLDER = "Survival\\CraftingRecipes\\";
 
     private List<Modification> activeModifications;
 
@@ -53,7 +49,7 @@ public class ApplyCraftingRecipes implements IApplicator {
     private void applyCraftingRecipes() {
         System.out.println("Applying crafting recipes");
         Map<String, List<String>> recipeListToMods = new HashMap();
-        for (File recipeList : new File(SM_CRAFTING_RECIPES_FOLDER).listFiles()) {
+        for (File recipeList : new File(Main.scrapMechanicFolder + SM_CRAFTING_RECIPES_FOLDER).listFiles()) {
             if (recipeList.isFile()) {
                 recipeListToMods.put(recipeList.getName(), new ArrayList());
             }
@@ -65,7 +61,7 @@ public class ApplyCraftingRecipes implements IApplicator {
                 for (File recipeList : recipeLists.listFiles()) {
                     System.out.println(" Crafting list found: " + recipeList.getName());
                     try {
-                        recipeListToMods.get(recipeList.getName()).add(Files.readAllLines(recipeList.toPath()).stream().collect(Collectors.joining("\n")));
+                        recipeListToMods.get(recipeList.getName()).add(Apply.readFile(recipeList.toPath()));
                     } catch (IOException ex) {
                         Logger.getLogger(ApplyCraftingRecipes.class.getName()).log(Level.SEVERE, "Invalid recipe list " + recipeList.getName() + " in modification " + activeModification.getName(), ex);
                     }
@@ -74,18 +70,19 @@ public class ApplyCraftingRecipes implements IApplicator {
         }
 
         for (String recipeList : recipeListToMods.keySet()) {
-            File recipeListFile = new File(VANILLA_CRAFTING_RECIPES_FOLDER + recipeList);
+            File recipeListFile = new File(Main.scrapMechanicFolder + SM_CRAFTING_RECIPES_FOLDER + recipeList);
             System.out.println(" Crafting list search: " + recipeList);
-            if (recipeListFile.exists()) {
-                try {
-                    File outputFile = new File(SM_CRAFTING_RECIPES_FOLDER + recipeList);
-                    outputFile.delete();
-                    Files.write(outputFile.toPath(), addRecipes(Files.readAllLines(recipeListFile.toPath()).stream().collect(Collectors.joining("\n")), recipeListToMods.get(recipeList).toArray(new String[0])).getBytes(), StandardOpenOption.CREATE);
-                } catch (IOException ex) {
-                    Logger.getLogger(ApplyCraftingRecipes.class.getName()).log(Level.SEVERE, "Recipe list " + recipeList + " could not be written", ex);
+            if (!recipeListToMods.getOrDefault(recipeList, new ArrayList()).isEmpty()) {
+                if (recipeListFile.exists()) {
+                    try {
+                        File outputFile = new File(Main.scrapMechanicFolder + SM_CRAFTING_RECIPES_FOLDER + recipeList);
+                        Apply.writeFile(outputFile.toPath(), addRecipes(Apply.readFile(recipeListFile.toPath()), recipeListToMods.get(recipeList).toArray(new String[0])), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ApplyCraftingRecipes.class.getName()).log(Level.SEVERE, "Recipe list " + recipeList + " could not be written", ex);
+                    }
+                } else {
+                    throw new UnsupportedOperationException("This recipe list (" + recipeList + ") or new recipe lists are not yet supported by ApplyCraftingRecipes.java. Please use MergeChanges.java or ReplaceChanges.java."); //Requires the deletion of recipe lists that are added by now-disabled mods.
                 }
-            } else if (!recipeListToMods.getOrDefault(recipeList, new ArrayList()).isEmpty()) {
-                throw new UnsupportedOperationException("This recipe list or new recipe lists are not yet supported."); //Requires the deletion of recipe lists that are added by now-disabled mods.
             }
         }
     }
@@ -97,7 +94,7 @@ public class ApplyCraftingRecipes implements IApplicator {
         }
         return result;
     }
-    
+
     private String addRecipe(String original, String toAdd) {
         String result = original;
         int location = result.lastIndexOf("}");

@@ -17,10 +17,10 @@
 package cml.apply;
 
 import cml.Main;
+import cml.beans.ModIncompatibilityException;
 import cml.beans.Modification;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,12 +36,12 @@ import java.util.logging.Logger;
 public class ReplaceChanges implements IApplicator {
 
     public static final String REPLACE_FOLDER_RELATIVE = "\\Replace\\";
-    public static Map<String, Modification> replacedBy = new HashMap();
-    
+    public static Map<String, List<Modification>> replacedBy = new HashMap();
+
     private List<Modification> activeModifications = new ArrayList();
-    
+
     private Map<File, File> newToOld = new HashMap();
-    
+
     @Override
     public void apply() {
         applyReplacement();
@@ -52,24 +52,19 @@ public class ReplaceChanges implements IApplicator {
         this.activeModifications = activeModifications;
         prepareReplacement();
     }
-    
+
     public void prepareReplacement() {
         System.out.println("Preparing to replace");
         for (Modification activeModification : activeModifications) {
             File replaceFolder = new File(activeModification.getDirectory().getAbsolutePath() + REPLACE_FOLDER_RELATIVE);
             if (replaceFolder.exists()) {
                 System.out.println("  Modification " + activeModification.getName() + ":");
-                try {
-                    prepareReplacementRec(replaceFolder.getAbsolutePath(), "", activeModification);
-                } catch (ModIncompatibilityException ex) {
-                    Logger.getLogger(ReplaceChanges.class.getName()).log(Level.SEVERE, "Incompatibility Detected", ex);
-                    Main.triggerModIncompatibility();
-                }
+                prepareReplacementRec(replaceFolder.getAbsolutePath(), "", activeModification);
             }
         }
     }
-    
-    private void prepareReplacementRec(String directory, String addend, Modification mod) throws ModIncompatibilityException {
+
+    private void prepareReplacementRec(String directory, String addend, Modification mod) {
         File file = new File(directory + addend);
         File newFile = new File(Main.scrapMechanicFolder + addend);
         if (file.isDirectory()) {
@@ -77,30 +72,29 @@ public class ReplaceChanges implements IApplicator {
                 prepareReplacementRec(directory, addend + "\\" + subFile.getName(), mod);
             }
         } else {
-            if (newToOld.containsKey(newFile)) {
-                throw new ModIncompatibilityException(mod);
+            if (!replacedBy.containsKey(addend)) {
+                replacedBy.put(addend, new ArrayList());
             } else {
-                newToOld.put(newFile, file);
+                ModIncompatibilityException.addNewIncompatibility(addend, true, replacedBy.get(addend));
+            }
+            replacedBy.get(addend).add(mod);
+            newToOld.put(newFile, file);
+            if (MergeChanges.modifiedBy.containsKey(addend)) {
+                ModIncompatibilityException.addNewIncompatibility(addend, true, replacedBy.get(addend));
+                ModIncompatibilityException.addNewIncompatibility(addend, true, MergeChanges.modifiedBy.get(addend));
             }
         }
     }
-    
+
     public void applyReplacement() {
         System.out.println("Replacing");
         for (File newFile : newToOld.keySet()) {
             try {
-                Files.copy(newToOld.get(newFile).toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                Apply.copyFile(newToOld.get(newFile).toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException ex) {
                 Logger.getLogger(ReplaceChanges.class.getName()).log(Level.SEVERE, "Failed to replace file " + newFile.getAbsolutePath(), ex);
             }
         }
     }
-    
-    public static class ModIncompatibilityException extends Exception {
 
-        public ModIncompatibilityException(Modification mod) {
-            super("Modification " + mod.getName() + " reached an incompatibility.");
-        }
-    }
-    
 }

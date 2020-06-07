@@ -16,13 +16,18 @@
  */
 package cml.beans;
 
+import cml.Constants;
+import cml.Images;
 import static cml.Images.BLANK;
 import cml.Main;
-import cml.beans.Modification;
+import cml.apply.Apply;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.image.Image;
 
 /**
@@ -31,34 +36,55 @@ import javafx.scene.image.Image;
  */
 public class Profile {
 
-    public static final Profile EMPTY = new Profile();
+    public static final Profile EMPTY = new Profile(false);
+    public static final Profile DELETED = new Profile(true);
+
+    private static final String ICON_RELATIVE = "\\icon.png";
+    private static final String DESC_RELATIVE = "\\description.txt";
 
     private List<Modification> modifications;
     private Image icon;
     private String name;
+    private String description;
     private final File directory;
 
     public Profile(File directory) {
         this.directory = directory;
         this.modifications = new ArrayList();
         for (File file : directory.listFiles()) {
-            if (file.isDirectory() && !file.getName().startsWith("IGN") && !file.getName().endsWith("IGN")) {
+            if (file.isDirectory() && !(file.getName().startsWith(Constants.IGNORE_PREFIX) && file.getName().endsWith(Constants.IGNORE_SUFFIX))) {
                 this.modifications.add(new Modification(file));
             }
         }
         try {
-            this.icon = new Image(new File(directory.getAbsolutePath() + "\\icon.png").toURI().toString());
+            File iconFile = new File(directory.getAbsolutePath() + ICON_RELATIVE);
+            if (iconFile.exists()) {
+                this.icon = new Image(iconFile.toURI().toString());
+            } else {
+                this.icon = BLANK;
+            }
         } catch (NullPointerException ex) {
             this.icon = BLANK;
         }
         this.name = directory.getName();
+        try {
+            this.description = Files.readAllLines(new File(directory.getAbsolutePath() + DESC_RELATIVE).toPath()).get(0);
+        } catch (IOException ex) {
+            Logger.getLogger(Profile.class.getName()).log(Level.WARNING, "Profile {0} does not have a description.", this.name);
+        }
     }
 
-    private Profile() {
+    private Profile(boolean isDeleted) {
         this.modifications = new ArrayList();
-        this.icon = BLANK;
-        this.name = "<< Profile Name >>";
+        if (isDeleted) {
+            this.icon = Images.DELETE_PRESS_START;
+            this.name = "<< Invalid profile! >>";
+        } else {
+            this.icon = BLANK;
+            this.name = "<< Please select a profile! >>";
+        }
         this.directory = null;
+        this.description = "";
     }
 
     public void setModifications(List<Modification> modifications) {
@@ -96,7 +122,25 @@ public class Profile {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public File getDirectory() {
         return directory;
+    }
+
+    public void delete() {
+        if (directory != null) {
+            try {
+                Apply.deleteDirectory(directory.toPath());
+            } catch (IOException ex) {
+                Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, "Failed to delete profile " + directory.getName(), ex);
+            }
+        }
     }
 }

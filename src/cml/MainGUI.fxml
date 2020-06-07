@@ -8,7 +8,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -26,6 +25,20 @@
             <Image url="@../media/AdaptableBackground/Header.jpg" />
          </image>
       </ImageView>
+      <AnchorPane fx:id="mainMenuPane" layoutX="9.0" layoutY="72.0" prefHeight="276.0" prefWidth="518.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
+         <children>
+            <ImageView fx:id="mainMenuBackground" fitHeight="306.0" fitWidth="593.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@../media/SMSurvivalImage.jpg" />
+               </image>
+            </ImageView>
+            <Rectangle fx:id="mainMenuOverlay" fill="#434343" height="125.0" layoutX="200.0" layoutY="106.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Text fill="WHITE" layoutX="489.0" layoutY="248.0" rotate="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CML Settings" AnchorPane.bottomAnchor="62.0" AnchorPane.rightAnchor="17.0" />
+            <Text fill="WHITE" layoutX="499.0" layoutY="258.0" rotate="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile Settings" AnchorPane.bottomAnchor="67.0" AnchorPane.rightAnchor="52.0" />
+            <Text fill="WHITE" layoutX="509.0" layoutY="268.0" rotate="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile List" AnchorPane.bottomAnchor="57.0" AnchorPane.rightAnchor="96.0" />
+            <Text fx:id="launchText" fill="WHITE" layoutX="281.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Launch" AnchorPane.bottomAnchor="67.0" />
+         </children>
+      </AnchorPane>
       <Rectangle fx:id="footer" cacheHint="SCALE" fill="#262626" height="36.0" layoutY="366.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <Rectangle fill="#262626" height="42.0" layoutX="577.0" layoutY="348.0" rotate="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="15.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="8.0" />
       <Rectangle fill="#262626" height="18.0" layoutX="594.0" layoutY="349.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="-1.0" />
@@ -48,7 +61,7 @@
       </Text>
       <ImageView fitHeight="54.0" fitWidth="54.0" layoutX="537.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="6.0">
          <image>
-            <Image url="@../media/CML.jpg" />
+            <Image url="@../media/CML%20App.png" />
          </image>
       </ImageView>
       <ImageView fx:id="cmlSettings" fitHeight="32.0" fitWidth="32.0" layoutX="552.0" layoutY="368.0" onMouseClicked="#toggleSettings" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="21.0">
@@ -97,6 +110,14 @@
                   <Font name="Georgia Bold" size="10.0" />
                </font>
             </Text>
+            <Button mnemonicParsing="false" onAction="#openLogs" text="View logs">
+               <font>
+                  <Font name="Georgia" size="10.0" />
+               </font>
+               <FlowPane.margin>
+                  <Insets left="50.0" />
+               </FlowPane.margin>
+            </Button>
          </children>
       </FlowPane>
       <ImageView fx:id="cmlProfile" fitHeight="32.0" fitWidth="32.0" layoutX="509.0" layoutY="373.0" onMouseClicked="#toggleProfile" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="60.0">
@@ -142,53 +163,43 @@
             </Text>
             <AnchorPane layoutX="57.0" layoutY="61.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="96.0">
                <children>
-                  <BorderPane layoutX="62.0" layoutY="-16.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <right>
-                        <AnchorPane fx:id="profileScrollPane" maxWidth="32.0" minWidth="32.0" prefHeight="200.0" prefWidth="32.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <Rectangle fx:id="profileSliderBackground" arcHeight="5.0" arcWidth="5.0" fill="#393939" height="200.0" stroke="#323232" strokeType="INSIDE" strokeWidth="5.0" width="32.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                              <ImageView fx:id="profileScrollButtonTop" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <image>
-                                    <Image url="@../media/MultiStateIcons/Slider/SliderButton.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="profileScrollButtonBottom" fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" rotate="180.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                                 <image>
-                                    <Image url="@../media/MultiStateIcons/Slider/SliderButton.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="profileScrollBar" fitHeight="80.0" fitWidth="32.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0">
-                                 <image>
-                                    <Image url="@../media/MultiStateIcons/Slider/Slider.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </AnchorPane>
-                     </right>
-                     <center>
-                        <AnchorPane fx:id="modsListPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <Rectangle fx:id="modsListBackground" fill="#434343" height="120.0" stroke="#393939" strokeType="INSIDE" strokeWidth="3.0" width="548.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <effect>
-                                    <ColorInput paint="#393939" width="74.13" />
-                                 </effect>
-                              </Rectangle>
-                              <ListView fx:id="modsListVBox" focusTraversable="false" prefHeight="100.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </ListView>
-                           </children>
-                        </AnchorPane>
-                     </center>
-                  </BorderPane>
+                  <AnchorPane fx:id="profileScrollPane" maxWidth="32.0" minWidth="32.0" prefHeight="200.0" prefWidth="32.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Rectangle fx:id="profileSliderBackground" arcHeight="5.0" arcWidth="5.0" fill="#393939" height="200.0" stroke="#323232" strokeType="INSIDE" strokeWidth="5.0" width="32.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ImageView fx:id="profileScrollButtonTop" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <image>
+                              <Image url="@../media/MultiStateIcons/Slider/SliderButton.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="profileScrollButtonBottom" fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" rotate="180.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <image>
+                              <Image url="@../media/MultiStateIcons/Slider/SliderButton.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="profileScrollBar" fitHeight="80.0" fitWidth="32.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0">
+                           <image>
+                              <Image url="@../media/MultiStateIcons/Slider/Slider.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <Rectangle fx:id="modsListBackground" fill="#434343" height="120.0" stroke="#393939" strokeType="INSIDE" strokeWidth="3.0" width="548.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="0.0">
+                     <effect>
+                        <ColorInput paint="#393939" width="74.13" />
+                     </effect>
+                  </Rectangle>
+                  <ListView fx:id="modsListVBox" focusTraversable="false" prefHeight="100.0" prefWidth="500.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="5.0">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </ListView>
                </children>
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="mainMenuPane" layoutX="9.0" layoutY="72.0" prefHeight="276.0" prefWidth="518.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
+      <AnchorPane fx:id="profileListPane" layoutX="9.0" layoutY="72.0" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="75.0">
          <children>
-            <Text layoutX="172.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the mod loader!&#10;&#10;Please select one of the tabs at the bottom right to get started.&#10;&#10;When you're ready, click the launch button in the center to open Scrap Mechanic." AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+            <ListView fx:id="profileListView" prefHeight="218.0" prefWidth="355.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
    </children>

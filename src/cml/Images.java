@@ -6,6 +6,8 @@
 
 package cml;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -14,6 +16,7 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.media.Media;
+import javafx.util.Duration;
 
 /**
  *
@@ -23,11 +26,19 @@ public class Images {
     public static final Background BACKGROUND;
     public static final Media LAUNCH_SOUND;
     public static final ImageView HEADER;
+    public static final SpriteAnimation DELETE_SELECT_ANIM;
+    public static final SpriteAnimation DELETE_PRESS_ANIM;
+    public static final Image DELETE_PRESS_START;
+    public static final Image DELETE_PRESS_FINAL;
     public static final Image ICON;
+    public static final Image ICON_ERROR;
+    public static final Image ICON_SUCCESS;
     public static final Image BLANK;
     public static final Image LAUNCH;
     public static final Image LAUNCH_SELECT;
     public static final Image LAUNCH_PRESS;
+    public static final Image LAUNCH_ERROR;
+    public static final Image LAUNCH_SUCCESS;
     public static final Image SETTINGS;
     public static final Image SETTINGS_SELECT;
     public static final Image SETTINGS_PRESS;
@@ -44,8 +55,6 @@ public class Images {
     public static final Image OPEN_SELECT;
     public static final Image OPEN_PRESS;
     public static final Image DELETE;
-    public static final Image DELETE_SELECT_ANIM;
-    public static final Image DELETE_PRESS_ANIM;
     public static final Image SCROLL;
     public static final Image SCROLL_SELECT;
     public static final Image SCROLL_PRESS;
@@ -64,11 +73,39 @@ public class Images {
         BACKGROUND = new Background(new BackgroundImage(new Image(Images.class.getClassLoader().getResourceAsStream("media/AdaptableBackground/Background.jpg")), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
         LAUNCH_SOUND = new Media(Images.class.getClassLoader().getResource("media/Sound/launchCML.mp3").toString());
         HEADER = new ImageView(new Image(Images.class.getClassLoader().getResourceAsStream("media/AdaptableBackground/Header.jpg")));
-        ICON =              new Image(Images.class.getClassLoader().getResourceAsStream("media/CML.ico"));
+        int i = 1;
+        List<Image> deleteSelectFrames = new ArrayList();
+        while (true) {
+            try {
+                deleteSelectFrames.add(new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Delete/ButtonSelect" + i + ".png")));
+            } catch (NullPointerException ex) {
+                break;
+            }
+            i++;
+        }
+        DELETE_SELECT_ANIM = new SpriteAnimation(deleteSelectFrames, Duration.millis(100));
+        List<Image> deletePressFrames = new ArrayList();
+        i = 1;
+        while (true) {
+            try {
+                deletePressFrames.add(new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Delete/ButtonPressed" + i + ".png")));
+            } catch (NullPointerException ex) {
+                break;
+            }
+            i++;
+        }
+        DELETE_PRESS_ANIM = new SpriteAnimation(deletePressFrames, Duration.millis(100), Constants.ON_DELETE_FINISH);
+        DELETE_PRESS_START = DELETE_PRESS_ANIM.getFrames().get(0);
+        DELETE_PRESS_FINAL = DELETE_PRESS_ANIM.getFrames().get(DELETE_PRESS_ANIM.getFrames().size() - 1);
+        ICON =              new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Icon/CML.ico.png"));
+        ICON_ERROR =        new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Icon/CML Error.ico.png"));
+        ICON_SUCCESS =      new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Icon/CML Success.ico.png"));
         BLANK =             new Image(Images.class.getClassLoader().getResourceAsStream("media/Blank.png"));
         LAUNCH =            new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Launch/Launch.jpg"));
         LAUNCH_SELECT =     new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Launch/LaunchSelect.jpg"));
         LAUNCH_PRESS =      new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Launch/LaunchPressed.jpg"));
+        LAUNCH_ERROR =      new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Launch/LaunchError.jpg"));
+        LAUNCH_SUCCESS =    new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Launch/LaunchSuccess.jpg"));
         SETTINGS =          new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Properties/Button.png"));
         SETTINGS_SELECT =   new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Properties/ButtonSelect.png"));
         SETTINGS_PRESS =    new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Properties/ButtonPressed.png"));
@@ -85,8 +122,6 @@ public class Images {
         OPEN_SELECT =       new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/OpenFolder/ButtonSelect.png"));
         OPEN_PRESS =        new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/OpenFolder/ButtonPressed.png"));
         DELETE =            new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Delete/Button.png"));
-        DELETE_SELECT_ANIM =new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Delete/ButtonSelect.gif"));
-        DELETE_PRESS_ANIM = new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Delete/ButtonPressed.gif"));
         SCROLL =            new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Slider/Slider.png"));
         SCROLL_SELECT =     new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Slider/SliderSelect.png"));
         SCROLL_PRESS =      new Image(Images.class.getClassLoader().getResourceAsStream("media/MultiStateIcons/Slider/SliderHeld.png"));
