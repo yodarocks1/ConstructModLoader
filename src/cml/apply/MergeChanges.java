@@ -20,7 +20,7 @@ import cml.Constants;
 import cml.Main;
 import cml.beans.ModIncompatibilityException;
 import cml.beans.Modification;
-import cml.lib.fraser.neil.Patch;
+import cml.lib.merges.fraser.neil.Patch;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.StandardCopyOption;

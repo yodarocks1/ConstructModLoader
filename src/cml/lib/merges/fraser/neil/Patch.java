@@ -15,10 +15,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cml.lib.fraser.neil;
+package cml.lib.merges.fraser.neil;
 
-import cml.lib.fraser.neil.DiffMatchPatch.Operation;
-import static cml.lib.fraser.neil.DiffMatchPatch.unescapeForEncodeUriCompatability;
+import cml.lib.merges.fraser.neil.DiffMatchPatch.Operation;
+import static cml.lib.merges.fraser.neil.DiffMatchPatch.unescapeForEncodeUriCompatability;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
