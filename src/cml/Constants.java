@@ -68,6 +68,7 @@ public class Constants {
     public static final Runnable REGEN_VANILLA = new Runnable() {
         @Override
         public void run() {
+            ErrorManager.addStateCause("vanillaFolder not created");
             SteamVerifier verifier = new SteamVerifier();
             if (verifier.verify()) {
                 System.out.println("Clearing old vanilla folder");
@@ -84,6 +85,13 @@ public class Constants {
                 copyDirectoryRec(Main.scrapMechanicFolder, "", IGNORE_PATH_FILTER, Main.vanillaFolder);
                 System.out.println("Vanilla folder successfully generated");
                 ErrorManager.removeStateCause("vanillaFolder not created");
+            } else {
+                if (new File(Main.vanillaFolder).exists()) {
+                    ErrorManager.removeStateCause("vanillaFolder not created");
+                    Main.verifyVanillaFolder();
+                } else {
+                    ErrorManager.addStateCause("vanillaFolder not created");
+                }
             }
         }
 
