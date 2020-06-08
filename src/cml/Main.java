@@ -11,6 +11,7 @@ import cml.apply.MergeChanges;
 import cml.apply.ReplaceChanges;
 import cml.beans.ModIncompatibilityException;
 import cml.beans.Modification;
+import cml.lib.registry.hardcoded.RegQuery;
 import java.awt.Desktop;
 import java.awt.Desktop.Action;
 import java.io.BufferedReader;
@@ -32,6 +33,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -106,10 +108,34 @@ public class Main {
             modsFolder = folders.get(2);
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.INFO, "Failed to read folder setting file. Setting to default");
-            scrapMechanicFolder = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Scrap Mechanic\\";
+            scrapMechanicFolder = getFromSMRegistry();
+            if (scrapMechanicFolder == null) {
+                scrapMechanicFolder = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Scrap Mechanic\\";
+            }
             vanillaFolder = "C:\\Program Files (x86)\\Construct\\vanilla\\";
             modsFolder = "C:\\Program Files (x86)\\Construct\\mods\\";
         }
+    }
+    
+    private static String getFromSMRegistry() {
+        String possibleLocation = RegQuery.readRegistryValue(Constants.STEAM_REG_PATH_64, "InstallPath");
+        String location = possibleLocation == null ? RegQuery.readRegistryValue(Constants.STEAM_REG_PATH, "InstallPath") : possibleLocation;
+        if (location != null) {
+            if (!location.endsWith("\\")) {
+                location = location + "\\";
+            }
+            File manifest = new File(location + "steamapps\\appmanifest_387990.acf");
+            Optional<String> installDir = null;
+            try {
+                installDir = Files.readAllLines(manifest.toPath()).stream().filter((line) -> line.trim().startsWith("\"installdir\"")).reduce(String::concat);
+            } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Could not read Scrap Mechanic app manifest - it may not be installed", ex);
+            }
+            if (installDir != null && installDir.isPresent()) {
+                return location + "steamapps\\" + installDir.get();
+            }
+        }
+        return null;
     }
 
     private static void setLog() {

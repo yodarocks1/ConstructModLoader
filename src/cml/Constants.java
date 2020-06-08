@@ -114,6 +114,8 @@ public class Constants {
             }
         }
     };
+    public static final String STEAM_REG_PATH_64 = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Valve\\Steam";
+    public static final String STEAM_REG_PATH = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Valve\\Steam";
 
     static {
         IGNORE_PATHS.add("\\Logs");
