@@ -110,12 +110,20 @@
                   <Font name="Georgia Bold" size="10.0" />
                </font>
             </Text>
-            <Button mnemonicParsing="false" onAction="#openLogs" text="View logs">
+            <Button mnemonicParsing="false" onAction="#openLogs" text="View Logs">
                <font>
                   <Font name="Georgia" size="10.0" />
                </font>
                <FlowPane.margin>
                   <Insets left="50.0" />
+               </FlowPane.margin>
+            </Button>
+            <Button fx:id="regenVanillaButton" mnemonicParsing="false" onAction="#regenVanilla" text="(Re)-Generate Vanilla Folder">
+               <font>
+                  <Font name="Georgia" size="10.0" />
+               </font>
+               <FlowPane.margin>
+                  <Insets left="40.0" />
                </FlowPane.margin>
             </Button>
          </children>

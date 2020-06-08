@@ -44,25 +44,11 @@ public class MergeChanges implements IApplicator {
     public static final String MERGE_FOLDER_RELATIVE = "\\Merge\\";
     public static final String PATCH_FOLDER_RELATIVE = "\\Patch\\";
 
-    public static final List<String> IGNORE_PATHS = new ArrayList();
-
     public static Map<String, List<Modification>> modifiedBy = new HashMap();
 
     public static Map<File, String> fileToPatched = new HashMap();
 
-    static {
-        IGNORE_PATHS.add("\\Logs");
-        IGNORE_PATHS.add("\\Cache");
-        IGNORE_PATHS.add("\\Challenges");
-        IGNORE_PATHS.add("\\ChallengeData");
-        IGNORE_PATHS.add("\\Data\\ExampleMods");
-        IGNORE_PATHS.add("\\Data\\Terrain");
-        IGNORE_PATHS.add("\\Survival\\Character\\Char_Male");
-        IGNORE_PATHS.add("\\Survival\\Terrain");
-        IGNORE_PATHS.add("\\Screenshots");
-        IGNORE_PATHS.add("\\" + Constants.OBJECT_FOLDER_LOCATION);
-    }
-
+    
     private List<Modification> activeModifications;
 
     public MergeChanges(List<Modification> activeModifications) {
@@ -230,7 +216,7 @@ public class MergeChanges implements IApplicator {
     }
 
     private void writePatchRecursive(String path, Map<File, String> fileToPatched) {
-        for (String ignorePath : MergeChanges.IGNORE_PATHS) {
+        for (String ignorePath : Constants.IGNORE_PATHS) {
             if (path.contains(ignorePath)) {
                 System.out.println("  / Ignoring " + path);
                 return;

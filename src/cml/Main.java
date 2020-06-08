@@ -39,8 +39,8 @@ import static javafx.application.Application.launch;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.control.ButtonBar;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
@@ -61,7 +61,8 @@ import javafx.stage.Stage;
  * @author benne
  */
 public class Main {
-
+    
+    public static final File API_DIRECTORY = new File(".");
     public static String scrapMechanicFolder;
     public static String vanillaFolder;
     public static String modsFolder;
@@ -99,7 +100,7 @@ public class Main {
 
     private static void getFolders() {
         try {
-            List<String> folders = Files.readAllLines(new File(Constants.FOLDERS_LOCATION).toPath());
+            List<String> folders = Files.readAllLines(new File(Main.API_DIRECTORY.getAbsolutePath() + Constants.FOLDERS_LOCATION_RELATIVE).toPath());
             scrapMechanicFolder = folders.get(0);
             vanillaFolder = folders.get(1);
             modsFolder = folders.get(2);
@@ -262,6 +263,20 @@ public class Main {
             } catch (IOException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Workaround failed", ex);
             }
+        }
+    }
+    
+    public static void regenVanilla() {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("(Re)-Generate Vanilla Folder");
+        alert.setHeaderText("Are you sure?");
+        alert.setContentText("Before continuing, make sure that the location for the vanilla folder that you have entered is the desired location.\n\n"
+                + "NOTE: This process will continue in the background, regardless of the closure of Construct Mod Loader. Do not end this process or reboot your computer - it may corrupt your data.\n\n"
+                + "This process can take between 15 minutes and an hour, depending on your internet connection and drive speed. If you have an exceptionally low-end computer, this may take even longer.");
+        alert.showAndWait();
+        if (!alert.getResult().getButtonData().isCancelButton()) {
+            Thread thread = new Thread(Constants.REGEN_VANILLA);
+            thread.start(); //This thread will not stop when the application closes because Steam validation would corrupt the game files.
         }
     }
 

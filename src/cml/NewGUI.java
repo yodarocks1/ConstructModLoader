@@ -32,6 +32,7 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -118,9 +119,9 @@ public class NewGUI extends Application {
         });
         try {
             String lines = Main.scrapMechanicFolder + "\n" + Main.vanillaFolder + "\n" + Main.modsFolder;
-            Files.write(new File(Constants.FOLDERS_LOCATION).toPath(), lines.getBytes(), StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
+            Files.write(new File(Main.API_DIRECTORY.getAbsolutePath() + Constants.FOLDERS_LOCATION_RELATIVE).toPath(), lines.getBytes(), StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
         } catch (AccessDeniedException ex) {
-            ErrorManager.printNonUserError("Folders - AccessDeniedException: Make sure you have given the program Administrator Privileges! (" + Constants.FOLDERS_LOCATION + ")");
+            ErrorManager.printNonUserError("Folders - AccessDeniedException: Make sure you have given the program Administrator Privileges! (" + Main.API_DIRECTORY.getAbsolutePath() + Constants.FOLDERS_LOCATION_RELATIVE + ")");
         }
         System.err.close();
         if (Main.errFile.length() < 10) {
@@ -244,9 +245,16 @@ public class NewGUI extends Application {
             launchButton.setMouseTransparent(false);
         }
     };
+    
+    @FXML
+    private Button regenVanillaButton;
 
     public void launch() {
-        if (!launching) {
+        if (!new File(Main.vanillaFolder).exists()) {
+            ErrorManager.addStateCause("vanillaFolder not created");
+            menuView.setValue(1);
+            regenVanillaButton.requestFocus();
+        } else if (!launching) {
             Thread launchThread = new Thread(launchRunnable);
             launchThread.start();
             THREADS.add(launchThread);
@@ -477,6 +485,10 @@ public class NewGUI extends Application {
     
     public void openLogs() {
         Main.openLogs();
+    }
+    
+    public void regenVanilla() {
+        Main.regenVanilla();
     }
     //</editor-fold>
 
