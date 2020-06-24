@@ -1,0 +1,57 @@
+.mainFxmlClass {
+    -fx-background-color: linear-gradient(from 0px 0px to 25px 25px, reflect, #77775f 0%, #70705a 40%, #555 50%, #71776b 100%);
+    -fx-border-color: #e5e5e5;
+    -fx-border-width: 1px;
+}
+
+.bevel1 {
+    -fx-fill: linear-gradient(to right, #777777aa 0%, #55555500 5%, #44444400 95%, #222222aa 100%);
+    -fx-arc-width: 0;
+    -fx-arc-height: 0;
+    -fx-stroke: transparent;
+    -fx-width: 100%;
+    -fx-height: 100%;
+}
+
+.bevel2 {
+    -fx-fill: linear-gradient(#777777aa 0%, #55555500 10%, #44444400 90%, #222222aa 100%);
+    -fx-arc-width: 0;
+    -fx-arc-height: 0;
+    -fx-stroke: transparent;
+}
+
+.imageSeparator {
+    -fx-stroke: #e5e5e5;
+    -fx-stroke-type: centered;
+    -fx-stroke-dash-array: 4 5;
+}
+
+.headerSeparator {
+    -fx-stroke: #e5e5e5;
+    -fx-stroke-type: centered;
+    -fx-stroke-dash-array: 1 5;
+}
+
+.header {
+    -fx-font-family: "LIBRARY 3 AM";
+    -fx-font-size: 24px;
+    -fx-fill: #fff;
+}
+
+.description {
+    -fx-font-family: "Georgia";
+    -fx-font-size: 12px;
+    -fx-fill: #fff;
+}
+
+.property {
+    -fx-font-family: "Georgia";
+    -fx-font-size: 10px;
+    -fx-fill: #e0e0e0;
+}
+
+.count {
+    -fx-font-family: "Lucida Console";
+    -fx-font-size: 22px;
+    -fx-fill: #a2ab24;
+}

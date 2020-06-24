@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" fx:id="logPane" minHeight="61.0" minWidth="250.0" prefHeight="61.0" prefWidth="250.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@listcellitem.css" />
+    </stylesheets>
+   <children>
+      <Text fx:id="level" fill="RED" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="[LEVEL  ]" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="3.0">
+         <font>
+            <Font name="Lucida Console" size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="dateTime" fill="#7f7f7f" layoutX="10.0" layoutY="10.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="[YYYY-MM-DD HH:MM:SS]" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="4.0">
+         <font>
+            <Font name="Lucida Console" size="12.0" />
+         </font>
+      </Text>
+      <TextArea fx:id="message" editable="false" maxHeight="26.0" prefHeight="26.0" prefWidth="240.0" styleClass="messageArea" text="Message" wrapText="true" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="21.0">
+         <font>
+            <Font name="Lucida Console" size="12.0" />
+         </font>
+      </TextArea>
+      <Text fx:id="source" fill="#4d4d4d" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Source" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="3.0">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

@@ -7,7 +7,8 @@ package cml;
 
 import cml.apply.Apply;
 import cml.beans.Profile;
-import cml.lib.steamverify.SteamVerifier;
+import cml.lib.files.AFileManager;
+import cml.lib.steam.verify.SteamVerifier;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -26,29 +28,13 @@ import java.util.logging.Logger;
  */
 public class Constants {
 
+    private static final Logger LOGGER = Logger.getLogger(Constants.class.getName());
     public static final String FOLDERS_LOCATION_RELATIVE = "\\folders.txt";
-    public static final String VERSION = "+A.1.1";
+    public static final String VERSION = "+B.1.0";
     public static final String LAUNCH_COMMAND = "rundll32 url.dll,FileProtocolHandler steam://rungameid/387990";
     public static final String VERIFY_COMMAND = "rundll32 url.dll,FileProtocolHandler steam://validate/387990";
     public static final String KILL_VERIFY_COMMAND = "taskkill <<id>>";
     public static final ZoneOffset ZONE = OffsetDateTime.now().getOffset();
-    public static final Runnable ON_DELETE_FINISH = () -> {
-        Profile checkMe = Main.activeProfile.get();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Constants.class.getName()).log(Level.INFO, "On Delete Finish interrupted");
-        }
-        if (!checkMe.getDirectory().exists()) {
-            Main.activeProfile.setValue(Profile.DELETED);
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Constants.class.getName()).log(Level.INFO, "On Delete Finish interrupted");
-            }
-            Main.updateProfileList();
-        }
-    };
     public static final String IGNORE_PREFIX = "_._";
     public static final String IGNORE_SUFFIX = "_._";
     public static final String LOG_FOLDER_NAME = IGNORE_PREFIX + "logs" + IGNORE_SUFFIX;
@@ -65,57 +51,9 @@ public class Constants {
         }
         return true;
     };
-    public static final Runnable REGEN_VANILLA = new Runnable() {
-        @Override
-        public void run() {
-            ErrorManager.addStateCause("vanillaFolder not created");
-            SteamVerifier verifier = new SteamVerifier();
-            if (verifier.verify()) {
-                System.out.println("Clearing old vanilla folder");
-                File vanilla = new File(Main.vanillaFolder);
-                if (vanilla.exists()) {
-                    try {
-                        Apply.deleteDirectory(vanilla.toPath());
-                        System.out.println("  Deleted vanilla folder");
-                    } catch (IOException ex) {
-                        Logger.getLogger(Constants.class.getName()).log(Level.SEVERE, "Could not clear vanilla folder", ex);
-                    }
-                }
-                System.out.println("Creating new vanilla folder");
-                copyDirectoryRec(Main.scrapMechanicFolder, "", IGNORE_PATH_FILTER, Main.vanillaFolder);
-                System.out.println("Vanilla folder successfully generated");
-                ErrorManager.removeStateCause("vanillaFolder not created");
-            } else {
-                if (new File(Main.vanillaFolder).exists()) {
-                    ErrorManager.removeStateCause("vanillaFolder not created");
-                    Main.verifyVanillaFolder();
-                } else {
-                    ErrorManager.addStateCause("vanillaFolder not created");
-                }
-            }
-        }
-
-        private void copyDirectoryRec(String mainDirectory, String addend, FilenameFilter filter, String toPath) {
-            File file = new File(mainDirectory + addend);
-            if (file.isDirectory()) {
-                for (String subFile : file.list(filter)) {
-                    System.out.println("  Addend: " + addend);
-                    copyDirectoryRec(mainDirectory, addend + "\\" + subFile, filter, toPath);
-                }
-            } else {
-                File toFile = new File(toPath + addend);
-                System.out.println("  Create: " + addend);
-                try {
-                    Files.createDirectories(toFile.getParentFile().toPath());
-                    Files.copy(file.toPath(), toFile.toPath(), StandardCopyOption.COPY_ATTRIBUTES);
-                } catch (IOException ex) {
-                    Logger.getLogger(Constants.class.getName()).log(Level.SEVERE, "Could not copy from Scrap Mechanic to Vanilla", ex);
-                }
-            }
-        }
-    };
-    public static final String STEAM_REG_PATH_64 = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Valve\\Steam";
-    public static final String STEAM_REG_PATH = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Valve\\Steam";
+    public static final Pattern IMG_PATTERN = Pattern.compile("(?<=\\[img\\]).*(?=\\[/img\\])");
+    public static final FilenameFilter NO_FILTER = (File dir, String name) -> true;
+    public static final FilenameFilter TEXT_FILE = (File dir, String name) -> name.endsWith(".xml") || name.endsWith(".json") || name.endsWith(".vdf") || name.endsWith(".txt") || name.endsWith(".lua") || name.endsWith(".hlsl") || name.endsWith(".layout") || name.endsWith(".glsl") || name.endsWith(".dae");
 
     static {
         IGNORE_PATHS.add("\\Logs");

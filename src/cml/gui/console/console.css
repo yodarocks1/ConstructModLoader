@@ -1,0 +1,39 @@
+.mainFxmlClass {
+
+}
+
+#close {
+    -fx-image: url("../../../media/MultiStateIcons/Close/Button.png");
+}
+
+#close:hover {
+    -fx-image: url("../../../media/MultiStateIcons/Close/ButtonSelect.png");
+}
+
+#close:pressed {
+    -fx-image: url("../../../media/MultiStateIcons/Close/ButtonPress.png");
+}
+
+#maximize {
+    -fx-image: url("../../../media/MultiStateIcons/Maximize/Button.png");
+}
+
+#maximize:hover {
+    -fx-image: url("../../../media/MultiStateIcons/Maximize/ButtonSelect.png");
+}
+
+#maximize:pressed {
+    -fx-image: url("../../../media/MultiStateIcons/Maximize/ButtonPress.png");
+}
+
+#minimize {
+    -fx-image: url("../../../media/MultiStateIcons/ToTray/Button.png");
+}
+
+#minimize:hover {
+    -fx-image: url("../../../media/MultiStateIcons/ToTray/ButtonSelect.png");
+}
+
+#minimize:pressed {
+    -fx-image: url("../../../media/MultiStateIcons/ToTray/ButtonPress.png");
+}

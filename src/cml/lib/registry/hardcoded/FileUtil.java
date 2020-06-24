@@ -31,6 +31,8 @@ import java.util.logging.Logger;
  * @author benne
  */
 public class FileUtil {
+    
+    private static final Logger LOGGER = Logger.getLogger(FileUtil.class.getName());
 
     public static byte[] readStreamBytes(InputStream stream) {
         if (stream == null) {
@@ -47,10 +49,10 @@ public class FileUtil {
                     bs.write(buffer, 0, readBytes);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, "Could not read bytes from input stream", ex);
+                LOGGER.log(Level.SEVERE, "Could not read bytes from input stream", ex);
             }
         } catch (IOException ex) {
-            Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, "Could not create new DataInputStream from InputStream", ex);
+            LOGGER.log(Level.SEVERE, "Could not create new DataInputStream from InputStream", ex);
         }
 
         return new byte[0];
@@ -60,7 +62,7 @@ public class FileUtil {
         try {
             return readStreamBytes(new FileInputStream(file));
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, "Could not find file " + file.getAbsolutePath(), ex);
+            LOGGER.log(Level.SEVERE, "Could not find file " + file.getAbsolutePath(), ex);
         }
         
         return new byte[0];

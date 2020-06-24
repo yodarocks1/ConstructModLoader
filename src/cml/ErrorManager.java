@@ -17,7 +17,13 @@
 package cml;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
@@ -29,6 +35,8 @@ public class ErrorManager {
 
     private static final ErrorManager NO_ERROR = new ErrorManager(false);
     private static final ErrorManager ERROR = new ErrorManager(true);
+    private static final Map<String, Runnable> RESOLVE = new HashMap();
+    private static final Logger LOGGER = Logger.getLogger(ErrorManager.class.getName());
 
     public static ObjectProperty<ErrorManager> State = new SimpleObjectProperty(NO_ERROR);
 
@@ -41,9 +49,8 @@ public class ErrorManager {
 
     public void removeCause(String cause) {
         if (this.error) {
-            if (this.causes.remove(cause) ) {
-                System.out.println((char) 27 + "[34;1mUser Error resolved: \"" + cause + "\"\n"
-                        + "  Remaining errors: " + causes.size() + (char) 27 + "[0m");
+            if (this.causes.remove(cause)) {
+                LOGGER.log(Level.INFO, "User Error resolved: \"{0}\"\n  Remaining errors: {1}", new Object[]{cause, causes.size()});
             }
             if (this.causes.isEmpty()) {
                 State.setValue(NO_ERROR);
@@ -54,9 +61,11 @@ public class ErrorManager {
     public void addCause(String cause) {
         if (!this.error) {
             ERROR.addCause(cause);
-            State.setValue(ERROR);
+            Platform.runLater(() -> {
+                State.setValue(ERROR);
+            });
         } else if (!causes.contains(cause)) {
-            System.out.println((char) 27 + "[31;1;5mUser Error caught: \"" + cause + "\"" + (char) 27 + "[0m");
+            LOGGER.log(Level.WARNING, "User Error caught: \"{0}\"", cause);
             this.causes.add(cause);
         }
     }
@@ -69,19 +78,39 @@ public class ErrorManager {
         return this.error;
     }
     
+    @Override
+    public String toString() {
+        return causes.stream().collect(Collectors.joining("\n", "Error: ", " (Unresolved)"));
+    }
+
     public static void addStateCause(String cause) {
         State.getValue().addCause(cause);
     }
     
+    public static void addCauseResolver(String cause, Runnable resolver) {
+        RESOLVE.put(cause, resolver);
+    }
+
     public static void removeStateCause(String cause) {
         State.getValue().removeCause(cause);
     }
-    
+
     public static boolean isStateError() {
         return State.getValue().isError();
     }
     
-    public static void printNonUserError(String error) {
-        System.out.println((char) 27 + "[31;1;5m" + error + (char) 27 + "[0m");
+    public static boolean autoResolve() {
+        ErrorManager state = State.getValue();
+        if (state.isError()) {
+            for (String cause : state.getCauses()) {
+                if (RESOLVE.containsKey(cause)) {
+                    LOGGER.log(Level.INFO, "Resolving Error \"{0}\"", cause);
+                    RESOLVE.get(cause).run();
+                } else {
+                    LOGGER.log(Level.WARNING, "Could auto-resolve Error \"{0}\" - No resolver exists", cause);
+                }
+            }
+        }
+        return State.getValue().isError();
     }
 }

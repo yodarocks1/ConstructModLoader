@@ -16,8 +16,11 @@
  */
 package cml;
 
+import cml.lib.threadmanager.ThreadManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -28,36 +31,52 @@ import javafx.util.Duration;
  */
 public class SpriteAnimation {
 
-    public static final List<Thread> THREADS = new ArrayList();
+    private static final Logger LOGGER = Logger.getLogger(SpriteAnimation.class.getName());
     private final List<Thread> threads = new ArrayList();
 
     private ImageView imageView;
     private final List<Image> frames;
     private final Duration frameDuration;
     private final Runnable onFinish;
+    private final boolean repeat;
+    private final Image imageOnHalt;
 
     private final Runnable animateRunnable = new Runnable() {
         @Override
         public void run() {
+            boolean interrupted = false;
             for (Image frame : frames) {
-                if (!Thread.interrupted()) {
+                if (!Thread.currentThread().isInterrupted()) {
                     imageView.setImage(frame);
                     try {
                         Thread.sleep((int) frameDuration.toMillis());
                     } catch (InterruptedException ex) {
-                        System.out.println("Stopped animation on interrupt");
-                        if (onFinish != null) {
-                            onFinish.run();
-                        }
+                        interrupted = true;
+                        imageView.setImage(imageOnHalt);
+                        LOGGER.log(Level.FINEST, "Stopped animation on interrupt");
+                        break;
                     }
                 } else {
                     break;
                 }
             }
             threads.remove(Thread.currentThread());
-            THREADS.remove(Thread.currentThread());
             if (onFinish != null) {
                 onFinish.run();
+            }
+            if (interrupted) {
+                return;
+            }
+            if (Thread.currentThread().isInterrupted()) {
+                imageView.setImage(imageOnHalt);
+                return;
+            }
+            if (repeat) {
+                Thread animationThread = new Thread(animateRunnable);
+                ThreadManager.removeThread(Thread.currentThread());
+                ThreadManager.addThread(animationThread);
+                threads.add(animationThread);
+                animationThread.start();
             }
         }
     };
@@ -66,31 +85,50 @@ public class SpriteAnimation {
         this.frames = frames;
         this.frameDuration = frameDuration;
         this.onFinish = null;
-        System.out.println("New animation: [" + frames.size() + ", " + frameDuration.toMillis() + "ms]");
+        this.repeat = false;
+        this.imageOnHalt = null;
+        LOGGER.log(Level.FINER, "New animation: [{0}, {1}ms]", new Object[]{frames.size(), frameDuration.toMillis()});
     }
-    
+
     public SpriteAnimation(List<Image> frames, Duration frameDuration, Runnable onFinish) {
         this.frames = frames;
         this.frameDuration = frameDuration;
         this.onFinish = onFinish;
-        System.out.println("New animation: [" + frames.size() + ", " + frameDuration.toMillis() + "ms]");
+        this.repeat = false;
+        this.imageOnHalt = null;
+        LOGGER.log(Level.FINER, "New animation: [{0}, {1}ms]", new Object[]{frames.size(), frameDuration.toMillis()});
+    }
+
+    public SpriteAnimation(List<Image> frames, Duration frameDuration, boolean repeat, Image imageOnHalt) {
+        this.frames = frames;
+        this.frameDuration = frameDuration;
+        this.onFinish = null;
+        this.repeat = repeat;
+        this.imageOnHalt = imageOnHalt;
+        LOGGER.log(Level.FINER, "New animation: [{0}, {1}ms]", new Object[]{frames.size(), frameDuration.toMillis()});
     }
 
     public void animate(ImageView imageView) {
         this.imageView = imageView;
         Thread animationThread = new Thread(animateRunnable);
-        THREADS.add(animationThread);
+        ThreadManager.addThread(animationThread);
         threads.add(animationThread);
         animationThread.start();
     }
-    
+
     public boolean isAnimated() {
         return threads.size() > 0;
     }
-    
+
+    private boolean halting = false;
+
     public void halt() {
-        for (Thread thread : threads) {
-            thread.interrupt();
+        if (!halting) {
+            halting = true;
+            for (Thread thread : threads) {
+                thread.interrupt();
+            }
+            halting = false;
         }
     }
 

@@ -1,0 +1,76 @@
+.mainFxmlClass {
+    -fx-font-family: "LIBRARY 3 AM";
+}
+
+.text {
+    -fx-font-family: "LIBRARY 3 AM";
+}
+
+.workshopTab {
+    -fx-image: url("../../../media/MultiStateIcons/Workshop/Button.png");
+}
+
+.workshopTab:hover {
+    -fx-image: url("../../../media/MultiStateIcons/Workshop/ButtonSelect.png");
+}
+
+.workshopTab:pressed {
+    -fx-image: url("../../../media/MultiStateIcons/Workshop/ButtonPressed.png");
+}
+
+.profileListTab {
+    -fx-image: url("../../../media/MultiStateIcons/Profiles/Button.png");
+}
+
+.profileListTab:hover {
+    -fx-image: url("../../../media/MultiStateIcons/Profiles/ButtonSelect.png");
+}
+
+.profileListTab:pressed {
+    -fx-image: url("../../../media/MultiStateIcons/Profiles/ButtonPressed.png");
+}
+
+.profileViewTab {
+    -fx-image: url("../../../media/MultiStateIcons/Profile/Button.png");
+}
+
+.profileViewTab:hover {
+    -fx-image: url("../../../media/MultiStateIcons/Profile/ButtonSelect.png");
+}
+
+.profileViewTab:pressed {
+    -fx-image: url("../../../media/MultiStateIcons/Profile/ButtonPressed.png");
+}
+
+.settingsTab {
+    -fx-image: url("../../../media/MultiStateIcons/Properties/Button.png");
+}
+
+.settingsTab:hover {
+    -fx-image: url("../../../media/MultiStateIcons/Properties/ButtonSelect.png");
+}
+
+.settingsTab:pressed {
+    -fx-image: url("../../../media/MultiStateIcons/Properties/ButtonPressed.png");
+}
+
+#goBack {
+    -fx-image: url("../../../media/MultiStateIcons/GoBack/Button.png");
+}
+
+#goBack:hover {
+    -fx-image: url("../../../media/MultiStateIcons/GoBack/ButtonSelect.png");
+}
+
+#goBack:pressed {
+    -fx-image: url("../../../media/MultiStateIcons/GoBack/ButtonPressed.png");
+}
+
+.tooltip {
+    -fx-background-color: #191919;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #dff;
+    -fx-border-width: 1;
+    -fx-fill: #fff;
+}

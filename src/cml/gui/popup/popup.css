@@ -1,0 +1,64 @@
+.root {
+    -fx-background-color: #424242ee;
+    -fx-background-radius: 5 50 5 50;
+    -fx-border-radius: 5 50 5 50;
+    -fx-border-width: 1;
+    -fx-border-color: #707070;
+}
+
+.text-field {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #dff;
+    -fx-border-width: 1;
+    -fx-text-fill: #dff;
+    -fx-font-family: "LIBRARY 3 AM";
+    -fx-font-size: 10px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.4), 3, 0.2, 0, 1);
+}
+
+.text-field:selected {
+    -fx-background-color: #aa880010;
+    -fx-border-color:#a80;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 1, 0.2, 0, 1);
+}
+
+.text-field:hover {
+    -fx-background-color: #ffdd5510;
+    -fx-border-color: #a80;
+    -fx-text-fill: #fd5;
+    -fx-effect: dropshadow(one-pass-box, rgba(255, 255, 255, 0.2), 5, 0.0, 0, 1);
+}
+
+.text-field:pressed {
+    -fx-background-color: #aa880010;
+    -fx-border-color:#a80;
+    -fx-text-fill: #a80;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 1, 0.2, 0, 1);
+}
+
+.text-field:disabled  {
+    -fx-background-color: transparent;
+    -fx-border-color: #faa;
+    -fx-text-fill: #faa;
+    -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.5), 5, 1.0, 0, 0);
+}
+
+.text-field:selected {
+    -fx-text-fill: #ff0;
+}
+
+.text-field .label {
+    -fx-text-fill: #dff;
+    -fx-font-family: "LIBRARY 3 AM";
+    -fx-font-size: 10px;
+}
+
+.text-field .label:hover {
+    -fx-text-fill: #fd5;
+}
+
+.text-field .label:pressed {
+    -fx-text-fill: #a80;
+}

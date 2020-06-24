@@ -11,10 +11,3 @@ visibility: hidden
 .list-view .list-cell:filled:odd {
 -fx-background-color: #454545
 }
-
-.list-view .scroll-bar:vertical .increment-arrow,
-.list-view .scroll-bar:vertical .decrement-arrow,
-.list-view .scroll-bar:vertical .increment-button,
-.list-view .scroll-bar:vertical .decrement-button {
--fx-padding:0
-}

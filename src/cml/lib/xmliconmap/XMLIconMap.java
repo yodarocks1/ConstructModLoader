@@ -17,6 +17,7 @@
 package cml.lib.xmliconmap;
 
 import cml.apply.Apply;
+import cml.lib.files.AFileManager;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +36,8 @@ import javax.imageio.ImageIO;
  * @author benne
  */
 public class XMLIconMap {
+    
+    private static final Logger LOGGER = Logger.getLogger(XMLIconMap.class.getName());
 
     public static String getPrefix(int iconWidth, int iconHeight) {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -94,18 +97,8 @@ public class XMLIconMap {
     }
 
     public XMLIconMap(File iconMapImage, File iconMapXML) {
-        try {
-            this.iconMapImage = ImageIO.read(iconMapImage);
-        } catch (IOException ex) {
-            Logger.getLogger(XMLIconMap.class
-                    .getName()).log(Level.SEVERE, "Could not read icon map from " + iconMapImage.getAbsolutePath(), ex);
-        }
-        try {
-            this.iconMapXML = Apply.readFile(iconMapXML.toPath());
-        } catch (IOException ex) {
-            Logger.getLogger(XMLIconMap.class
-                    .getName()).log(Level.SEVERE, "Could not read icon map XML from " + iconMapXML.getAbsolutePath(), ex);
-        }
+        this.iconMapImage = AFileManager.IMAGE_MANAGER.read(iconMapImage);
+        this.iconMapXML = AFileManager.FILE_MANAGER.readString(iconMapXML);
     }
 
 }

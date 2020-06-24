@@ -1,0 +1,132 @@
+@font-face {
+    font-family: "LIBRARY 3 AM";
+    src: url("https://drive.google.com/uc?export=view&id=1tinA2uGhGtVFtV6wf3jppcGbtXoZRTep");
+}
+
+.button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #dff;
+    -fx-border-width: 1;
+    -fx-text-fill: #dff;
+    -fx-font-family: "LIBRARY 3 AM";
+    -fx-font-size: 10px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.4), 3, 0.2, 0, 1);
+}
+
+.button:selected {
+    -fx-background-color: #aa880010;
+    -fx-border-color:#a80;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 1, 0.2, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: #ffdd5510;
+    -fx-border-color: #a80;
+    -fx-text-fill: #fd5;
+    -fx-effect: dropshadow(one-pass-box, rgba(255, 255, 255, 0.2), 5, 0.0, 0, 1);
+}
+
+.button:pressed {
+    -fx-background-color: #aa880010;
+    -fx-border-color:#a80;
+    -fx-text-fill: #a80;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 1, 0.2, 0, 1);
+}
+
+.button:disabled  {
+    -fx-background-color: transparent;
+    -fx-border-color: #faa;
+    -fx-text-fill: #faa;
+    -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.5), 5, 1.0, 0, 0);
+}
+
+.button:default {
+    -fx-border-color: #aaf;
+    -fx-border-width: 1.2;
+}
+
+.button:cancel {
+    -fx-border-color: #faa;
+    -fx-border-width: 1.2;
+}
+
+.button:selected {
+    -fx-text-fill: #ff0;
+}
+
+.button .label {
+    -fx-text-fill: #dff;
+    -fx-font-family: "LIBRARY 3 AM";
+    -fx-font-size: 10px;
+}
+
+.button .label:hover {
+    -fx-text-fill: #fd5;
+}
+
+.button .label:pressed {
+    -fx-text-fill: #a80;
+}
+
+.menu-item {
+    -fx-background-color: #474747;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #dff;
+    -fx-border-width: 1;
+    -fx-text-fill: #dff;
+    -fx-font-family: "LIBRARY 3 AM";
+    -fx-font-size: 10px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.4), 3, 0.2, 0, 1);
+}
+
+.menu-item:selected {
+    -fx-background-color: #504D41;
+    -fx-border-color:#a80;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 1, 0.2, 0, 1);
+}
+
+.menu-item .label:hover {
+    -fx-text-fill: #fd5;
+}
+
+.menu-item:hover {
+    -fx-background-color: #585548;
+    -fx-border-color: #a80;
+    -fx-text-fill: #fd5;
+    -fx-effect: dropshadow(one-pass-box, rgba(255, 255, 255, 0.2), 5, 0.0, 0, 1);
+}
+
+.menu-item .label:pressed {
+    -fx-text-fill: #a80;
+}
+
+.menu-item:pressed {
+    -fx-background-color: #504D41;
+    -fx-border-color:#a80;
+    -fx-text-fill: #a80;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 1, 0.2, 0, 1);
+}
+
+.text-field {
+    -fx-font-weight: normal;
+    -fx-font-family: "LIBRARY 3 AM";
+    -fx-font-size: 10px;
+}
+
+.text-field:focused {
+    -fx-background-color: #504D41;
+    -fx-border-color:#a80;
+    -fx-text-fill: #ff0;
+    -fx-font-weight: bold;
+}
+
+.text-field:filled {
+    -fx-font-weight: bold;
+}
+
+.choice-box .context-menu {
+    -fx-background-color: transparent;
+}

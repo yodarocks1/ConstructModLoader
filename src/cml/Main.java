@@ -5,44 +5,38 @@
  */
 package cml;
 
-import cml.beans.Profile;
 import cml.apply.Apply;
 import cml.apply.MergeChanges;
 import cml.apply.ReplaceChanges;
+import cml.beans.Profile;
 import cml.beans.ModIncompatibilityException;
 import cml.beans.Modification;
-import cml.lib.registry.hardcoded.RegQuery;
-import java.awt.Desktop;
-import java.awt.Desktop.Action;
-import java.io.BufferedReader;
+import cml.gui.console.LogHandler;
+import cml.lib.files.AFileManager;
+import cml.lib.files.ZipManager;
+import cml.lib.registry.hardcoded.Steam;
+import cml.lib.workshop.WorkshopConnectionHandler;
+import cml.lib.workshop.WorkshopReader;
+import com.sun.javafx.application.LauncherImpl;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
+import java.util.logging.XMLFormatter;
 import java.util.stream.Collectors;
-import static javafx.application.Application.launch;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
@@ -63,11 +57,15 @@ import javafx.stage.Stage;
  * @author benne
  */
 public class Main {
-    
+
+    protected static final Logger LOGGER;
+
     public static final File API_DIRECTORY = new File(".");
-    public static String scrapMechanicFolder;
-    public static String vanillaFolder;
-    public static String modsFolder;
+    public static String scrapMechanicFolder = null;
+    public static String vanillaFolder = null;
+    public static String modsFolder = null;
+    public static String workshopFolder = null;
+    public static ObjectProperty<WorkshopReader> workshopReader = new SimpleObjectProperty(null);
 
     public static List<Modification> activeModifications = new ArrayList();
     public static LocalDateTime lastChangeTime = LocalDateTime.MIN;
@@ -75,95 +73,202 @@ public class Main {
     public static ObjectProperty<List<Profile>> profileList = new SimpleObjectProperty(new ArrayList());
     public static ObjectProperty<Profile> activeProfile = new SimpleObjectProperty(Profile.EMPTY);
 
-    public static File logFile;
-    public static File errFile;
+    public static boolean showConsole = true;
     public static File patFile;
+    public static final LogHandler LOG_HANDLER = new LogHandler(Level.ALL);
+    public static final FileHandler FILE_HANDLER;
 
     public static PrintStream patchOutputStream;
 
+    private static final List<String> SM_FOLDERS_CHECK = new ArrayList();
+
+    static {
+        SM_FOLDERS_CHECK.add("Cache");
+        SM_FOLDERS_CHECK.add("ChallengeData");
+        SM_FOLDERS_CHECK.add("Challenges");
+        SM_FOLDERS_CHECK.add("Data");
+        SM_FOLDERS_CHECK.add("Logs");
+        SM_FOLDERS_CHECK.add("Release");
+        SM_FOLDERS_CHECK.add("Survival");
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %5$s%6$s - %2$s%n");
+        LOGGER = Logger.getLogger(Main.class.getName());
+        Logger rootLogger = LogManager.getLogManager().getLogger("");
+        rootLogger.setLevel(Level.CONFIG);
+        rootLogger.addHandler(LOG_HANDLER);
+
+        Logger cmlLogger = Logger.getLogger("cml");
+        cmlLogger.setUseParentHandlers(false);
+        cmlLogger.setLevel(Level.ALL);
+        cmlLogger.addHandler(LOG_HANDLER);
+
+        FileHandler handler = null;
+        try {
+            handler = new FileHandler("heavy_log.xml");
+            handler.setFormatter(new XMLFormatter());
+            rootLogger.addHandler(handler);
+            cmlLogger.addHandler(handler);
+        } catch (IOException | SecurityException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Could not create File Handler", ex);
+        }
+        FILE_HANDLER = handler;
+    }
+
     /**
      * @param args the command line arguments
-     * @throws java.io.FileNotFoundException
      */
-    public static void main(String[] args) throws FileNotFoundException {
-        System.out.println("Args: " + args.length);
-        for (String arg : args) {
-            System.out.println("Arg: " + arg);
-        }
+    public static void main(String[] args) {
+        LauncherImpl.launchApplication(GUI.class, SplashScreenLoader.class, args);
+    }
+
+    public static void mainSetup() {
+        LOGGER.log(Level.INFO, "--    Main  setup    --");
+        LOGGER.log(Level.CONFIG, "CML Version: V{0}", Constants.VERSION);
+        LOGGER.log(Level.CONFIG, "Operating System: {0} [{1}]", new Object[]{System.getProperty("os.name"), System.getProperty("os.version")});
+        LOGGER.log(Level.CONFIG, "Architecture: {0}", System.getProperty("os.arch"));
+        LOGGER.log(Level.CONFIG, "Available Processors: {0}", Runtime.getRuntime().availableProcessors());
+        LOGGER.log(Level.CONFIG, "Free Heap Memory (bytes): {0}", Runtime.getRuntime().freeMemory());
+        LOGGER.log(Level.CONFIG, "Max Heap Memory (bytes): {0}", Runtime.getRuntime().maxMemory());
+        LOGGER.log(Level.CONFIG, "Total Heap Memory (bytes): {0}", Runtime.getRuntime().totalMemory());
+        LOGGER.log(Level.CONFIG, "Logger Format: {0}", System.getProperty("java.util.logging.SimpleFormatter.format", "<ABSENT>"));
+        LOGGER.log(Level.CONFIG, "API Directory: {0}", Main.API_DIRECTORY.getAbsolutePath());
+        System.out.println("System.out test");
+        System.err.println("System.err test");
+        LOGGER.log(Level.CONFIG, "Getting folders");
         getFolders();
+        LOGGER.log(Level.INFO, "Setting logs");
         setLog();
-        System.setOut(new PrintStream(new FileOutputStream(logFile)));
-        System.setErr(new PrintStream(new FileOutputStream(errFile)));
-        patchOutputStream = new PrintStream(new FileOutputStream(patFile));
+        LOGGER.log(Level.INFO, "Updating profile list");
         updateProfileList();
-        System.out.println("Start2");
-        launch(NewGUI.class, args);
+        LOGGER.log(Level.INFO, "-- GUI initalization --");
     }
 
+    /**
+     * Reads through folders.txt to determine the default/preset values of the
+     * various folders.
+     */
     private static void getFolders() {
+        File foldersTxt = new File(Main.API_DIRECTORY.getAbsolutePath() + Constants.FOLDERS_LOCATION_RELATIVE);
         try {
-            List<String> folders = Files.readAllLines(new File(Main.API_DIRECTORY.getAbsolutePath() + Constants.FOLDERS_LOCATION_RELATIVE).toPath());
-            scrapMechanicFolder = folders.get(0);
-            vanillaFolder = folders.get(1);
-            modsFolder = folders.get(2);
+            //Read the folders
+            List<String> folders = Files.readAllLines(foldersTxt.toPath());
+            if (folders.stream().filter((folder) -> folder.matches("^null/{0,1}$")).findAny().isPresent()) {
+                throw new IOException();
+            }
+            scrapMechanicFolder = endSlash(folders.get(0));
+            vanillaFolder = endSlash(folders.get(1));
+            modsFolder = endSlash(folders.get(2));
+            setWorkshopFolder(folders.get(3));
         } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.INFO, "Failed to read folder setting file. Setting to default");
-            scrapMechanicFolder = getFromSMRegistry();
-            if (scrapMechanicFolder == null) {
-                scrapMechanicFolder = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Scrap Mechanic\\";
-            }
-            vanillaFolder = "C:\\Program Files (x86)\\Construct\\vanilla\\";
-            modsFolder = "C:\\Program Files (x86)\\Construct\\mods\\";
+            //On failed read (File doesn't exist), set to default
+            LOGGER.log(Level.WARNING, "Failed to read folder setting file. Setting to default");
+            String[] defaults = getDefaults();
+            scrapMechanicFolder = defaults[0];
+            vanillaFolder = defaults[1];
+            modsFolder = defaults[2];
+            setWorkshopFolder(defaults[3]);
+        } catch (IndexOutOfBoundsException ex) {
+            //Since there were too few folders given in the folders setting file,
+            //we need to go through and set the nulls to their defaults.
+            LOGGER.log(Level.WARNING, "One or more folders was/were not defined in the folder setting file. Setting nulls to default");
+            String[] defaults = getDefaults();
+            scrapMechanicFolder = (scrapMechanicFolder == null ? defaults[0] : scrapMechanicFolder);
+            vanillaFolder = (vanillaFolder == null ? defaults[1] : vanillaFolder);
+            modsFolder = (modsFolder == null ? defaults[2] : modsFolder);
+            setWorkshopFolder(workshopFolder == null ? workshopFromGamePath(new File(scrapMechanicFolder)) : workshopFolder);
         }
-    }
-    
-    private static String getFromSMRegistry() {
-        String possibleLocation = RegQuery.readRegistryValue(Constants.STEAM_REG_PATH_64, "InstallPath");
-        String location = possibleLocation == null ? RegQuery.readRegistryValue(Constants.STEAM_REG_PATH, "InstallPath") : possibleLocation;
-        if (location != null) {
-            if (!location.endsWith("\\")) {
-                location = location + "\\";
-            }
-            File manifest = new File(location + "steamapps\\appmanifest_387990.acf");
-            Optional<String> installDir = null;
-            try {
-                installDir = Files.readAllLines(manifest.toPath()).stream().filter((line) -> line.trim().startsWith("\"installdir\"")).reduce(String::concat);
-            } catch (IOException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Could not read Scrap Mechanic app manifest - it may not be installed", ex);
-            }
-            if (installDir != null && installDir.isPresent()) {
-                return location + "steamapps\\" + installDir.get();
-            }
-        }
-        return null;
     }
 
-    private static void setLog() {
-        File logFolder = new File(modsFolder + Constants.LOG_FOLDER_NAME);
-        File patchFolder = new File(modsFolder + Constants.PATCH_FOLDER_NAME);
-        if (!logFolder.exists()) {
-            try {
-                Files.createDirectory(logFolder.toPath());
-                Files.setAttribute(logFolder.toPath(), "dos:hidden", true, LinkOption.NOFOLLOW_LINKS);
-            } catch (IOException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Could not create log folder", ex);
-            }
+    public static void setWorkshopFolder(String workshopFolder) {
+        Main.workshopFolder = endSlash(workshopFolder);
+        if (Main.verifyWorkshopFolder()) {
+            Main.workshopReader.setValue(new WorkshopReader(new File(workshopFolder)));
         }
+    }
+
+    public static void openLink(String url) {
+        try {
+            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
+        } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, "Could not open URL " + url, ex);
+        }
+    }
+
+    /**
+     * Determines and returns default folder locations
+     *
+     * @return Default folder locations
+     */
+    private static String[] getDefaults() {
+        String[] defaults = new String[4];
+        File smFolder = Steam.findGamePath("Scrap Mechanic");
+        defaults[0] = endSlash(smFolder.getAbsolutePath());
+        defaults[1] = "C:\\Program Files (x86)\\Construct\\vanilla\\";
+        defaults[2] = "C:\\Program Files (x86)\\Construct\\mods\\";
+        defaults[3] = workshopFromGamePath(smFolder);
+        return defaults;
+    }
+
+    /**
+     * Determines the workshop location based upon the location of the Scrap
+     * Mechanic folder
+     *
+     * @param smFolder Path to the Scrap Mechanic folder
+     * @return Path to the Scrap Mechanic Workshop directory
+     */
+    private static String workshopFromGamePath(File smFolder) {
+        return endSlash(smFolder.getParentFile().getParentFile().getAbsolutePath()) + "workshop\\content\\387990\\";
+    }
+
+    /**
+     * Makes sure a folder path ends with a slash (respects forwards vs
+     * backwards slashes)
+     *
+     * @param in The folder path to end with a slash
+     * @return The folder path, with assuredness that it ends in a slash
+     */
+    public static String endSlash(String in) {
+        return ((in.endsWith("\\") || in.endsWith("/"))
+                ? in
+                : (in.contains("/")
+                ? in + "/"
+                : in + "\\"));
+    }
+
+    /**
+     * Sets up the patch write file<br>
+     * Pat: {@code patchFolder/YYYY-MM-DD+HH;MM;SS.txt}<br>
+     */
+    private static void setLog() {
+        File patchFolder = new File(modsFolder, Constants.PATCH_FOLDER_NAME);
         if (!patchFolder.exists()) {
             try {
                 Files.createDirectory(patchFolder.toPath());
                 Files.setAttribute(patchFolder.toPath(), "dos:hidden", true, LinkOption.NOFOLLOW_LINKS);
             } catch (IOException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Could not create patch folder", ex);
+                LOGGER.log(Level.SEVERE, "Could not create patch folder", ex);
             }
         }
         LocalDateTime time = LocalDateTime.now();
-        logFile = new File(String.format("%s%s\\%04d-%02d-%02d+%02d;%02d;%02d-log.txt", modsFolder, Constants.LOG_FOLDER_NAME, time.getYear(), time.getMonthValue(), time.getDayOfMonth(), time.getHour(), time.getMinute(), time.getSecond()));
-        System.out.println("Log: " + logFile.getAbsolutePath());
-        errFile = new File(String.format("%s%s\\%04d-%02d-%02d+%02d;%02d;%02d-err.txt", modsFolder, Constants.LOG_FOLDER_NAME, time.getYear(), time.getMonthValue(), time.getDayOfMonth(), time.getHour(), time.getMinute(), time.getSecond()));
-        System.out.println("Err: " + errFile.getAbsolutePath());
-        patFile = new File(String.format("%s%s\\%04d-%02d-%02d+%02d;%02d;%02d.txt", modsFolder, Constants.PATCH_FOLDER_NAME, time.getYear(), time.getMonthValue(), time.getDayOfMonth(), time.getHour(), time.getMinute(), time.getSecond()));
-        System.out.println("Pat: " + patFile.getAbsolutePath());
+        patFile = new File(String.format("%s%s\\%04d-%02d-%02d+%02d;%02d;%02d.txt", endSlash(modsFolder), Constants.PATCH_FOLDER_NAME, time.getYear(), time.getMonthValue(), time.getDayOfMonth(), time.getHour(), time.getMinute(), time.getSecond()));
+        LOGGER.log(Level.INFO, "Pat: {0}", patFile.getAbsolutePath());
+    }
+
+    public static void createProfile(String profileName) {
+        LOGGER.log(Level.INFO, "Creating new profile \"{0}\"", profileName);
+        File newProfile = new File(Main.modsFolder + profileName);
+        if (newProfile.exists()) {
+            LOGGER.log(Level.SEVERE, "Could not create new profile \"{0}\" - a profile by that name already exists.", profileName);
+            return;
+        }
+
+        File newDescriptionFile = new File(newProfile, "description.txt");
+        try {
+            Files.createDirectory(newProfile.toPath());
+            Files.write(newDescriptionFile.toPath(), "<<Default Description>> - Please edit description.txt".getBytes(), StandardOpenOption.CREATE_NEW);
+        } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, "Could not create new profile \"" + profileName + "\"", ex);
+        }
+        Main.updateProfileList();
     }
 
     public static void updateProfileList() {
@@ -171,9 +276,17 @@ public class Main {
         File modsFile = new File(Main.modsFolder);
         File modsVerificationFile = new File(Main.modsFolder + Constants.LOG_FOLDER_NAME);
         if (modsFile.exists() && modsVerificationFile.exists()) {
+            for (File zipFile : modsFile.listFiles(ZipManager.ZIP_FILTER)) {
+                if (zipFile.isFile()) {
+                    AFileManager.ZIP_MANAGER.unzip(zipFile, new File(modsFile, zipFile.getName().replace(".zip", "").replace('.', ' ')));
+                    AFileManager.FILE_MANAGER.delete(zipFile);
+                }
+            }
             for (File proFile : modsFile.listFiles()) {
                 if (proFile.isDirectory() && !(proFile.getName().startsWith(Constants.IGNORE_PREFIX) && proFile.getName().endsWith(Constants.IGNORE_SUFFIX))) {
-                    profiles.add(new Profile(proFile));
+                    Profile profile = new Profile(proFile);
+                    WorkshopConnectionHandler.reconnectIfConnected(workshopFolder, profile.getModifications().toArray(new Modification[0]));
+                    profiles.add(profile);
                 }
             }
             ErrorManager.removeStateCause("ModsFolder <INVALID>");
@@ -185,39 +298,36 @@ public class Main {
         profileList.setValue(profiles);
     }
 
-    private static final List<String> SM_FOLDERS_CHECK = new ArrayList();
-    private static final List<String> VANILLA_FOLDERS_CHECK = new ArrayList();
-
-    static {
-        SM_FOLDERS_CHECK.add("Cache");
-        SM_FOLDERS_CHECK.add("ChallengeData");
-        SM_FOLDERS_CHECK.add("Challenges");
-        SM_FOLDERS_CHECK.add("Data");
-        SM_FOLDERS_CHECK.add("Logs");
-        SM_FOLDERS_CHECK.add("Release");
-        SM_FOLDERS_CHECK.add("Survival");
-        VANILLA_FOLDERS_CHECK.add("Data");
-        VANILLA_FOLDERS_CHECK.add("Release");
-        VANILLA_FOLDERS_CHECK.add("Survival");
-    }
-
-    public static void verifySMFolder() {
+    public static boolean verifySMFolder() {
         File smFolder = new File(Main.scrapMechanicFolder);
-        File exe = new File(Main.scrapMechanicFolder + "Release\\ScrapMechanic.exe");
+        File exe = new File(Main.scrapMechanicFolder, "Release/ScrapMechanic.exe");
         if (!smFolder.exists() || !Arrays.asList(smFolder.list()).containsAll(SM_FOLDERS_CHECK) || !exe.exists()) {
             ErrorManager.addStateCause("SMFolder <INVALID>");
+            return false;
         } else {
             ErrorManager.removeStateCause("SMFolder <INVALID>");
+            return true;
         }
     }
 
-    public static void verifyVanillaFolder() {
-        File smFolder = new File(Main.vanillaFolder);
-        File exe = new File(Main.vanillaFolder + "Release\\ScrapMechanic.exe");
-        if (!smFolder.exists() || !Arrays.asList(smFolder.list()).containsAll(VANILLA_FOLDERS_CHECK) || !exe.exists()) {
-            ErrorManager.addStateCause("VanillaFolder <INVALID>");
+    public static boolean verifyWorkshopFolder() {
+        File wsFolder = new File(Main.workshopFolder);
+        boolean verified = false;
+        if (wsFolder.exists()) {
+            verified = true;
+            for (String subFile : wsFolder.list()) {
+                if (!subFile.matches("^[0-9]*$")) {
+                    verified = false;
+                    break;
+                }
+            }
+        }
+        if (!verified) {
+            ErrorManager.addStateCause("WorkshopFolder <INVALID>");
+            return false;
         } else {
-            ErrorManager.removeStateCause("VanillaFolder <INVALID>");
+            ErrorManager.removeStateCause("WorkshopFolder <INVALID>");
+            return true;
         }
     }
 
@@ -226,95 +336,15 @@ public class Main {
         Apply.apply(Main.activeModifications);
     }
 
-    public static String[] checkForUpdate() {
-        String releaseName = "";
-        String releaseURL = "";
-        try {
-            URL url = new URL("https://api.github.com/repos/yodarocks1/ConstructModLoader/releases/latest");
-
-            HttpURLConnection httpClient = (HttpURLConnection) url.openConnection();
-            httpClient.setRequestMethod("GET");
-            httpClient.setRequestProperty("name", "");
-            System.out.println("Fetching data from Github (Code " + httpClient.getResponseCode() + ")");
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(httpClient.getInputStream()))) {
-                for (Object line : in.lines().toArray()) {
-                    for (String sectionLong : line.toString().split(",")) {
-                        String section = sectionLong.trim();
-                        if (section.startsWith("\"html_url\":\"https://github.com/yodarocks1/ConstructModLoader/releases/tag")) {
-                            releaseURL = section.substring(section.indexOf(":") + 1).replace("\"", "");
-                            System.out.println(section);
-                            System.out.println("  URL: " + releaseURL);
-                        } else if (section.startsWith("\"tag_name\"")) {
-                            releaseName = section.substring(section.indexOf(":") + 1).replace("\"", "");
-                            System.out.println(section);
-                            System.out.println("  Name: " + releaseName);
-                        }
-                    }
-                }
-            }
-            httpClient.disconnect();
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Github URL given is invalid", ex);
-        } catch (ProtocolException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "GET protocol is invalid", ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Could not connect to Github URL", ex);
-        }
-
-        if (releaseName.length() > 0) {
-            if (releaseName.equalsIgnoreCase("V" + Constants.VERSION)) {
-                return new String[]{"", ""};
-            }
-        }
-        return new String[]{releaseName, releaseURL};
-    }
-
-    public static void update() {
-        String url = checkForUpdate()[1];
-        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Action.BROWSE)) {
-            try {
-                Desktop.getDesktop().browse(new URI(url));
-            } catch (URISyntaxException | IOException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.WARNING, "Failed to open update with Desktop. Trying a workaround", ex);
-                try {
-                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
-                } catch (IOException ex1) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Workaround failed", ex1);
-                }
-            }
-        } else {
-            Logger.getLogger(Main.class.getName()).log(Level.INFO, "Desktop isn't supported. Trying a workaround");
-            try {
-                Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
-            } catch (IOException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Workaround failed", ex);
-            }
-        }
-    }
-    
-    public static void regenVanilla() {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("(Re)-Generate Vanilla Folder");
-        alert.setHeaderText("Are you sure?");
-        alert.setContentText("Before continuing, make sure that the location for the vanilla folder that you have entered is the desired location.\n\n"
-                + "NOTE: This process will continue in the background, regardless of the closure of Construct Mod Loader. Do not end this process or reboot your computer - it may corrupt your data.\n\n"
-                + "This process can take between 15 minutes and an hour, depending on your internet connection and drive speed. If you have an exceptionally low-end computer, this may take even longer.");
-        alert.showAndWait();
-        if (!alert.getResult().getButtonData().isCancelButton()) {
-            Thread thread = new Thread(Constants.REGEN_VANILLA);
-            thread.start(); //This thread will not stop when the application closes because Steam validation would corrupt the game files.
-        }
-    }
-
     public static void downloadLatestRelease() {
 
     }
 
     public static void handleModIncompatibility(ModIncompatibilityException ex) {
-        System.err.println(ex.getMessage() + "\n  Conflicts:");
-        for (Modification offender : ex.getOffenders()) {
-            System.err.println("    " + offender.getName());
-        }
+        LOGGER.log(Level.SEVERE, "{0}\n  Conflicts:", ex.getMessage());
+        ex.getOffenders().forEach((offender) -> {
+            LOGGER.log(Level.SEVERE, "    {0}", offender.getName());
+        });
         Background background = new Background(new BackgroundFill(Color.color(0, 0, 0, 0), new CornerRadii(1.0), Insets.EMPTY));
         if (ex.isCertain()) {
             List<String> choices = ex.getOffenders().stream().map((offender) -> offender.getName()).collect(Collectors.toList());
@@ -379,22 +409,23 @@ public class Main {
     public static void launchGame() {
         Main.applyModifications();
         if (Boolean.valueOf(System.getProperty("olaunch", "true"))) {
-            System.out.println("Launching Scrap Mechanic");
+            LOGGER.log(Level.INFO, "Launching Scrap Mechanic");
             try {
                 Runtime.getRuntime().exec(Constants.LAUNCH_COMMAND);
             } catch (IOException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Failed to launch Scrap Mechanic", ex);
+                LOGGER.log(Level.SEVERE, "Failed to launch Scrap Mechanic", ex);
             }
         } else {
-            System.out.println("Not launching Scrap Mechanic - Dolaunch is set to false");
+            LOGGER.log(Level.INFO, "Not launching Scrap Mechanic - Dolaunch is set to false");
         }
     }
 
     public static void openLogs() {
+        File logFile = new File(Main.API_DIRECTORY, "heavy_log.xml");
         try {
-            Runtime.getRuntime().exec("explorer.exe /select," + Main.logFile.getAbsolutePath());
+            Runtime.getRuntime().exec("explorer.exe /select," + logFile.getAbsolutePath());
         } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Failed to open Log folder at " + Main.logFile.getAbsolutePath(), ex);
+            LOGGER.log(Level.SEVERE, "Failed to open Log folder at " + logFile.getAbsolutePath(), ex);
         }
     }
 

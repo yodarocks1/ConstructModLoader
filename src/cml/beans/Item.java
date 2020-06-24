@@ -7,6 +7,7 @@ package cml.beans;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  *
@@ -42,7 +43,6 @@ public class Item {
                 String uuid = u.substring(u.indexOf(":") + 1, u.indexOf(",")).replaceAll("\"", "");
                 String name = n.substring(n.indexOf(":") + 1, n.indexOf(",")).replaceAll("\"", "");
                 String type = (name.startsWith("obj_")) ? "[Part] " : (name.startsWith("blk_")) ? "[Block] " : "[Item] ";
-                System.out.println("  • " + type + name + ": " + uuid);
                 items.add(new Item(name, uuid));
             }
         }

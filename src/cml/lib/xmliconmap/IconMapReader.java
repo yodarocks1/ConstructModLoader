@@ -26,7 +26,7 @@ import java.util.Map;
  */
 public class IconMapReader {
 
-    private Map<BufferedImage, String> imageToUuid = new HashMap();
+    private Map<String, BufferedImage> uuidToImage = new HashMap();
     private final int iconWidth;
     private final int iconHeight;
 
@@ -39,7 +39,7 @@ public class IconMapReader {
         Map<String, int[]> elements = XMLIconMap.xmlToElements(xml);
         for (String uuid : elements.keySet()) {
             int[] location = elements.get(uuid);
-            imageToUuid.put(iconMap.getSubimage(location[0], location[1], iconWidth, iconHeight), uuid);
+            uuidToImage.put(uuid, iconMap.getSubimage(location[0], location[1], iconWidth, iconHeight));
         }
     }
     
@@ -47,7 +47,7 @@ public class IconMapReader {
         readIn(map.iconMapXML, map.iconMapImage);
     }
 
-    public Map<BufferedImage, String> flush() {
-        return imageToUuid;
+    public Map<String, BufferedImage> flush() {
+        return uuidToImage;
     }
 }
