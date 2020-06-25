@@ -90,7 +90,9 @@ public class WorkshopController extends SubController {
         Main.workshopReader.addListener((obs, oldValue, newValue) -> {
             workshopList.itemsProperty().bind(newValue.getItems());
         });
-        workshopDestinationProfile.getItems().setAll(Main.profileList.get());
+        if (Main.profileList.getValue() != null) {
+            workshopDestinationProfile.getItems().setAll(Main.profileList.getValue());
+        }
         if (Main.workshopReader.getValue() != null) {
             workshopList.itemsProperty().bind(Main.workshopReader.getValue().getItems());
         } else {

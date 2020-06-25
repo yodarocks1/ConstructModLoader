@@ -105,4 +105,5 @@
         <li><a href="./changelog/A.1.1/to.md">A.1.0 -> A.1.1</a></li>
         <li><a href="./changelog/A.1.1/h1.md">A.1.1 hotfix 1</a></li>
         <li><a href="./changelog/B.1.0/to.md">A.1.1 -> B.1.0</a></li>
+        <li><a href="./changelog/B.1.0/h1.md">B.1.0 hotfix 1</a></li>
     </ul>

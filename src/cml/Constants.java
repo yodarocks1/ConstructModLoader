@@ -5,20 +5,12 @@
  */
 package cml;
 
-import cml.apply.Apply;
-import cml.beans.Profile;
-import cml.lib.files.AFileManager;
-import cml.lib.steam.verify.SteamVerifier;
 import java.io.File;
 import java.io.FilenameFilter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -28,9 +20,8 @@ import java.util.regex.Pattern;
  */
 public class Constants {
 
-    private static final Logger LOGGER = Logger.getLogger(Constants.class.getName());
     public static final String FOLDERS_LOCATION_RELATIVE = "\\folders.txt";
-    public static final String VERSION = "+B.1.0";
+    public static final String VERSION = "+B.1.0-h1";
     public static final String LAUNCH_COMMAND = "rundll32 url.dll,FileProtocolHandler steam://rungameid/387990";
     public static final String VERIFY_COMMAND = "rundll32 url.dll,FileProtocolHandler steam://validate/387990";
     public static final String KILL_VERIFY_COMMAND = "taskkill <<id>>";
