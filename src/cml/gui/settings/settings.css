@@ -1,0 +1,15 @@
+.mainFxmlClass {
+
+}
+
+.shortcut {
+    -fx-image: url("../../../media/MultiStateIcons/Shortcut/Button.png");
+}
+
+.shortcut:hover {
+    -fx-image: url("../../../media/MultiStateIcons/Shortcut/ButtonSelect.png");
+}
+
+.shortcut:pressed {
+    -fx-image: url("../../../media/MultiStateIcons/Shortcut/ButtonPress.png");
+}

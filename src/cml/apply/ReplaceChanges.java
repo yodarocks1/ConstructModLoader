@@ -19,6 +19,8 @@ package cml.apply;
 import cml.Main;
 import cml.beans.ModIncompatibilityException;
 import cml.beans.Modification;
+import cml.lib.files.AFileManager;
+import cml.lib.files.AFileManager.FileOptions;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.StandardCopyOption;
@@ -35,6 +37,7 @@ import java.util.logging.Logger;
  */
 public class ReplaceChanges implements IApplicator {
 
+    private static final Logger LOGGER = Logger.getLogger(ReplaceChanges.class.getName());
     public static final String REPLACE_FOLDER_RELATIVE = "\\Replace\\";
     public static Map<String, List<Modification>> replacedBy = new HashMap();
 
@@ -54,11 +57,11 @@ public class ReplaceChanges implements IApplicator {
     }
 
     public void prepareReplacement() {
-        System.out.println("Preparing to replace");
+        LOGGER.log(Level.FINE, "Preparing to replace");
         for (Modification activeModification : activeModifications) {
             File replaceFolder = new File(activeModification.getDirectory().getAbsolutePath() + REPLACE_FOLDER_RELATIVE);
             if (replaceFolder.exists()) {
-                System.out.println("  Modification " + activeModification.getName() + ":");
+                LOGGER.log(Level.FINER, "  Modification {0}:", activeModification.getName());
                 prepareReplacementRec(replaceFolder.getAbsolutePath(), "", activeModification);
             }
         }
@@ -66,18 +69,20 @@ public class ReplaceChanges implements IApplicator {
 
     private void prepareReplacementRec(String directory, String addend, Modification mod) {
         File file = new File(directory + addend);
-        File newFile = new File(Main.scrapMechanicFolder + addend);
+        File newFile = new File(Main.scrapMechanicFolder, addend);
         if (file.isDirectory()) {
             for (File subFile : file.listFiles()) {
                 prepareReplacementRec(directory, addend + "\\" + subFile.getName(), mod);
             }
         } else {
+            LOGGER.log(Level.SEVERE, "Incompatibility found in file {0}{1}", new Object[]{directory, addend});
             if (!replacedBy.containsKey(addend)) {
                 replacedBy.put(addend, new ArrayList());
+                replacedBy.get(addend).add(mod);
             } else {
+                replacedBy.get(addend).add(mod);
                 ModIncompatibilityException.addNewIncompatibility(addend, true, replacedBy.get(addend));
             }
-            replacedBy.get(addend).add(mod);
             newToOld.put(newFile, file);
             if (MergeChanges.modifiedBy.containsKey(addend)) {
                 ModIncompatibilityException.addNewIncompatibility(addend, true, replacedBy.get(addend));
@@ -87,14 +92,10 @@ public class ReplaceChanges implements IApplicator {
     }
 
     public void applyReplacement() {
-        System.out.println("Replacing");
-        for (File newFile : newToOld.keySet()) {
-            try {
-                Apply.copyFile(newToOld.get(newFile).toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException ex) {
-                Logger.getLogger(ReplaceChanges.class.getName()).log(Level.SEVERE, "Failed to replace file " + newFile.getAbsolutePath(), ex);
-            }
-        }
+        LOGGER.log(Level.FINE, "Replacing");
+        newToOld.keySet().forEach((newFile) -> {
+            AFileManager.FILE_MANAGER.copy(newToOld.get(newFile), newFile, FileOptions.REPLACE);
+        });
     }
 
 }

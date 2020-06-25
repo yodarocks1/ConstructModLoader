@@ -14,12 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cml.lib.steamverify;
+package cml.lib.steam.verify;
 
 import cml.Constants;
-import cml.Main;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDateTime;
@@ -33,16 +31,18 @@ import java.util.logging.Logger;
  */
 public class SteamVerifier {
 
+    private static final Logger LOGGER = Logger.getLogger(SteamVerifier.class.getName());
+    
     private static boolean verificationInProgress = false;
 
     public boolean verify() {
         if (!verificationInProgress) {
             verificationInProgress = true;
-            System.out.println("Beginning Scrap Mechanic file verification");
+            LOGGER.log(Level.FINE, "Beginning Scrap Mechanic file verification");
             try {
                 Runtime.getRuntime().exec(Constants.VERIFY_COMMAND);
             } catch (IOException ex) {
-                Logger.getLogger(SteamVerifier.class.getName()).log(Level.SEVERE, "Failed to verify Scrap Mechanic files", ex);
+                LOGGER.log(Level.SEVERE, "Failed to verify Scrap Mechanic files", ex);
                 verificationInProgress = false;
                 return false;
             }
@@ -51,21 +51,21 @@ public class SteamVerifier {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(SteamVerifier.class.getName()).log(Level.WARNING, "Steam file verification interrupted");
+                    LOGGER.log(Level.WARNING, "Steam file verification interruption attempted");
                 }
                 if (validatorIsDone()) {
-                    System.out.println("Scrap Mechanic took " + (startTime.until(LocalDateTime.now(), ChronoUnit.MILLIS) / 1000.0) + " seconds to verify.");
+                    LOGGER.log(Level.FINE, "Scrap Mechanic took {0} seconds to verify.", startTime.until(LocalDateTime.now(), ChronoUnit.MILLIS) / 1000.0);
                     verificationInProgress = false;
                 }
                 if (Thread.interrupted()) {
                     verificationInProgress = false;
-                    System.out.println("Could not complete verification - The thread was interrupted");
+                    LOGGER.log(Level.WARNING, "Could not complete verification - The thread was interrupted");
                     return false;
                 }
             }
             return true;
         } else {
-            System.out.println("Could not verify - verification is already in progress.");
+            LOGGER.log(Level.WARNING, "Could not verify - verification is already in progress.");
             return false;
         }
     }
@@ -82,14 +82,14 @@ public class SteamVerifier {
                 }
             }
         } catch (IOException | InterruptedException ex) {
-            Logger.getLogger(SteamVerifier.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
         
         if (output.startsWith("\"steam.exe\"")) {
             try {
                 Runtime.getRuntime().exec(Constants.KILL_VERIFY_COMMAND.replace("<<id>>", output.split(",")[1].replace("\"", "")));
             } catch (IOException ex) {
-                Logger.getLogger(SteamVerifier.class.getName()).log(Level.SEVERE, "Could not kill validator process with data: " + output, ex);
+                LOGGER.log(Level.SEVERE, "Could not kill validator process with data: " + output, ex);
             }
             return true;
         }

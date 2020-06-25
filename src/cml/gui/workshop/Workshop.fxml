@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="workshopPane" prefHeight="505.0" prefWidth="580.0" style="-fx-background-color: #474747;" stylesheets="@../../../media/buttonStyles.css" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="75.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cml.gui.workshop.WorkshopController">
+    <stylesheets>
+        <URL value="@workshop.css" />
+    </stylesheets>
+    <children>
+        <HBox fx:id="workshopHeader" maxHeight="50.0" maxWidth="580.0" minHeight="50.0" minWidth="580.0" prefHeight="50.0" prefWidth="580.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../media/SteamImage.png" />
+                    </image>
+                </ImageView>
+                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Mods from the Steam Workshop">
+                    <font>
+                        <Font name="Georgia Bold" size="30.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets left="15.0" top="8.0" />
+                    </HBox.margin>
+                </Text>
+            </children>
+        </HBox>
+        <ListView fx:id="workshopList" layoutX="6.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../media/listViewStyles.css" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0" />
+        <ListView fx:id="searchList" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../media/listViewStyles.css" visible="false" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0" />
+        <ChoiceBox fx:id="workshopDestinationProfile" prefWidth="150.0" styleClass="button" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="10.0" />
+        <Text fill="WHITE" layoutX="14.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination Profile:" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="8.0">
+         <font>
+            <Font name="LIBRARY3AM" size="10.0" />
+         </font></Text>
+        <TextField fx:id="searchName" layoutX="216.0" layoutY="50.0" onAction="#doSearch" onKeyTyped="#doSearchLazy" promptText="Search by Name" styleClass="button" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="50.0" />
+        <TextField fx:id="searchID" layoutX="421.0" layoutY="50.0" onKeyTyped="#doSearchLazy" prefWidth="140.0" promptText="Search by ID" styleClass="button" AnchorPane.rightAnchor="5.0" />
+    </children>
+</AnchorPane>

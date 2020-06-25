@@ -19,6 +19,8 @@ package cml.lib.xmliconmap;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,7 +28,9 @@ import java.util.Map;
  */
 public class IconMapCreator {
 
-    private Map<BufferedImage, String> imageToUuid = new HashMap();
+    private static final Logger LOGGER = Logger.getLogger(IconMapCreator.class.getName());
+    
+    private final Map<String, BufferedImage> uuidToImage = new HashMap();
     private final int wrapCount;
     private final int iconWidth;
     private final int iconHeight;
@@ -37,26 +41,24 @@ public class IconMapCreator {
         this.iconHeight = iconHeight;
     }
 
-    public void addToCurrent(Map<BufferedImage, String> imageToUuid) {
-        this.imageToUuid.putAll(imageToUuid);
+    public void addToCurrent(Map<String, BufferedImage> imageToUuid) {
+        this.uuidToImage.putAll(imageToUuid);
     }
 
-    public void addToCurrent(BufferedImage image, String uuid) {
-        this.imageToUuid.put(image, uuid);
+    public void addToCurrent(String uuid, BufferedImage image) {
+        this.uuidToImage.put(uuid, image);
     }
 
     public XMLIconMap flush() {
-        int width = (imageToUuid.keySet().size() >= wrapCount) ? (iconWidth * wrapCount) : (iconWidth * imageToUuid.keySet().size());
-        int height = iconHeight * (int) Math.ceil(((double) imageToUuid.keySet().size()) / wrapCount);
-        System.out.println("  Drawing IconMap");
-        System.out.println("    Size: [" + width + "," + height + "]");
-        System.out.println("    Icons: " + imageToUuid.keySet().size());
+        int width = (uuidToImage.size() >= wrapCount) ? (iconWidth * wrapCount) : (iconWidth * uuidToImage.size());
+        int height = iconHeight * (int) Math.ceil(((double) uuidToImage.keySet().size()) / wrapCount);
+        LOGGER.log(Level.FINE, "Drawing IconMap\n  Size: [{0},{1}]\n  Icons: {2}", new Object[]{width, height, uuidToImage.size()});
         BufferedImage outputImage = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
         Map<String, int[]> uuidToLocation = new HashMap();
         int xOffset = 0;
         int yOffset = 0;
-        for (BufferedImage image : imageToUuid.keySet()) {
-            String uuid = imageToUuid.get(image);
+        for (String uuid : uuidToImage.keySet()) {
+            BufferedImage image = uuidToImage.get(uuid);
             boolean imageDrawn = outputImage.createGraphics().drawImage(image, xOffset, yOffset, null);
             if (!imageDrawn) {
                 System.err.println("Icon with UUID " + uuid + " failed to draw");

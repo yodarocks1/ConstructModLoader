@@ -14,24 +14,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cml;
+package cml.gui.main;
 
-import cml.beans.Profile;
+import cml.Constants;
+import cml.ErrorManager;
+import cml.Images;
+import cml.Main;
+import cml.SpriteAnimation;
 import cml.beans.Modification;
+import cml.beans.Profile;
 import cml.beans.SceneEvent;
-import cml.beans.SceneEvent.IconChange;
+import cml.gui.popup.CmlPopup;
+import cml.gui.popup.PopupData;
+import cml.gui.settings.SettingsController;
+import cml.gui.workshop.WorkshopController;
+import cml.lib.threadmanager.ThreadManager;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.AccessDeniedException;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
@@ -40,15 +48,11 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -59,104 +63,57 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 
 /**
+ * FXML Controller class
  *
  * @author benne
  */
-public class NewGUI extends Application {
+public class MainController implements Initializable {
 
-    private final List<Thread> THREADS = new ArrayList();
-    
+    private static final Logger LOGGER = Logger.getLogger(MainController.class.getName());
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("MainGUI.fxml"));
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getClassLoader().getResource("media/listViewStyles.css").toExternalForm());
-
-        scene.addEventHandler(SceneEvent.ICON_CHANGE, (event) -> {
-            if (event.getData() instanceof IconChange) {
-                IconChange icons = (IconChange) event.getData();
-                switch (icons.changeType.id) {
-                    case 0:
-                        stage.getIcons().addAll(icons.icons);
-                        break;
-                    case 1:
-                        stage.getIcons().removeAll(icons.icons);
-                        break;
-                    case 2:
-                        stage.getIcons().setAll(icons.icons);
-                }
-            }
-        });
-
-        stage.setTitle("Construct Mod Loader - V" + Constants.VERSION);
-        stage.getIcons().add(Images.ICON);
-        stage.setMinWidth(500);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @Override
-    public void stop() throws IOException {
-        System.out.println("Stopping...");
-        THREADS.forEach((thread) -> {
-            thread.interrupt();
-        });
-        SpriteAnimation.THREADS.forEach((thread) -> {
-            thread.interrupt();
-        });
-        try {
-            String lines = Main.scrapMechanicFolder + "\n" + Main.vanillaFolder + "\n" + Main.modsFolder;
-            Files.write(new File(Main.API_DIRECTORY.getAbsolutePath() + Constants.FOLDERS_LOCATION_RELATIVE).toPath(), lines.getBytes(), StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
-        } catch (AccessDeniedException ex) {
-            ErrorManager.printNonUserError("Folders - AccessDeniedException: Make sure you have given the program Administrator Privileges! (" + Main.API_DIRECTORY.getAbsolutePath() + Constants.FOLDERS_LOCATION_RELATIVE + ")");
-        }
-        System.err.close();
-        if (Main.errFile.length() < 10) {
-            Main.errFile.deleteOnExit();
-        }
-    }
+    @FXML private SettingsController settingsController;
+    @FXML private WorkshopController workshopController;
 
     //<editor-fold defaultstate="collapsed" desc="Main Overlay">
-    @FXML
-    private AnchorPane pane;
-    @FXML
-    private Text headerText;
-    @FXML
-    private ImageView header;
-    @FXML
-    private Rectangle footer;
-    @FXML
-    private Rectangle footerCenter;
-    @FXML
-    private Rectangle footerCenterAngleLeft;
-    @FXML
-    private Rectangle footerCenterAngleRight;
-    @FXML
-    private ImageView background;
-    @FXML
-    private ImageView launchButton;
-    @FXML
-    private ImageView cmlSettings;
-    @FXML
-    private ImageView cmlProfile;
-    @FXML
-    private ImageView cmlProfiles;
+    @FXML private AnchorPane pane;
+    @FXML private Text headerText;
+    @FXML private ImageView header;
+    @FXML private Rectangle footer;
+    @FXML private Rectangle footerCenter;
+    @FXML private Rectangle footerCenterAngleLeft;
+    @FXML private Rectangle footerCenterAngleRight;
+    @FXML private ImageView background;
+    @FXML private ImageView launchButton;
+    @FXML private ImageView cmlSettings;
+    @FXML private ImageView cmlProfile;
+    @FXML private ImageView cmlProfiles;
+    @FXML private ImageView cmlWorkshop;
+    @FXML private Text workshopTooltip;
+    @FXML private Text settingsTooltip;
+    @FXML private Text profileTooltip;
+    @FXML private Text profileListTooltip;
     private IntegerProperty menuView = new SimpleIntegerProperty(0);
 
-    public void initialize() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        settingsController.init(this);
+        workshopController.init(this);
         pane.setMinWidth(50 + 440);
         pane.setMinHeight(600);
         pane.widthProperty().addListener((obs, oldValue, newValue) -> {
@@ -203,24 +160,45 @@ public class NewGUI extends Application {
                 launch();
             } else {
                 ErrorManager.addStateCause("ActiveProfile == null");
-                menuView.setValue(3);
             }
         });
         ErrorManager.State.addListener((obs, oldValue, newValue) -> {
             if (newValue.isError()) {
                 launchButton.setImage(Images.LAUNCH_ERROR);
-                launchButton.fireEvent(new SceneEvent(SceneEvent.ICON_CHANGE, new IconChange(IconChange.IconChangeType.SET, Images.ICON_ERROR)));
+                launchButton.fireEvent(new SceneEvent(SceneEvent.ICON_CHANGE, new SceneEvent.IconChange(SceneEvent.IconChange.IconChangeType.SET, Images.ICON_ERROR)));
             } else if (oldValue.isError()) {
                 launchButton.setImage(Images.LAUNCH);
-                launchButton.fireEvent(new SceneEvent(SceneEvent.ICON_CHANGE, new IconChange(IconChange.IconChangeType.SET, Images.ICON)));
+                launchButton.fireEvent(new SceneEvent(SceneEvent.ICON_CHANGE, new SceneEvent.IconChange(SceneEvent.IconChange.IconChangeType.SET, Images.ICON)));
             }
+        });
+        ErrorManager.addCauseResolver("ActiveProfile == null", () -> {
+            switchToMenu(PROFILE_LIST);
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setHeaderText("ActiveProfile == null");
+            alert.setContentText("Please select an active profile");
+            alert.setTitle("User Error Resolver");
+            alert.initModality(Modality.NONE);
+            alert.show();
         });
 
         initializeMenu();
 
-        initializeSettings();
         initializeProfiles();
         initializeProfile();
+    }
+
+    public static final int MAIN_MENU = 0;
+    public static final int SETTINGS = 1;
+    public static final int PROFILE = 2;
+    public static final int PROFILE_LIST = 3;
+    public static final int WORKSHOP = 4;
+
+    public void switchToMenu(int menuValue) {
+        menuView.set(menuValue);
+    }
+
+    public void toggleMenu(int menuValue) {
+        menuView.set(menuView.get() == menuValue ? MAIN_MENU : menuValue);
     }
 
     private boolean launching = false;
@@ -236,28 +214,23 @@ public class NewGUI extends Application {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
-                Logger.getLogger(NewGUI.class.getName()).log(Level.INFO, "Launch thread interrupted", ex);
+                LOGGER.log(Level.INFO, "Launch thread interrupted", ex);
             }
             Main.launchGame();
             launching = false;
-            new SceneEvent(SceneEvent.ICON_CHANGE, new IconChange(IconChange.IconChangeType.SET, Images.ICON_SUCCESS)).fire(launchButton);
+            new SceneEvent(SceneEvent.ICON_CHANGE, new SceneEvent.IconChange(SceneEvent.IconChange.IconChangeType.SET, Images.ICON_SUCCESS)).fire(launchButton);
             launchButton.setImage(Images.LAUNCH);
             launchButton.setMouseTransparent(false);
         }
     };
-    
-    @FXML
-    private Button regenVanillaButton;
 
     public void launch() {
         if (!new File(Main.vanillaFolder).exists()) {
             ErrorManager.addStateCause("vanillaFolder not created");
-            menuView.setValue(1);
-            regenVanillaButton.requestFocus();
         } else if (!launching) {
             Thread launchThread = new Thread(launchRunnable);
             launchThread.start();
-            THREADS.add(launchThread);
+            ThreadManager.addThread(launchThread);
         }
     }
 
@@ -268,15 +241,15 @@ public class NewGUI extends Application {
         public void run() {
             if (runningSuccess > 0 && !ErrorManager.isStateError()) {
                 launchButton.setImage(Images.LAUNCH);
-                new SceneEvent(SceneEvent.ICON_CHANGE, new IconChange(IconChange.IconChangeType.SET, Images.ICON)).fire(launchButton);
+                new SceneEvent(SceneEvent.ICON_CHANGE, new SceneEvent.IconChange(SceneEvent.IconChange.IconChangeType.SET, Images.ICON)).fire(launchButton);
                 try {
                     Thread.sleep(50);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(NewGUI.class.getName()).log(Level.INFO, "Pre-success thread interrupted");
+                    LOGGER.log(Level.INFO, "Pre-success thread interrupted");
                 }
             }
             if (!ErrorManager.isStateError()) {
-                new SceneEvent(SceneEvent.ICON_CHANGE, new IconChange(IconChange.IconChangeType.SET, Images.ICON_SUCCESS)).fire(launchButton);
+                new SceneEvent(SceneEvent.ICON_CHANGE, new SceneEvent.IconChange(SceneEvent.IconChange.IconChangeType.SET, Images.ICON_SUCCESS)).fire(launchButton);
                 launchButton.setImage(Images.LAUNCH_SUCCESS);
             }
             long t = successTime;
@@ -284,10 +257,10 @@ public class NewGUI extends Application {
             try {
                 Thread.sleep(t);
             } catch (InterruptedException ex) {
-                Logger.getLogger(NewGUI.class.getName()).log(Level.INFO, "Success thread interrupted");
+                LOGGER.log(Level.INFO, "Success thread interrupted");
             }
             if (runningSuccess == 1 && !ErrorManager.isStateError()) {
-                new SceneEvent(SceneEvent.ICON_CHANGE, new IconChange(IconChange.IconChangeType.SET, Images.ICON)).fire(launchButton);
+                new SceneEvent(SceneEvent.ICON_CHANGE, new SceneEvent.IconChange(SceneEvent.IconChange.IconChangeType.SET, Images.ICON)).fire(launchButton);
                 launchButton.setImage(Images.LAUNCH);
             }
             runningSuccess--;
@@ -299,7 +272,7 @@ public class NewGUI extends Application {
             successTime = time;
             Thread successThread = new Thread(successRunnable);
             successThread.start();
-            THREADS.add(successThread);
+            ThreadManager.addThread(successThread);
         }
     }
     //</editor-fold>
@@ -340,20 +313,20 @@ public class NewGUI extends Application {
 
     //<editor-fold defaultstate="collapsed" desc="Menu Items">
     public void toggleSettings() {
-        menuView.setValue(menuView.getValue() == 1 ? 0 : 1);
+        toggleMenu(1);
     }
 
     public void toggleProfile() {
-        menuView.setValue(menuView.getValue() == 2 ? 0 : 2);
+        toggleMenu(2);
     }
 
     public void toggleProfiles() {
-        menuView.setValue(menuView.getValue() == 3 ? 0 : 3);
+        toggleMenu(3);
     }
 
-    private boolean settingsIsSelected = false;
-    private boolean profileIsSelected = false;
-    private boolean profilesIsSelected = false;
+    public void toggleWorkshop() {
+        toggleMenu(4);
+    }
 
     private void initializeMenu() {
         mainMenuBackground.setFitWidth(mainMenuOverlay.getWidth());
@@ -364,131 +337,58 @@ public class NewGUI extends Application {
             mainMenuBackground.setFitWidth(newValue.doubleValue());
             centerImage(mainMenuBackground);
             mainMenuOverlay.setWidth(newValue.doubleValue());
-            launchText.setLayoutX((newValue.doubleValue() / 2) - 19);
+            launchText.setLayoutX((newValue.doubleValue() / 2) - 25);
         });
         mainMenuPane.heightProperty().addListener((obs, oldValue, newValue) -> {
             mainMenuBackground.setFitHeight(newValue.doubleValue());
             centerImage(mainMenuBackground);
         });
+
+        cmlWorkshop.setOnMouseEntered((event) -> {
+            workshopTooltip.setVisible(true);
+        });
+        cmlWorkshop.setOnMouseExited((event) -> {
+            workshopTooltip.setVisible(false);
+        });
+
         cmlSettings.setOnMouseEntered((event) -> {
-            cmlSettings.setImage(menuView.getValue() == 1 ? Images.BACK_SELECT : Images.SETTINGS_SELECT);
-            settingsIsSelected = true;
+            settingsTooltip.setVisible(true);
         });
         cmlSettings.setOnMouseExited((event) -> {
-            cmlSettings.setImage(menuView.getValue() == 1 ? Images.BACK : Images.SETTINGS);
-            settingsIsSelected = false;
-        });
-        cmlSettings.setOnMousePressed((event) -> {
-            cmlSettings.setImage(menuView.getValue() == 1 ? Images.BACK_PRESS : Images.SETTINGS_PRESS);
-        });
-        cmlSettings.setOnMouseReleased((event) -> {
-            cmlSettings.setImage(menuView.getValue() == 1 ? Images.BACK : Images.SETTINGS);
+            settingsTooltip.setVisible(false);
         });
 
         cmlProfile.setOnMouseEntered((event) -> {
-            cmlProfile.setImage(menuView.getValue() == 2 ? Images.BACK_SELECT : Images.PROFILE_SELECT);
-            profileIsSelected = true;
+            profileTooltip.setVisible(true);
         });
         cmlProfile.setOnMouseExited((event) -> {
-            cmlProfile.setImage(menuView.getValue() == 2 ? Images.BACK : Images.PROFILE);
-            profileIsSelected = false;
-        });
-        cmlProfile.setOnMousePressed((event) -> {
-            cmlProfile.setImage(menuView.getValue() == 2 ? Images.BACK_PRESS : Images.PROFILE_PRESS);
-        });
-        cmlProfile.setOnMouseReleased((event) -> {
-            cmlProfile.setImage(menuView.getValue() == 2 ? Images.BACK : Images.PROFILE);
+            profileTooltip.setVisible(false);
         });
 
         cmlProfiles.setOnMouseEntered((event) -> {
-            cmlProfiles.setImage(menuView.getValue() == 3 ? Images.BACK_SELECT : Images.PROFILES_SELECT);
-            profilesIsSelected = true;
+            profileListTooltip.setVisible(true);
         });
         cmlProfiles.setOnMouseExited((event) -> {
-            cmlProfiles.setImage(menuView.getValue() == 3 ? Images.BACK : Images.PROFILES);
-            profilesIsSelected = false;
+            profileListTooltip.setVisible(false);
         });
-        cmlProfiles.setOnMousePressed((event) -> {
-            cmlProfiles.setImage(menuView.getValue() == 3 ? Images.BACK_PRESS : Images.PROFILES_PRESS);
-        });
-        cmlProfiles.setOnMouseReleased((event) -> {
-            cmlProfiles.setImage(menuView.getValue() == 3 ? Images.BACK : Images.PROFILES);
-        });
+
         menuView.addListener((obs, oldValue, newValue) -> {
-            cmlSettings.setImage(newValue.intValue() == 1 ? (settingsIsSelected ? Images.BACK_SELECT : Images.BACK) : (settingsIsSelected ? Images.SETTINGS_SELECT : Images.SETTINGS));
-            cmlProfile.setImage(newValue.intValue() == 2 ? (profileIsSelected ? Images.BACK_SELECT : Images.BACK) : (profileIsSelected ? Images.PROFILE_SELECT : Images.PROFILE));
-            cmlProfiles.setImage(newValue.intValue() == 3 ? (profilesIsSelected ? Images.BACK_SELECT : Images.BACK) : (profilesIsSelected ? Images.PROFILES_SELECT : Images.PROFILES));
+            cmlSettings.setId(newValue.intValue() == 1 ? "goBack" : "");
+            cmlProfile.setId(newValue.intValue() == 2 ? "goBack" : "");
+            cmlProfiles.setId(newValue.intValue() == 3 ? "goBack" : "");
+            cmlWorkshop.setId(newValue.intValue() == 4 ? "goBack" : "");
+
+            settingsTooltip.setText(newValue.intValue() == 1 ? "Go Back" : "CML Settings");
+            profileTooltip.setId(newValue.intValue() == 2 ? "Go Back" : "Profile Settings");
+            profileListTooltip.setId(newValue.intValue() == 3 ? "Go Back" : "Profile List");
+            workshopTooltip.setId(newValue.intValue() == 4 ? "Go Back" : "Workshop Mods");
+
             mainMenuPane.setVisible(newValue.intValue() == 0);
-            settingsPane.setVisible(newValue.intValue() == 1);
+            settingsController.setVisible(newValue.intValue() == 1);
             profilePane.setVisible(newValue.intValue() == 2);
             profileListPane.setVisible(newValue.intValue() == 3);
+            workshopController.setVisible(newValue.intValue() == 4);
         });
-    }
-    //</editor-fold>
-
-    //<editor-fold defaultstate="collapsed" desc="Settings Pane">
-    @FXML
-    private FlowPane settingsPane;
-    @FXML
-    private Button updateButton;
-    @FXML
-    private Text updateAvailableText;
-    private StringProperty updateAvailable = new SimpleStringProperty("");
-    @FXML
-    private TextField smFolder;
-    @FXML
-    private TextField modsFolder;
-    @FXML
-    private TextField vanillaFolder;
-
-    private void initializeSettings() {
-        updateAvailable.addListener((obs, oldValue, newValue) -> {
-            if (newValue.length() > 0) {
-                updateButton.setDisable(false);
-                updateAvailableText.setText("Update Available: V" + Constants.VERSION + " -> " + newValue);
-                updateAvailableText.setVisible(true);
-            } else {
-                updateButton.setDisable(true);
-                updateAvailableText.setVisible(false);
-            }
-        });
-        smFolder.setText(Main.scrapMechanicFolder);
-        modsFolder.setText(Main.modsFolder);
-        vanillaFolder.setText(Main.vanillaFolder);
-        smFolder.setOnAction((event) -> {
-            String text = smFolder.getText();
-            Main.scrapMechanicFolder = (text.endsWith("/") || text.endsWith("\\") ? text : (text.contains("\\") ? text + "\\" : text + "/"));
-            Main.verifySMFolder();
-            this.showSuccess(3000);
-        });
-        modsFolder.setOnAction((event) -> {
-            String text = modsFolder.getText();
-            Main.modsFolder = (text.endsWith("/") || text.endsWith("\\") ? text : (text.contains("\\") ? text + "\\" : text + "/"));
-            Main.updateProfileList();
-            this.showSuccess(3000);
-        });
-        vanillaFolder.setOnAction((event) -> {
-            String text = vanillaFolder.getText();
-            Main.vanillaFolder = (text.endsWith("/") || text.endsWith("\\") ? text : (text.contains("\\") ? text + "\\" : text + "/"));
-            Main.verifyVanillaFolder();
-            this.showSuccess(3000);
-        });
-    }
-
-    public void checkForUpdate() {
-        updateAvailable.setValue(Main.checkForUpdate()[0]);
-    }
-
-    public void update() {
-        Main.update();
-    }
-    
-    public void openLogs() {
-        Main.openLogs();
-    }
-    
-    public void regenVanilla() {
-        Main.regenVanilla();
     }
     //</editor-fold>
 
@@ -497,6 +397,8 @@ public class NewGUI extends Application {
     private AnchorPane profileListPane;
     @FXML
     public ListView profileListView;
+    @FXML
+    public TextField newProfileField;
 
     private void initializeProfiles() {
         profileListView.getItems().addAll(fromProfileList(Main.profileList.getValue()));
@@ -513,26 +415,29 @@ public class NewGUI extends Application {
 
     private List<Node> fromProfileList(List<Profile> profiles) {
         List<Node> nodes = new ArrayList();
-        for (Profile profile : profiles) {
+        profiles.forEach((profile) -> {
             HBox hBox = new HBox(8);
             Line separator0 = new Line(0, -10, 0, 10);
             separator0.setStroke(Color.WHITE);
             ImageView icon = new ImageView(profile.getIcon());
             icon.setFitHeight(24);
             icon.setPreserveRatio(true);
+            profile.getIconProperty().addListener((obs, oldValue, newValue) -> icon.setImage(newValue));
             Line separator1 = new Line(0, -10, 0, 10);
             separator1.setStroke(Color.WHITE);
             Line separator2 = new Line(0, -10, 0, 10);
             separator2.setStroke(Color.WHITE);
-            Label name = new Label(profile.getName());
-            name.setTextFill(Color.WHITE);
-            Label description = new Label(profile.getDescription());
-            description.setTextFill(Color.WHITE);
+            Text name = new Text(profile.getName());
+            profile.getNameProperty().addListener((obs, oldValue, newValue) -> name.setText(newValue));
+            name.setFill(Color.WHITE);
+            Text description = new Text(profile.getDescription());
+            profile.getDescProperty().addListener((obs, oldValue, newValue) -> description.setText(newValue));
+            description.setFill(Color.WHITE);
 
             hBox.getChildren().addAll(selectProfileNode(profile), separator0, icon, separator1, name, separator2, description);
             nodes.add(hBox);
-            System.out.println(" Detected Profile: " + profile.getName());
-        }
+            LOGGER.log(Level.INFO, " Detected Profile: {0}", profile.getName());
+        });
         return nodes;
     }
 
@@ -566,11 +471,15 @@ public class NewGUI extends Application {
             if (oldValue.equals(profile)) {
                 iv.setImage(Images.ENABLER_OFF);
             } else if (newValue.equals(profile)) {
-                System.out.println("Profile switched from " + oldValue.getName() + " to " + newValue.getName());
+                LOGGER.log(Level.INFO, "Profile switched from {0} to {1}", new Object[]{oldValue.getName(), newValue.getName()});
                 iv.setImage(Images.ENABLER_ON);
             }
         });
         return iv;
+    }
+
+    public void createNewProfile() {
+        Main.createProfile(newProfileField.getText());
     }
     //</editor-fold>
 
@@ -601,20 +510,161 @@ public class NewGUI extends Application {
     private ImageView profileScrollButtonTop;
     @FXML
     private ImageView profileScrollButtonBottom;
+    @FXML
+    private ImageView profileProperties;
 
-    private BooleanProperty scrollEnabled = new SimpleBooleanProperty(true);
+    private final BooleanProperty scrollEnabled = new SimpleBooleanProperty(true);
     private boolean scrollSelected = false;
-    private DoubleProperty scroll = new SimpleDoubleProperty(0.0);
+    private final DoubleProperty scroll = new SimpleDoubleProperty(0.0);
     private double scrollCenter = 0.0;
     private double scrollTranslate = 0.0;
 
+    private final class ProfilePropertiesData extends PopupData<Object[], Integer> {
+
+        private Profile editingProfile = null;
+        private final ImageView iconField = new ImageView();
+        private final TextField descriptionField = new TextField();
+        private final TextField nameField = new TextField();
+        private final FileChooser fileChooser = new FileChooser();
+        private CmlPopup parent = null;
+
+        public void setProfile(Profile profile) {
+            this.editingProfile = profile;
+            iconField.setImage(profile.getIcon());
+            descriptionField.setText(profile.getDescription());
+            nameField.setText(profile.getName());
+            if (parent != null) {
+                setTitle(parent);
+            }
+        }
+
+        @Override
+        public Node getNode() {
+            AnchorPane pane = new AnchorPane();
+            AnchorPane.setTopAnchor(pane, 0.0);
+            AnchorPane.setBottomAnchor(pane, 0.0);
+            AnchorPane.setLeftAnchor(pane, 0.0);
+            AnchorPane.setRightAnchor(pane, 0.0);
+            
+            iconField.setOnDragOver((DragEvent event) -> {
+                Dragboard board = event.getDragboard();
+                if (event.getGestureSource() != iconField && (board.hasImage() || (board.hasFiles() && board.getFiles().get(0).getName().toLowerCase().endsWith(".png")))) {
+                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                }
+                event.consume();
+            });
+            iconField.setOnDragDropped((DragEvent event) -> {
+                Dragboard board = event.getDragboard();
+                boolean success = false;
+                if (board.hasImage()) {
+                    iconField.setImage(board.getImage());
+                    success = true;
+                } else if (board.hasFiles()) {
+                    try {
+                        iconField.setImage(new Image(new FileInputStream(board.getFiles().get(0))));
+                        success = true;
+                    } catch (FileNotFoundException ex) {
+                        LOGGER.log(Level.SEVERE, "Could not read file from dragboard", ex);
+                    }
+                }
+                event.setDropCompleted(success);
+                event.consume();
+            });
+            iconField.setFitHeight(48);
+            iconField.setPreserveRatio(true);
+            AnchorPane.setTopAnchor(iconField, 5.0);
+            AnchorPane.setLeftAnchor(iconField, 5.0);
+            
+            Button chooseImage = new Button("Choose a new icon");
+            chooseImage.setFont(Font.font("LIBRARY 3 AM", 10));
+            chooseImage.setTextFill(Color.WHITE);
+            AnchorPane.setTopAnchor(chooseImage, 58.0);
+            AnchorPane.setLeftAnchor(chooseImage, 5.0);
+            chooseImage.setOnAction((event) -> {
+                try {
+                    iconField.setImage(new Image(new FileInputStream(fileChooser.showOpenDialog(parent.asWindow()))));
+                } catch (FileNotFoundException ex) {
+                    LOGGER.log(Level.SEVERE, "Could not read file from dragboard", ex);
+                }
+                event.consume();
+            });
+
+            descriptionField.setPromptText("Description");
+            descriptionField.setFont(Font.font("LIBRARY 3 AM", 10));
+            AnchorPane.setTopAnchor(descriptionField, 110.0);
+            AnchorPane.setLeftAnchor(descriptionField, 5.0);
+            AnchorPane.setRightAnchor(descriptionField, 5.0);
+
+            nameField.setPromptText("Name");
+            nameField.setFont(Font.font("LIBRARY 3 AM", 10));
+            nameField.textProperty().addListener((obs, oldValue, newValue) -> {
+                if (newValue.startsWith(Constants.IGNORE_PREFIX) || newValue.endsWith(Constants.IGNORE_SUFFIX)) {
+                    nameField.setText(oldValue);
+                }
+            });
+            AnchorPane.setTopAnchor(nameField, 83.0);
+            AnchorPane.setLeftAnchor(nameField, 5.0);
+            AnchorPane.setRightAnchor(nameField, 5.0);
+
+            addButton(new Button("Apply"), 0, false);
+            addButton(new Button("Cancel"), 1, true);
+            addButton(new Button("OK"), 0, true);
+
+            pane.getChildren().setAll(iconField, chooseImage, nameField, descriptionField);
+
+            return pane;
+        }
+
+        @Override
+        public Object[] getResult(Integer data) {
+            switch (data) {
+                case 0:
+                    return new Object[]{
+                        editingProfile,
+                        iconField.getImage(),
+                        nameField.getText(),
+                        descriptionField.getText()
+                    };
+                default:
+                    return new Object[]{
+                        editingProfile,
+                        null,
+                        null,
+                        null
+                    };
+            }
+        }
+
+        @Override
+        public void setup(CmlPopup parent) {
+            parent.makeDraggable();
+            setTitle(parent);
+            this.parent = parent;
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter(".PNG Icon", "*.png")
+            );
+        }
+
+        private void setTitle(CmlPopup parent) {
+            String title = "Edit Profile";
+            if (editingProfile != null) {
+                title += " - " + editingProfile.getName();
+            }
+            parent.setTitle(title);
+        }
+    }
+    private final ProfilePropertiesData PROFILE_PROPERTIES_DATA = new ProfilePropertiesData();
+    private final CmlPopup<Object[], Integer> PROFILE_PROPERTIES = new CmlPopup(Modality.WINDOW_MODAL, PROFILE_PROPERTIES_DATA);
+
     private void initializeProfile() {
-        profileNameText.setText(Main.activeProfile.getValue().getName());
-        profileImage.setImage(Main.activeProfile.getValue().getIcon());
+        profileNameText.textProperty().bind(Main.activeProfile.getValue().getNameProperty());
+        profileImage.imageProperty().bind(Main.activeProfile.getValue().getIconProperty());
         openProfileFolder.setMouseTransparent(true);
         openProfileFolder.setImage(Images.BLANK);
         deleteProfile.setMouseTransparent(true);
         deleteProfile.setImage(Images.BLANK);
+        profileProperties.setMouseTransparent(true);
+        profileProperties.setImage(Images.BLANK);
         profilePane.widthProperty().addListener((obs, oldValue, newValue) -> {
             profileTopBorder.setWidth(newValue.doubleValue());
             modsListBackground.setWidth(newValue.doubleValue() - 32);
@@ -626,8 +676,8 @@ public class NewGUI extends Application {
             profileSliderBackground.setHeight(newValue.doubleValue());
         });
         Main.activeProfile.addListener((obs, oldValue, newValue) -> {
-            profileNameText.setText(newValue.getName());
-            profileImage.setImage(newValue.getIcon());
+            profileNameText.textProperty().bind(newValue.getNameProperty());
+            profileImage.imageProperty().bind(newValue.getIconProperty());
             modsListVBox.getItems().setAll(fromModList(newValue.getModifications()));
             Main.activeModifications = Main.activeProfile.get().getActiveModifications();
             if (newValue.getDirectory() != null) {
@@ -635,12 +685,16 @@ public class NewGUI extends Application {
                 openProfileFolder.setImage(Images.OPEN);
                 deleteProfile.setMouseTransparent(false);
                 deleteProfile.setImage(Images.DELETE);
+                profileProperties.setMouseTransparent(false);
+                profileProperties.setImage(Images.SETTINGS);
                 ErrorManager.removeStateCause("ActiveProfile == null");
             } else {
                 openProfileFolder.setMouseTransparent(true);
                 openProfileFolder.setImage(Images.BLANK);
                 deleteProfile.setMouseTransparent(true);
                 deleteProfile.setImage(Images.BLANK);
+                profileProperties.setMouseTransparent(true);
+                profileProperties.setImage(Images.BLANK);
             }
         });
         openProfileFolder.setOnMouseEntered((event) -> {
@@ -654,7 +708,7 @@ public class NewGUI extends Application {
             try {
                 Runtime.getRuntime().exec("explorer.exe /select," + Main.activeProfile.getValue().getDirectory().getAbsolutePath());
             } catch (IOException ex) {
-                Logger.getLogger(NewGUI.class.getName()).log(Level.SEVERE, "Failed to open profile " + Main.activeProfile.getValue().getName(), ex);
+                LOGGER.log(Level.SEVERE, "Failed to open profile " + Main.activeProfile.getValue().getName(), ex);
             }
         });
         openProfileFolder.setOnMouseReleased((event) -> {
@@ -669,6 +723,18 @@ public class NewGUI extends Application {
             if (!Images.DELETE_PRESS_ANIM.isAnimated() && !deleteProfile.getImage().equals(Images.DELETE_PRESS_FINAL)) {
                 deleteProfile.setImage(Images.DELETE);
             }
+        });
+        profileProperties.setOnMouseEntered((event) -> {
+            profileProperties.setImage(Images.SETTINGS_SELECT);
+        });
+        profileProperties.setOnMouseExited((event) -> {
+            profileProperties.setImage(Images.SETTINGS);
+        });
+        profileProperties.setOnMousePressed((event) -> {
+            profileProperties.setImage(Images.SETTINGS_PRESS);
+        });
+        profileProperties.setOnMouseReleased((event) -> {
+            profileProperties.setImage(Images.SETTINGS);
         });
 
         profileScrollBar.setOnMouseEntered((event) -> {
@@ -788,7 +854,7 @@ public class NewGUI extends Application {
 
     private List<Node> fromModList(List<Modification> activeMods) {
         List<Node> nodes = new ArrayList();
-        for (Modification mod : activeMods) {
+        activeMods.forEach((mod) -> {
             HBox hBox = new HBox(8);
             Line separator1 = new Line(0, -10, 0, 10);
             separator1.setStroke(Color.WHITE);
@@ -801,14 +867,14 @@ public class NewGUI extends Application {
 
             hBox.getChildren().addAll(enablerNode(mod), separator1, name, separator2, description);
             nodes.add(hBox);
-            System.out.println(" Detected mod: " + mod.getName());
-        }
+            LOGGER.log(Level.INFO, " Detected mod: {0}", mod.getName());
+        });
         return nodes;
     }
 
     private Node enablerNode(Modification mod) {
         ImageView iv = new ImageView();
-        boolean[] selected = new boolean[] {false};
+        boolean[] selected = new boolean[]{false};
         if (mod.isEnabled()) {
             iv.setImage(Images.ENABLER_ON);
         } else {
@@ -831,7 +897,7 @@ public class NewGUI extends Application {
                 mod.enable();
             }
             if (isEnabled == mod.isEnabled()) {
-                ErrorManager.printNonUserError("Enabler - AccessDeniedException: Make sure you have given the program Administrator Privileges!");
+                LOGGER.log(Level.SEVERE, "Enabler - AccessDeniedException: Make sure you have given the program Administrator Privileges!");
             }
         });
         iv.setOnMouseReleased((event) -> {
@@ -852,7 +918,7 @@ public class NewGUI extends Application {
     public void deleteActiveProfile() {
         deleteProfile.setMouseTransparent(true);
         deleteProfile.setImage(Images.DELETE_PRESS_START);
-        Alert alert = new Alert(AlertType.CONFIRMATION, "Delete " + Main.activeProfile.getValue().getName() + " profile?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete " + Main.activeProfile.getValue().getName() + " profile?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {
             if (Boolean.valueOf(System.getProperty("omodify", "true"))) {
@@ -860,23 +926,89 @@ public class NewGUI extends Application {
                 Images.DELETE_SELECT_ANIM.halt();
                 Images.DELETE_PRESS_ANIM.animate(deleteProfile);
             } else {
-                System.out.println("[WARNING] Deletion is disabled when -Domodify=false");
+                LOGGER.log(Level.WARNING, "Deletion is disabled when -Domodify=false");
             }
         } else {
             deleteProfile.setImage(Images.DELETE);
-            System.out.println("[INFO] Deletion cancelled");
+            LOGGER.log(Level.INFO, "Deletion cancelled");
             deleteProfile.setMouseTransparent(false);
         }
     }
 
     public void openProfileProperties() {
-        System.out.println("[ERROR] Editing of profile properties is currently not supported.");
+        PROFILE_PROPERTIES_DATA.setProfile(Main.activeProfile.get());
+        PROFILE_PROPERTIES.showThenRun((Object[] result, Throwable ex) -> handleProfileProperties(result, ex));
+    }
+
+    private void handleProfileProperties(Object[] result, Throwable ex) {
+        Profile editedProfile = (Profile) result[0];
+        Image newIcon = (Image) result[1];
+        String newName = (String) result[2];
+        String newDesc = (String) result[3];
+
+        if (newIcon != null && !newIcon.equals(editedProfile.getIcon())) {
+            Platform.runLater(() -> editedProfile.setIcon(newIcon));
+        }
+        
+        if (newName != null && !newName.equals(editedProfile.getName())) {
+            Platform.runLater(() -> editedProfile.setName(newName));
+        }
+
+        if (newDesc != null && !newDesc.equals(editedProfile.getDescription())) {
+            Platform.runLater(() -> editedProfile.setDescription(newDesc));
+        }
     }
     //</editor-fold>
 
-    //Because NetBeans won't recognize my Main class as the main class...
-    public static void main(String[] args) throws FileNotFoundException {
-        Main.main(args);
+    public static void setImageMouseHandlers(ImageView imageView, Image normal, Image onSelect, Image onPress) {
+        imageView.setOnMouseEntered((event) -> {
+            imageView.setImage(onSelect);
+        });
+        imageView.setOnMouseExited((event) -> {
+            imageView.setImage(normal);
+        });
+        if (onPress != null) {
+            imageView.setOnMousePressed((event) -> {
+                imageView.setImage(onPress);
+            });
+            imageView.setOnMouseReleased((event) -> {
+                imageView.setImage(normal);
+            });
+        }
+    }
+
+    public static void setImageMouseHandlers(ImageView imageView, Image normal, SpriteAnimation onSelect, SpriteAnimation onPress, boolean handleOnPress) {
+        if (onPress != null) {
+            imageView.setOnMouseEntered((event) -> {
+                if (!onPress.isAnimated()) {
+                    onSelect.animate(imageView);
+                }
+            });
+            imageView.setOnMouseExited((event) -> {
+                if (!onPress.isAnimated()) {
+                    onSelect.halt();
+                    imageView.setImage(normal);
+                }
+            });
+            if (handleOnPress) {
+                imageView.setOnMousePressed((event) -> {
+                    onSelect.halt();
+                    onPress.animate(imageView);
+                });
+                imageView.setOnMouseReleased((event) -> {
+                    onPress.halt();
+                    imageView.setImage(normal);
+                });
+            }
+        } else {
+            imageView.setOnMouseEntered((event) -> {
+                onSelect.animate(imageView);
+            });
+            imageView.setOnMouseExited((event) -> {
+                onSelect.halt();
+                imageView.setImage(normal);
+            });
+        }
     }
 
 }

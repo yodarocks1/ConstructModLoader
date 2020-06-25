@@ -23,6 +23,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,6 +32,8 @@ import java.util.Set;
  */
 public class ModIncompatibilityException extends Exception {
 
+    private static final Logger LOGGER = Logger.getLogger(ModIncompatibilityException.class.getName());
+    
     private final Set<Modification> offenders;
     private final boolean certain;
 
@@ -65,10 +69,8 @@ public class ModIncompatibilityException extends Exception {
     public static final Map<String, List<Modification>> CERTAIN_INCOMPATIBILITIES = new HashMap();
 
     public static void addNewIncompatibility(String pathAddend, List<Modification> mods) {
-        System.out.println("Added new possible incompatibility: ");
-            for (Modification mod : mods) {
-                System.out.println("  " + mod.getName());
-            }
+        String warning = mods.stream().map((mod) -> "\n  " + mod.getName()).reduce("New possible incompatibility: ", String::concat);
+        LOGGER.log(Level.WARNING, warning);
         if (POSSIBLE_INCOMPATIBILITIES.containsKey(pathAddend)) {
             POSSIBLE_INCOMPATIBILITIES.get(pathAddend).addAll(mods);
         } else {
@@ -85,10 +87,8 @@ public class ModIncompatibilityException extends Exception {
         if (!certain) {
             addNewIncompatibility(pathAddend, mods);
         } else {
-            System.out.println("Added new certain incompatibility: ");
-            for (Modification mod : mods) {
-                System.out.println("  " + mod.getName());
-            }
+            String warning = mods.stream().map((mod) -> "\n  " + mod.getName()).reduce("New certain incompatibility: ", String::concat);
+            LOGGER.log(Level.WARNING, warning);
             if (CERTAIN_INCOMPATIBILITIES.containsKey(pathAddend)) {
                 CERTAIN_INCOMPATIBILITIES.get(pathAddend).addAll(mods);
             } else {
