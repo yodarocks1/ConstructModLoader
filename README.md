@@ -2,7 +2,7 @@
 <h2 align="center">Mod Loading made easy for Scrap Mechanic Survival</h2>
 <p align="center">
     <a href="https://github.com/yodarocks1/ConstructModLoader/releases/latest">
-        <img src="https://img.shields.io/badge/Latest Release-V+A.1.1--h1-green?style=for-the-badge&logo=github" alt="Latest Release">
+        <img src="https://img.shields.io/badge/Latest Release-V+B.1.0--h1-green?style=for-the-badge&logo=github" alt="Latest Release">
     </a>
     <a href="https://discord.gg/ZcWwHeZ">
         <img src="https://img.shields.io/badge/Discord-| Join |-magenta?style=for-the-badge&logo=discord" alt="Join Discord">
