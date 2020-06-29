@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 public class Constants {
 
     public static final String FOLDERS_LOCATION_RELATIVE = "\\folders.txt";
-    public static final String VERSION = "+B.1.0-h1";
+    public static final String VERSION = "+B.1.0-h2";
     public static final String LAUNCH_COMMAND = "rundll32 url.dll,FileProtocolHandler steam://rungameid/387990";
     public static final String VERIFY_COMMAND = "rundll32 url.dll,FileProtocolHandler steam://validate/387990";
     public static final String KILL_VERIFY_COMMAND = "taskkill <<id>>";
