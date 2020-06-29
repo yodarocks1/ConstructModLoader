@@ -251,6 +251,8 @@ public class Main {
         LocalDateTime time = LocalDateTime.now();
         patFile = new File(String.format("%s%s\\%04d-%02d-%02d+%02d;%02d;%02d.txt", endSlash(modsFolder), Constants.PATCH_FOLDER_NAME, time.getYear(), time.getMonthValue(), time.getDayOfMonth(), time.getHour(), time.getMinute(), time.getSecond()));
         LOGGER.log(Level.INFO, "Pat: {0}", patFile.getAbsolutePath());
+        patFile.createNewFile();
+        patchOutputStream = new PrintStream(new FileOutputStream(patFile));
     }
 
     public static void createProfile(String profileName) {
