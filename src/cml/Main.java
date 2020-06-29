@@ -19,6 +19,8 @@ import cml.lib.workshop.WorkshopConnectionHandler;
 import cml.lib.workshop.WorkshopReader;
 import com.sun.javafx.application.LauncherImpl;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
@@ -251,8 +253,16 @@ public class Main {
         LocalDateTime time = LocalDateTime.now();
         patFile = new File(String.format("%s%s\\%04d-%02d-%02d+%02d;%02d;%02d.txt", endSlash(modsFolder), Constants.PATCH_FOLDER_NAME, time.getYear(), time.getMonthValue(), time.getDayOfMonth(), time.getHour(), time.getMinute(), time.getSecond()));
         LOGGER.log(Level.INFO, "Pat: {0}", patFile.getAbsolutePath());
-        patFile.createNewFile();
-        patchOutputStream = new PrintStream(new FileOutputStream(patFile));
+        try {
+            patFile.createNewFile();
+        } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, "Could not create patch file.", ex);
+        }
+        try {
+            patchOutputStream = new PrintStream(new FileOutputStream(patFile));
+        } catch (FileNotFoundException ex) {
+            LOGGER.log(Level.SEVERE, "Could not open patch file.", ex);
+        }
     }
 
     public static void createProfile(String profileName) {
