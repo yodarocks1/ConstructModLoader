@@ -10,7 +10,9 @@ import java.io.FilenameFilter;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -32,6 +34,7 @@ public class Constants {
     public static final String OBJECT_FOLDER_LOCATION = "Data\\CML-Objects";
     public static final String OBJECT_FOLDER_CODE = "$GAME_DATA/CML-Objects";
     public static final String PATCH_FOLDER_NAME = IGNORE_PREFIX + "patches" + IGNORE_SUFFIX;
+    public static final Set<String> VERIFY_SM_FOLDER = new HashSet();
     public static final List<String> IGNORE_PATHS = new ArrayList();
     public static final FilenameFilter IGNORE_PATH_FILTER = (File dir, String name) -> {
         String path = (dir.getAbsolutePath() + "\\" + name).replace(Main.scrapMechanicFolder, "\\");
@@ -57,5 +60,13 @@ public class Constants {
         IGNORE_PATHS.add("\\Survival\\Terrain");
         IGNORE_PATHS.add("\\Screenshots");
         IGNORE_PATHS.add("\\" + Constants.OBJECT_FOLDER_LOCATION);
+        
+        VERIFY_SM_FOLDER.add("Cache");
+        VERIFY_SM_FOLDER.add("ChallengeData");
+        VERIFY_SM_FOLDER.add("Challenges");
+        VERIFY_SM_FOLDER.add("Data");
+        VERIFY_SM_FOLDER.add("Logs");
+        VERIFY_SM_FOLDER.add("Release");
+        VERIFY_SM_FOLDER.add("Survival");
     }
 }

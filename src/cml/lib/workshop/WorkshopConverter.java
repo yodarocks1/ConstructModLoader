@@ -19,11 +19,11 @@ package cml.lib.workshop;
 import cml.Constants;
 import cml.Main;
 import cml.apply.MergeChanges;
+import cml.lib.plugins.PluginManager;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
@@ -35,6 +35,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javafx.application.Platform;
+import org.luaj.vm2.LuaError;
+import org.luaj.vm2.Varargs;
 
 /**
  *
@@ -61,32 +63,47 @@ public class WorkshopConverter {
     public void copyAndConvert(WorkshopMod workshopMod, File mod) {
         LOGGER.log(Level.INFO, "Copying workshop mod \"{0}\" into profile {1}", new Object[]{workshopMod.getName(), mod.getParentFile().getName()});
 
-        boolean handled = false;
-        boolean descriptionHandled = false;
-
+        byte handled = 0; //Using a byte because it maximizes LuaJ performance
+        
+        boolean hasHook = PluginManager.LUA_HOOK_MANAGER.executeInit("workshopconvert", workshopMod, mod);
+        
+        //If we have a hook, pass it there first. If not, continue.
+        if (hasHook) {
+            //Run hook
+            PluginManager.LUA_HOOK_MANAGER.executeFunction("workshopconvert", "convert", workshopMod, mod);
+            Varargs out = (Varargs) PluginManager.LUA_HOOK_MANAGER.getLastResults("workshopconvert");
+            //Figure out what's been handled
+            if (out.isnumber(1)) { //LuaJ indexes beginning at 1. ¯\_(ツ)_/¯
+                try {
+                    handled = out.checknumber(1).tobyte(); //Bits: 1 - handles CML; 2 - handles manual-install mods;
+                } catch (LuaError e) {                     //      4 - handles creative mods; 8 - handles description creation
+                    handled = 0;
+                }
+            }
+        }
+        
         //If this mod is a CML mod, use the CML copy method
-        if (workshopMod.isCMLMod()) {
+        if ((handled & 1) == 1 && workshopMod.isCMLMod()) {
             cmlCopy(workshopMod, mod);
-            handled = true;
-            descriptionHandled = true;
+            handled = 15;
         }
 
         //If this mod is normally a manual-install mod, use the direct copy method
-        if (!handled) {
+        if ((handled & 2) == 2) {
             boolean containsIndicator = workshopMod.getDirectory().listFiles(INDICATOR_FILTER).length > 0;
             if (containsIndicator) {
                 directCopy(workshopMod, mod);
-                handled = true;
+                handled = 7;
             }
         }
 
         //If this mod is a normal creative mod, convert it then copy it.
-        if (!handled) {
+        if ((handled & 4) == 4) {
             convertAndCopy(workshopMod, mod);
         }
 
         //Read in the first line of the description if description.txt doesn't already exist
-        if (!descriptionHandled) {
+        if ((handled & 8) == 8) {
             createDescription(workshopMod, mod);
         }
 

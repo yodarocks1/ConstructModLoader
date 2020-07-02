@@ -82,16 +82,7 @@ public class Main {
 
     public static PrintStream patchOutputStream;
 
-    private static final List<String> SM_FOLDERS_CHECK = new ArrayList();
-
     static {
-        SM_FOLDERS_CHECK.add("Cache");
-        SM_FOLDERS_CHECK.add("ChallengeData");
-        SM_FOLDERS_CHECK.add("Challenges");
-        SM_FOLDERS_CHECK.add("Data");
-        SM_FOLDERS_CHECK.add("Logs");
-        SM_FOLDERS_CHECK.add("Release");
-        SM_FOLDERS_CHECK.add("Survival");
         System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %5$s%6$s - %2$s%n");
         LOGGER = Logger.getLogger(Main.class.getName());
         Logger rootLogger = LogManager.getLogManager().getLogger("");
@@ -204,8 +195,8 @@ public class Main {
         String[] defaults = new String[4];
         File smFolder = Steam.findGamePath("Scrap Mechanic");
         defaults[0] = endSlash(smFolder.getAbsolutePath());
-        defaults[1] = "C:\\Program Files (x86)\\Construct\\vanilla\\";
-        defaults[2] = "C:\\Program Files (x86)\\Construct\\mods\\";
+        defaults[1] = new File (Main.API_DIRECTORY, "vanilla").getAbsolutePath();
+        defaults[2] = new File (Main.API_DIRECTORY, "mods").getAbsolutePath();
         defaults[3] = workshopFromGamePath(smFolder);
         return defaults;
     }
@@ -286,7 +277,7 @@ public class Main {
     public static void updateProfileList() {
         List<Profile> profiles = new ArrayList();
         File modsFile = new File(Main.modsFolder);
-        File modsVerificationFile = new File(Main.modsFolder + Constants.LOG_FOLDER_NAME);
+        File modsVerificationFile = new File(Main.modsFolder + Constants.PATCH_FOLDER_NAME);
         if (modsFile.exists() && modsVerificationFile.exists()) {
             for (File zipFile : modsFile.listFiles(ZipManager.ZIP_FILTER)) {
                 if (zipFile.isFile()) {
@@ -313,7 +304,7 @@ public class Main {
     public static boolean verifySMFolder() {
         File smFolder = new File(Main.scrapMechanicFolder);
         File exe = new File(Main.scrapMechanicFolder, "Release/ScrapMechanic.exe");
-        if (!smFolder.exists() || !Arrays.asList(smFolder.list()).containsAll(SM_FOLDERS_CHECK) || !exe.exists()) {
+        if (!smFolder.exists() || !Arrays.asList(smFolder.list()).containsAll(Constants.VERIFY_SM_FOLDER) || !exe.exists()) {
             ErrorManager.addStateCause("SMFolder <INVALID>");
             return false;
         } else {

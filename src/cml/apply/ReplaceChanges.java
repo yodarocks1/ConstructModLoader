@@ -95,6 +95,7 @@ public class ReplaceChanges implements IApplicator {
         LOGGER.log(Level.FINE, "Replacing");
         newToOld.keySet().forEach((newFile) -> {
             AFileManager.FILE_MANAGER.copy(newToOld.get(newFile), newFile, FileOptions.REPLACE);
+            LOGGER.log(Level.FINEST, "Replace: {0}", newFile.getAbsolutePath());
         });
     }
 
