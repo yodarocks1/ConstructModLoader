@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
@@ -40,6 +41,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Line;
 import javafx.stage.Modality;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
@@ -60,11 +62,13 @@ public class WorkshopController extends SubController {
     @FXML private ChoiceBox<Profile> workshopDestinationProfile;
     @FXML private TextField searchName;
     @FXML private TextField searchID;
+    @FXML private Line separator;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         workshopPane.widthProperty().addListener((obs, oldValue, newValue) -> {
             workshopHeader.setTranslateX((newValue.doubleValue() - workshopHeader.getPrefWidth()) / 2);
+            separator.setTranslateX((newValue.doubleValue() + separator.getStartX() - separator.getEndX()) / 2);
         });
         Main.profileList.addListener((obs, oldValue, newValue) -> {
             Profile selected = workshopDestinationProfile.getValue();
@@ -130,6 +134,14 @@ public class WorkshopController extends SubController {
     @Override
     public void setVisible(boolean visible) {
         workshopPane.setVisible(visible);
+    }
+    
+    public boolean isVisible() {
+        return workshopPane.isVisible();
+    }
+    
+    public BooleanProperty visibleProperty() {
+        return workshopPane.visibleProperty();
     }
 
     protected Profile getDestination() {

@@ -17,7 +17,6 @@
     <stylesheets>
         <URL value="@main.css" />
         <URL value="@../../../media/fonts.css" />
-        <URL value="@../../../media/listViewHideVerticalScroll.css" />
     </stylesheets>
     <children>
         <ImageView fx:id="background" cache="true" cacheHint="SCALE" fitHeight="391.0" fitWidth="600.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -68,6 +67,7 @@
         </ImageView>
         <fx:include fx:id="settings" source="../settings/Settings.fxml" />
         <fx:include fx:id="workshop" source="../workshop/Workshop.fxml" />
+        <fx:include fx:id="profilesettings" source="../profilesettings/ProfileSettings.fxml" />
         <ImageView fx:id="cmlSettings" fitHeight="32.0" fitWidth="32.0" layoutX="552.0" layoutY="368.0" onMouseClicked="#toggleSettings" pickOnBounds="true" preserveRatio="true" styleClass="settingsTab" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="21.0">
             <image>
                 <Image url="@../../../media/MultiStateIcons/Properties/Button.png" />
@@ -83,73 +83,6 @@
                 <Image url="@../../../media/MultiStateIcons/Profiles/Button.png" />
             </image>
         </ImageView>
-        <AnchorPane fx:id="profilePane" layoutX="7.0" layoutY="75.0" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="75.0">
-            <padding>
-                <Insets bottom="10.0" />
-            </padding>
-            <children>
-                <Rectangle fx:id="profileTopBorder" fill="#434343" height="96.0" layoutX="27.0" layoutY="14.0" stroke="#3d3d3d" strokeType="INSIDE" strokeWidth="3.0" width="580.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                <ImageView fx:id="profileImage" fitHeight="64.0" fitWidth="64.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="16.0">
-                    <image>
-                        <Image url="@../../../media/MultiStateIcons/Profiles/Button.png" />
-                    </image>
-                </ImageView>
-                <ImageView fx:id="deleteProfile" fitHeight="20.0" fitWidth="20.0" layoutX="480.0" layoutY="5.0" onMouseClicked="#deleteActiveProfile" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="20.0">
-                    <image>
-                        <Image url="@../../../media/MultiStateIcons/Delete/Button.png" />
-                    </image>
-                </ImageView>
-                <ImageView fx:id="profileProperties" fitHeight="20.0" fitWidth="20.0" layoutX="490.0" layoutY="15.0" onMouseClicked="#openProfileProperties" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="20.0">
-                    <image>
-                        <Image url="@../../../media/MultiStateIcons/Properties/Button.png" />
-                    </image>
-                </ImageView>
-                <ImageView fx:id="openProfileFolder" fitHeight="20.0" fitWidth="20.0" layoutX="500.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="56.0" AnchorPane.topAnchor="20.0">
-                    <image>
-                        <Image url="@../../../media/MultiStateIcons/OpenFolder/Button.png" />
-                    </image>
-                </ImageView>
-                <Text fx:id="profileNameText" fill="WHITE" layoutX="99.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;&lt; Profile Name &gt;&gt;" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="20.0">
-                    <font>
-                        <Font size="20.0" />
-                    </font>
-                </Text>
-                <AnchorPane layoutX="57.0" layoutY="61.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="96.0">
-                    <children>
-                        <AnchorPane fx:id="profileScrollPane" maxWidth="32.0" minWidth="32.0" prefHeight="200.0" prefWidth="32.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                                <Rectangle fx:id="profileSliderBackground" arcHeight="5.0" arcWidth="5.0" fill="#393939" height="200.0" stroke="#323232" strokeType="INSIDE" strokeWidth="5.0" width="32.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                <ImageView fx:id="profileScrollButtonTop" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                    <image>
-                                        <Image url="@../../../media/MultiStateIcons/Slider/SliderButton.png" />
-                                    </image>
-                                </ImageView>
-                                <ImageView fx:id="profileScrollButtonBottom" fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" rotate="180.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                                    <image>
-                                        <Image url="@../../../media/MultiStateIcons/Slider/SliderButton.png" />
-                                    </image>
-                                </ImageView>
-                                <ImageView fx:id="profileScrollBar" fitHeight="80.0" fitWidth="32.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0">
-                                    <image>
-                                        <Image url="@../../../media/MultiStateIcons/Slider/Slider.png" />
-                                    </image>
-                                </ImageView>
-                            </children>
-                        </AnchorPane>
-                        <Rectangle fx:id="modsListBackground" fill="#434343" height="120.0" stroke="#393939" strokeType="INSIDE" strokeWidth="3.0" width="548.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="0.0">
-                            <effect>
-                                <ColorInput paint="#393939" width="74.13" />
-                            </effect>
-                        </Rectangle>
-                        <ListView fx:id="modsListVBox" focusTraversable="false" prefHeight="100.0" prefWidth="500.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="5.0">
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                            </padding>
-                        </ListView>
-                    </children>
-                </AnchorPane>
-            </children>
-        </AnchorPane>
         <AnchorPane fx:id="profileListPane" layoutX="9.0" layoutY="72.0" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="75.0">
             <children>
                 <ListView fx:id="profileListView" prefHeight="218.0" prefWidth="355.0" stylesheets="@../../../media/listViewStyles.css" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -162,9 +95,9 @@
                 <Image url="@../../../media/MultiStateIcons/Workshop/Button.png" />
             </image>
         </ImageView>
-          <Text fx:id="settingsTooltip" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="tooltip" text="CML Settings" visible="false" AnchorPane.bottomAnchor="37.0" AnchorPane.rightAnchor="23.0" />
-          <Text fx:id="profileListTooltip" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="tooltip" text="Profile List" visible="false" AnchorPane.bottomAnchor="37.0" AnchorPane.rightAnchor="23.0" />
-          <Text fx:id="profileTooltip" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="tooltip" text="Profile Settings" visible="false" AnchorPane.bottomAnchor="37.0" AnchorPane.rightAnchor="23.0" />
-          <Text fx:id="workshopTooltip" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="tooltip" text="Workshop Mods" visible="false" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="23.0" />
+        <Text fx:id="settingsTooltip" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="tooltip" text="CML Settings" visible="false" AnchorPane.bottomAnchor="37.0" AnchorPane.rightAnchor="23.0" />
+        <Text fx:id="profileListTooltip" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="tooltip" text="Profile List" visible="false" AnchorPane.bottomAnchor="37.0" AnchorPane.rightAnchor="23.0" />
+        <Text fx:id="profileTooltip" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="tooltip" text="Profile Settings" visible="false" AnchorPane.bottomAnchor="37.0" AnchorPane.rightAnchor="23.0" />
+        <Text fx:id="workshopTooltip" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="tooltip" text="Workshop Mods" visible="false" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="23.0" />
     </children>
 </AnchorPane>

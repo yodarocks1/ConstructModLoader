@@ -1,5 +1,5 @@
 .mainFxmlClass {
-    -fx-background-color: linear-gradient(from 0px 0px to 25px 25px, reflect, #77775f 0%, #70705a 40%, #555 50%, #71776b 100%);
+    -fx-background-color: #1A2737; /* linear-gradient(from 0px 0px to 25px 25px, reflect, #77775f 0%, #70705a 40%, #555 50%, #71776b 100%); */
     -fx-border-color: #e5e5e5;
     -fx-border-width: 1px;
 }
@@ -54,4 +54,54 @@
     -fx-font-family: "Lucida Console";
     -fx-font-size: 22px;
     -fx-fill: #a2ab24;
+}
+
+.description.denote-b {
+    -fx-font-weight: bold;
+}
+
+.description.denote-h1 {
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}
+
+.description.denote-i {
+    -fx-font-style: italic;
+}
+
+.description.denote-u {
+    -fx-underline: true;
+}
+
+.description.denote-strike {
+    -fx-strikethrough: true;
+}
+
+.description.denote-spoiler {
+    -fx-fill: #191919;
+    -fx-stroke: #191919;
+}
+
+.description.denote-spoiler:hover {
+    -fx-stroke: white;
+}
+
+.description.denote-url {
+    -fx-stroke: #ddf;
+}
+
+.description.denote-url:hover {
+    -fx-underline: true;
+}
+
+.description.denote-url.denote-u:hover {
+    -fx-underline: false;
+}
+
+.description.denote-url:pressed {
+    -fx-stroke: #dcd;
+}
+
+.description.denote-b.denote-h1 {
+    -fx-font-weight: bolder;
 }

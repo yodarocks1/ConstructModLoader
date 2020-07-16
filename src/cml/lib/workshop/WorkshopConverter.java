@@ -50,7 +50,7 @@ public class WorkshopConverter {
         LOGGER.setLevel(Level.ALL);
     }
 
-    private static final FilenameFilter INDICATOR_FILTER = (File dir, String name) -> name.equals("Survival") || name.equals("Release") || name.equals("Data");
+    public static final FilenameFilter MANUAL_INSTALL_INDICATOR_FILTER = (File dir, String name) -> name.equals("Survival") || name.equals("Release") || name.equals("Data");
 
     public void copyAndConvert(WorkshopMod workshopMod, File file, boolean fileIsProfile) {
         if (fileIsProfile) {
@@ -90,7 +90,7 @@ public class WorkshopConverter {
 
         //If this mod is normally a manual-install mod, use the direct copy method
         if ((handled & 2) == 2) {
-            boolean containsIndicator = workshopMod.getDirectory().listFiles(INDICATOR_FILTER).length > 0;
+            boolean containsIndicator = workshopMod.getDirectory().listFiles(MANUAL_INSTALL_INDICATOR_FILTER).length > 0;
             if (containsIndicator) {
                 directCopy(workshopMod, mod);
                 handled = 7;
@@ -128,7 +128,7 @@ public class WorkshopConverter {
 
     private void directCopy(WorkshopMod workshopMod, File newMod) {
         LOGGER.log(Level.INFO, " - Using direct copy method");
-        for (File subFile : workshopMod.getDirectory().listFiles(INDICATOR_FILTER)) {
+        for (File subFile : workshopMod.getDirectory().listFiles(MANUAL_INSTALL_INDICATOR_FILTER)) {
             copyDirectoryRec(
                     subFile.getAbsolutePath(),
                     "\\" + subFile.getName(),

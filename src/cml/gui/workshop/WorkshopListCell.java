@@ -17,6 +17,8 @@
 package cml.gui.workshop;
 
 import cml.lib.workshop.WorkshopMod;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -26,28 +28,40 @@ import javafx.scene.control.ListView;
  * @author benne
  */
 public class WorkshopListCell extends ListCell<WorkshopMod> {
-    
+
     private final ListView listView;
     private final WorkshopController controller;
-    
+
     public WorkshopListCell(ListView listView, WorkshopController controller) {
         this.listView = listView;
         this.controller = controller;
     }
-    
+
     @Override
     protected void updateItem(WorkshopMod item, boolean empty) {
         super.updateItem(item, empty);
         if (item != null) {
             WorkshopModData dataView = item.dataView;
-            if (dataView != null) {
-                dataView.doInit(controller);
-                dataView.setInfo(listView.maxWidthProperty());
-                setGraphic(dataView.toNode());
+            if (controller.isVisible()) {
+                if (dataView != null) {
+                    dataView.doInit(controller);
+                    dataView.setInfo(listView.maxWidthProperty());
+                    setGraphic(dataView.toNode());
+                } else {
+                    setGraphic(new Label(item.getName()));
+                }
             } else {
-                setGraphic(new Label(item.getName()));
+                controller.visibleProperty().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
+                        controller.visibleProperty().removeListener(this);
+                        if (newValue) {
+                            updateItem(item, empty);
+                        }
+                    }
+                });
             }
         }
     }
-    
+
 }

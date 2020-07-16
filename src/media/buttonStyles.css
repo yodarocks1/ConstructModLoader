@@ -130,3 +130,37 @@
 .choice-box .context-menu {
     -fx-background-color: transparent;
 }
+
+.radio-button {
+    -fx-background-color: #ccc;
+    -fx-background-radius: 5px;
+    -fx-border-color: #000;
+    -fx-border-radius: 5px;
+    -fx-padding: 0px 0px 1px 1px;
+    -fx-pref-width: 20px;
+    -fx-pref-height: 20px;
+    -fx-max-width: 20px;
+    -fx-max-height: 20px;
+    -fx-min-width: 20px;
+    -fx-min-height: 20px;
+    -fx-text-fill: transparent;
+    -fx-effect: dropshadow(gaussian, #000, 5.0, 0.0, 0, 0);
+}
+
+.radio-button .radio {
+    -fx-background-color: transparent;
+}
+
+.radio-button .radio .dot {
+    -fx-background-color: transparent;
+    -fx-translate-y: -1;
+}
+
+.radio-button:selected .radio .dot {
+    -fx-background-color: #fff;
+}
+
+.radio-button:selected {
+    -fx-background-color: #000;
+    -fx-effect: dropshadow(two-pass-box, #eacf03, 2.0, 0.0, 0, 0);
+}

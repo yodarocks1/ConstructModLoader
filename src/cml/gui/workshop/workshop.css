@@ -1,3 +1,15 @@
-.list-view .scroll-bar:vertical {
-    visibility: visible;
+.list-view {
+    -fx-background-color: linear-gradient(from 0px 0px to 25px 25px, reflect, #77775f 0%, #70705a 40%, #555 50%, #71776b 100%);
+}
+
+.list-view .list-cell:filled:even {
+    -fx-background-color: #30303040;
+}
+
+.list-view .list-cell:filled:odd {
+    -fx-background-color: #30303060;
+}
+
+.list-view .list-cell:empty {
+    visibility: hidden;
 }

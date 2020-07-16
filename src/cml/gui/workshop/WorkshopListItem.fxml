@@ -8,11 +8,12 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
 <AnchorPane id="AnchorPane" fx:id="root" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
-        <URL value="@workshoplistitem.css" />
         <URL value="@../../../media/fonts.css" />
+        <URL value="@workshoplistitem.css" />
     </stylesheets>
    <children>
       <ImageView fx:id="image" fitHeight="135.0" fitWidth="240.0" layoutX="8.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="6.0">
@@ -35,7 +36,7 @@
             <Image url="@../../../media/Blank.png" />
          </image>
       </ImageView>
-      <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="#a2ab24" layoutX="206.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="count" text="0" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="41.00000113248825" AnchorPane.leftAnchor="205.0" AnchorPane.topAnchor="158.0">
+      <Text fx:id="connectedCount" boundsType="LOGICAL_VERTICAL_CENTER" fill="#a2ab24" layoutX="206.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="count" text="0" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="41.00000113248825" AnchorPane.leftAnchor="205.0" AnchorPane.topAnchor="158.0">
          <font>
             <Font name="Lucida Console" size="22.0" />
          </font>
@@ -43,9 +44,9 @@
       <Line endY="-200.0" layoutX="261.0" layoutY="38.0" strokeWidth="2.0" styleClass="imageSeparator" AnchorPane.leftAnchor="252.0" AnchorPane.topAnchor="0.0" />
       <Line endX="252.0" layoutX="154.0" layoutY="200.0" strokeDashOffset="-7.0" styleClass="imageSeparator" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="196.0" />
       <Text fx:id="header" layoutX="264.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header" text="Mod Header Goes Here (#98089123)" translateX="-6.0" AnchorPane.leftAnchor="268.0" AnchorPane.topAnchor="6.0" />
-      <Text fx:id="description" layoutX="274.0" layoutY="58.00390625" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="description" text="Description" translateX="-8.0" wrappingWidth="327.0" AnchorPane.leftAnchor="273.0" AnchorPane.topAnchor="46.0" />
+      <TextFlow fx:id="description" styleClass="description" AnchorPane.leftAnchor="265.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="46.0" />
       <Line endX="100.0" layoutX="356.0" layoutY="34.0" startX="-100.0" styleClass="headerSeparator" AnchorPane.leftAnchor="262.5" AnchorPane.topAnchor="36.5" />
-      <Text fx:id="properties" fill="WHITE" layoutX="14.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="property" text="Properties" />
+      <Text fx:id="properties" fill="WHITE" layoutX="14.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="property" text="Properties" wrappingWidth="230.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="202.830078125" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

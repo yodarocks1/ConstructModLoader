@@ -18,36 +18,42 @@ package cml.beans;
 
 import cml.gui.plugins.PluginData;
 import cml.lib.files.AFileManager;
+import cml.lib.files.AFileManager.FileOptions;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ListResourceBundle;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.fxml.FXMLLoader;
 
 /**
  *
  * @author benne
  */
 public class Plugin {
-    
+
     private static final Logger LOGGER = Logger.getLogger(Plugin.class.getName());
 
     private final File directory;
+    private final File config;
     private final Map<String, Object> properties = new HashMap();
     public final PluginData dataView;
-    private BooleanProperty enabled;
+    private final BooleanProperty enabled;
 
     public Plugin(File directory) {
         this.directory = directory;
-        readProperties(new File(directory, "cml.config"));
-        this.dataView = new PluginData(this);
+        this.config = new File(directory, "cml.config");
+        readProperties(config);
         this.enabled = new SimpleBooleanProperty(new File(directory, "enabled").exists());
+        this.dataView = new PluginData(this);
     }
 
     private void readProperties(File config) {
@@ -57,11 +63,17 @@ public class Plugin {
             switch (readMode) {
                 default:
                     if (!line.contains(":")) {
-                        if (line.equals("isHook")) {
-                            properties.put("isHook", true);
-                        } else {
-                            properties.putIfAbsent("arguments", new ArrayList<String> ());
-                            ((ArrayList<String>) properties.get("arguments")).add(line);
+                        switch (line.trim().toLowerCase()) {
+                            case "ishook":
+                                properties.put("ishook", true);
+                                break;
+                            case "autorun":
+                                properties.put("autorun", true);
+                                break;
+                            default:
+                                properties.putIfAbsent("arguments", new ArrayList<String>());
+                                ((ArrayList<String>) properties.get("arguments")).add(line);
+                                break;
                         }
                     } else {
                         String key = line.split(":")[0].trim();
@@ -71,61 +83,131 @@ public class Plugin {
                             ((HashMap<String, String>) properties.get("hooks")).put(key.substring(4), value);
                             continue;
                         }
-                        switch (key.trim()) {
+                        switch (key.trim().toLowerCase()) {
                             case "executable":
                                 properties.put("executable", new File(directory, value));
                                 break;
-                            case "isHook":
-                                properties.put("isHook", Boolean.valueOf(value));
+                            case "fxml":
+                                properties.put("fxml", new File(directory, value));
+                                break;
+                            case "ishook":
+                                properties.put("ishook", Boolean.valueOf(value));
                                 break;
                             case "arguments":
-                                properties.putIfAbsent("arguments", new ArrayList<String> ());
+                                properties.putIfAbsent("arguments", new ArrayList<String>());
                                 ((ArrayList<String>) properties.get("arguments")).add(value);
                                 break;
                             default:
                                 properties.put(key, value);
+                                break;
                         }
                     }
             }
         }
     }
-    
-    public void run() throws IOException {
-        File executable = (File) properties.get("executable");
-        List<String> arguments = (List<String>) properties.get("arguments");
-        String args = executable.getPath() + " " + arguments.stream().collect(Collectors.joining(" "));
-        if (executable.getName().toLowerCase().endsWith(".jar")) {
-            Runtime.getRuntime().exec("java -jar " + args);
-        } else if (properties.containsKey("execution")) {
-            Runtime.getRuntime().exec(properties.get("execution") + " " + args);
-        } else {
-            Runtime.getRuntime().exec(args);
-        }
-        
+
+    private void addProperty(String line) {
+        String configStr = AFileManager.FILE_MANAGER.readString(config);
+        configStr += "\n" + line;
+        AFileManager.FILE_MANAGER.write(config, configStr, FileOptions.REPLACE);
     }
-    
+
+    private void removeProperty(String startsWith) {
+        List<String> oldConfig = AFileManager.FILE_MANAGER.readList(config);
+        String newConfig = oldConfig.stream().filter((line) -> !line.startsWith(startsWith)).collect(Collectors.joining("\n"));
+        AFileManager.FILE_MANAGER.write(config, newConfig, FileOptions.REPLACE);
+    }
+
+    public void openConfig() {
+        try {
+            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler \"" + config.getAbsolutePath() + "\"");
+        } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, "Failed to open file: url=\"" + config.getAbsolutePath() + "\"", ex);
+        }
+    }
+
+    public void run() throws IOException {
+        if (isExecutable()) {
+            File executable = (File) properties.get("executable");
+            List<String> arguments = (List<String>) properties.get("arguments");
+            String args = '"' + executable.getPath() + '"' + collectArgs(arguments);
+            if (executable.getName().toLowerCase().endsWith(".jar")) {
+                Runtime.getRuntime().exec("java -jar " + args);
+            } else if (properties.containsKey("execution")) {
+                Runtime.getRuntime().exec(properties.get("execution") + " " + args);
+            } else {
+                Runtime.getRuntime().exec(args);
+            }
+        } else if (isFXML()) {
+            File fxml = (File) properties.get("fxml");
+            FXMLLoader loader = new FXMLLoader(fxml.toURI().toURL());
+            loader.setResources(new ListResourceBundle() {
+                @Override
+                protected Object[][] getContents() {
+                    Object[][] contents = new Object[properties.size()][];
+                    int i = 0;
+                    for (Entry entry : properties.entrySet()) {
+                        contents[i++] = new Object[]{entry.getKey(), entry.getValue()};
+                    }
+                    return contents;
+                }
+            });
+            loader.setClassLoader(this.getClass().getClassLoader());
+            loader.load();
+        } else {
+            throw new UnsupportedOperationException("Plugin does not have a defined Executable or an FXML, and cannot be launched.");
+        }
+    }
+
+    public boolean isAutoRun() {
+        return (boolean) properties.getOrDefault("autorun", false);
+    }
+
+    public void setAutoRun(boolean autoRun) {
+        if (autoRun) {
+            properties.put("autorun", true);
+            addProperty("autorun");
+        } else {
+            properties.remove("autorun");
+            removeProperty("autorun");
+        }
+    }
+
     public boolean isExecutable() {
         return properties.containsKey("executable") && ((File) properties.get("executable")).exists();
     }
-    
-    public boolean isHook() {
-        return (Boolean) properties.getOrDefault("isHook", false);
+
+    public boolean isFXML() {
+        return properties.containsKey("fxml") && ((File) properties.get("fxml")).exists();
     }
-    
+
+    public boolean isHook() {
+        return (Boolean) properties.getOrDefault("ishook", false);
+    }
+
     public Map<String, String> getHooks() {
         return (HashMap<String, String>) properties.get("hooks");
     }
-    
+
     public String getName() {
         String name = (String) properties.getOrDefault("name", null);
         if (name == null) {
-            File executable = (File) properties.get("executable");
-            LOGGER.log(Level.WARNING, "Plugin at path \"{0}\" does not have a name. Setting to executable name.", directory.getAbsolutePath());
-            name = executable.getName();
+            if (isExecutable()) {
+                File executable = (File) properties.get("executable");
+                LOGGER.log(Level.WARNING, "Plugin at path \"{0}\" does not have a name. Setting to executable name.", directory.getAbsolutePath());
+                name = executable.getName();
+            } else if (isFXML()) {
+                File fxml = (File) properties.get("fxml");
+                LOGGER.log(Level.WARNING, "Plugin at path \"{0}\" does not have a name. Setting to fxml name.", directory.getAbsolutePath());
+                name = fxml.getName();
+            } else {
+                LOGGER.log(Level.WARNING, "Plugin at path \"{0}\" does not have a name. Setting to directory name.", directory.getAbsolutePath());
+                name = directory.getName();
+            }
         }
         return name;
     }
-    
+
     public String getDescription() {
         String description = (String) properties.getOrDefault("description", null);
         if (description == null) {
@@ -134,48 +216,76 @@ public class Plugin {
         }
         return description;
     }
-    
+
     public String getImageUrl() {
         return (String) properties.getOrDefault("iconUrl", "http://aux.iconspalace.com/uploads/blank-icon-32-1093244638.png");
     }
-    
+
     public boolean hasProperty(String key) {
         return properties.containsKey(key);
     }
-    
+
     public Object getProperty(String key) {
         return properties.get(key);
     }
-    
+
+    public Object getProperty(String key, Object defaultValue) {
+        return properties.getOrDefault(key, defaultValue);
+    }
+
+    public Map<String, Object> getProperties() {
+        return properties;
+    }
+
     public File getDirectory() {
         return directory;
     }
-    
+
     public boolean isEnabled() {
         return enabled.getValue();
     }
-    
+
     public BooleanProperty getEnabledProperty() {
         return enabled;
     }
-    
+
     public void enable() {
         try {
             new File(directory, "enabled").createNewFile();
+            enabled.setValue(true);
         } catch (IOException ex) {
             LOGGER.log(Level.SEVERE, "Could not enable plugin " + getName(), ex);
         }
-        enabled.setValue(true);
     }
-    
+
     public void disable() {
         new File(directory, "enabled").delete();
         enabled.setValue(false);
     }
-    
+
     public void delete() {
-        directory.delete();
         disable();
+        directory.delete();
+    }
+
+    private String collectArgs(List<String> args) {
+        return parseArgs(args).stream().collect(Collectors.joining(" ", " ", ""));
+    }
+
+    private List<String> parseArgs(List<String> args) {
+        return args.stream().map((String arg) -> {
+            if (arg != null && arg.trim().length() > 0) {
+                switch (arg.trim().toLowerCase()) {
+                    case "dir":
+                    case "directory":
+                        return this.directory.getAbsolutePath();
+
+                    default:
+                        return arg.trim();
+                }
+            }
+            return "";
+        }).collect(Collectors.toList());
     }
 
 }

@@ -16,10 +16,8 @@
  */
 package cml.lib.workshop;
 
-import cml.apply.Apply;
 import cml.gui.workshop.WorkshopModData;
 import cml.lib.files.AFileManager;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -182,6 +180,19 @@ public class WorkshopMod {
 
     public boolean isApplicable() {
         return applicable;
+    }
+    
+    public String getApplicability() {
+        if (!applicable) {
+            return "Unsupported";
+        }
+        if (CMLMod) {
+            return "Fully Supported";
+        }
+        if (directory.listFiles(WorkshopConverter.MANUAL_INSTALL_INDICATOR_FILTER).length > 0) {
+            return "Almost Certainly";
+        }
+        return "Unlikely, but Unknown";
     }
 
     public void setApplicable(boolean applicable) {

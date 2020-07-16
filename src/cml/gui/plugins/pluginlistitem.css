@@ -1,0 +1,77 @@
+.mainFxmlClass {
+    -fx-background-color: #494949;
+    -fx-border-color: #999;
+    -fx-border-width: 2px;
+}
+
+.check-menu-item:checked {
+    -fx-background-color: #504D41;
+    -fx-border-color:#a80;
+    -fx-text-fill: #a80;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 1, 0.2, 0, 1);
+    -fx-mark-color: #77ff99;
+    -fx-focused-mark-color: #77ff99;
+}
+
+.check-menu-item:not(checked) {
+    -fx-mark-color: brightred;
+}
+
+.menu { 
+    -fx-mark-color: white;
+}
+
+.context-menu {
+    -fx-background-color: transparent;
+}
+
+.text-area {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-family: "LIBRARY 3 AM";
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .content {
+    -fx-background-color: transparent;
+}
+
+.author {
+    -fx-fill: #ddddaa;
+    -fx-font-family: "LIBRARY 3 AM";
+    -fx-font-size: 11px;
+}
+
+.name {
+    -fx-fill: #ffffaa;
+    -fx-font-family: "LIBRARY 3 AM";
+    -fx-font-size: 14px;
+}
+
+.info-link {
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 14px;
+    -fx-background-radius: 32;
+    -fx-border-radius: 32;
+}
+
+.launch-menu-item {
+    -fx-font-size: 24px;
+}
+
+.launch-menu-item .label {
+    -fx-font-size: 24px;
+}
+
+.config-tooltip-label {
+    -fx-fill: white;
+    -fx-font-size: 9px;
+    -fx-font-family: "LIBRARY 3 AM";
+}

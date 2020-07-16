@@ -17,6 +17,9 @@ import cml.lib.files.ZipManager;
 import cml.lib.registry.hardcoded.Steam;
 import cml.lib.workshop.WorkshopConnectionHandler;
 import cml.lib.workshop.WorkshopReader;
+import cml.lib.xmliconmap.CMLIcon;
+import cml.lib.xmliconmap.CMLIcon.State;
+import cml.lib.xmliconmap.CMLIconMap;
 import com.sun.javafx.application.LauncherImpl;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -53,6 +56,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -61,8 +65,10 @@ import javafx.stage.Stage;
 public class Main {
 
     protected static final Logger LOGGER;
-
+    
     public static final File API_DIRECTORY = new File(".");
+    public static final CMLIconMap ICON_MAP = CMLIconMap.ICON_MAP;
+    
     public static String scrapMechanicFolder = null;
     public static String vanillaFolder = null;
     public static String modsFolder = null;
@@ -357,7 +363,7 @@ public class Main {
             choiceDialog.setHeaderText("Incompatibility Handler (Certainty: True)");
             choiceDialog.setContentText("Choose only one mod to leave enabled: ");
             choiceDialog.getDialogPane().getButtonTypes().removeAll(ButtonType.CANCEL);
-            ((Stage) choiceDialog.getDialogPane().getScene().getWindow()).getIcons().add(Images.ICON_ERROR);
+            ((Stage) choiceDialog.getDialogPane().getScene().getWindow()).getIcons().add(ICON_MAP.ICON.getIcon(State.ERROR));
             choiceDialog.showAndWait();
             for (Modification offender : ex.getOffenders()) {
                 if (offender.getName().equals(choiceDialog.getSelectedItem())) {
@@ -375,7 +381,7 @@ public class Main {
             selectDialog.setHeaderText("Incompatibility Handler (Certainty: False)");
             selectDialog.getDialogPane().setBackground(background);
             selectDialog.getDialogPane().getScene().setFill(null);
-            ((Stage) selectDialog.getDialogPane().getScene().getWindow()).getIcons().add(Images.ICON_ERROR);
+            ((Stage) selectDialog.getDialogPane().getScene().getWindow()).getIcons().add(ICON_MAP.ICON.getIcon(State.ERROR));
             ListView checkList = new ListView();
             List<CheckBox> checkBoxes = new ArrayList();
             for (Modification offender : ex.getOffenders()) {

@@ -16,15 +16,15 @@
  */
 package cml.lib.workshop;
 
-import cml.apply.Apply;
 import cml.beans.Modification;
 import cml.lib.files.AFileManager;
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.MapProperty;
+import javafx.beans.property.SimpleMapProperty;
+import javafx.collections.FXCollections;
 
 /**
  *
@@ -34,6 +34,7 @@ public class WorkshopConnectionHandler {
 
     private static final Logger LOGGER = Logger.getLogger(WorkshopConnectionHandler.class.getName());
     public static Map<Modification, WorkshopMod> connections = new HashMap();
+    public static MapProperty<WorkshopMod, Integer> connectionCount = new SimpleMapProperty(FXCollections.observableHashMap());
     private static final WorkshopConverter CONVERTER = new WorkshopConverter();
 
     public static void updateAllConnectedMods() {
@@ -51,21 +52,25 @@ public class WorkshopConnectionHandler {
     public static void connectAndConvertInto(WorkshopMod fromWorkshop, File toProfile) {
         CONVERTER.copyAndConvert(fromWorkshop, toProfile, true);
         connections.put(new Modification(new File(toProfile, fromWorkshop.getName())), fromWorkshop);
+        connectionCount.put(fromWorkshop, connectionCount.getOrDefault(fromWorkshop, 0) + 1);
     }
     
     public static void connectAndConvert(WorkshopMod fromWorkshop, File toMod) {
         CONVERTER.copyAndConvert(fromWorkshop, toMod);
         connections.put(new Modification(toMod), fromWorkshop);
+        connectionCount.put(fromWorkshop, connectionCount.getOrDefault(fromWorkshop, 0) + 1);
     }
     
     protected static void connect(WorkshopMod fromWorkshop, Modification toMod) {
         connections.put(toMod, fromWorkshop);
+        connectionCount.put(fromWorkshop, connectionCount.getOrDefault(fromWorkshop, 0) + 1);
     }
     
     private static void connect(Modification mod, String workshopFolder) {
         WorkshopMod workshop = WorkshopMod.createSafely(new File(workshopFolder, Integer.toString(mod.getWorkshopConnection())));
         if (workshop != null) {
             connections.put(mod, workshop);
+            connectionCount.put(workshop, connectionCount.getOrDefault(workshop, 0) + 1);
         }
     }
     
@@ -82,6 +87,7 @@ public class WorkshopConnectionHandler {
     }
     
     public static void disconnect(Modification mod) {
+        connectionCount.put(connections.get(mod), connectionCount.getOrDefault(connections.get(mod), 0) - 1);
         connections.remove(mod);
     }
     

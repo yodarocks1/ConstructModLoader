@@ -1,13 +1,13 @@
-.list-view .list-cell:empty {
+.list-view.autostyle .list-cell:empty {
 -fx-background-color: #434343;
 visibility: hidden
 }
-.list-view {
+.list-view.autostyle {
 -fx-background-color: #434343
 }
-.list-view .list-cell:filled:even {
+.list-view.autostyle .list-cell:filled:even {
 -fx-background-color: #494949
 }
-.list-view .list-cell:filled:odd {
+.list-view.autostyle .list-cell:filled:odd {
 -fx-background-color: #454545
 }

@@ -70,7 +70,7 @@
                 </Button>
             </buttons>
         </ButtonBar>
-        <ListView fx:id="console" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../media/listViewStyles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0" />
+        <ListView fx:id="console" styleClass="autostyle" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../media/listViewStyles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0" />
         <ImageView id="minimize" fx:id="toTray" fitHeight="16.0" fitWidth="16.0" onMouseClicked="#minimizeToTray" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="43.0" AnchorPane.topAnchor="4.0">
             <image>
                 <Image url="@../../../media/CML%20App.png" />

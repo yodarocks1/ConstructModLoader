@@ -115,7 +115,7 @@ public class ConsoleController implements Initializable {
         Platform.setImplicitExit(false);
         this.stage = stage;
         stage.initStyle(StageStyle.TRANSPARENT);
-        stage.getIcons().add(Images.ICON);
+        stage.getIcons().add(Main.ICON_MAP.ICON.getIcon(0));
         stage.setTitle("Console - Construct Mod Loader");
 
         PopupMenu menu = new PopupMenu();
@@ -142,7 +142,7 @@ public class ConsoleController implements Initializable {
             menu.add(hideLoader);
             menu.add(closeItem);
 
-            trayIcon = new TrayIcon(SwingFXUtils.fromFXImage(Images.ICON, null), "Console - Construct Mod Loader", menu);
+            trayIcon = new TrayIcon(SwingFXUtils.fromFXImage(Main.ICON_MAP.ICON.getIcon(0), null), "Console - Construct Mod Loader", menu);
             trayIcon.setImageAutoSize(true);
             trayIcon.addActionListener(e -> Platform.runLater(() -> maximizeFromTray()));
 

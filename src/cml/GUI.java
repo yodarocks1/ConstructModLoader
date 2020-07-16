@@ -22,6 +22,7 @@ import cml.gui.console.ConsoleController;
 import cml.gui.console.LogHandler;
 import cml.gui.console.StreamTee;
 import cml.lib.threadmanager.ThreadManager;
+import cml.lib.xmliconmap.CMLIcon;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -38,6 +39,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+import org.scenicview.ScenicView;
 
 /**
  *
@@ -78,6 +80,10 @@ public class GUI extends Application {
             scene.getStylesheets().add(getClass().getClassLoader().getResource("media/listViewStyles.css").toExternalForm());
             scene.getStylesheets().add(getClass().getClassLoader().getResource("media/buttonStyles.css").toExternalForm());
 
+            if (Boolean.valueOf(System.getProperty("evPanel", "false"))) {
+                ScenicView.show(scene);
+            }
+
             scene.addEventHandler(SceneEvent.ICON_CHANGE, (event) -> {
                 if (event.getData() instanceof IconChange) {
                     IconChange icons = (IconChange) event.getData();
@@ -95,7 +101,7 @@ public class GUI extends Application {
             });
 
             stage.setTitle("Construct Mod Loader - V" + Constants.VERSION);
-            stage.getIcons().add(Images.ICON);
+            stage.getIcons().add(Main.ICON_MAP.ICON.getIcon(CMLIcon.State.NORMAL));
             stage.setMinWidth(500);
             stage.setScene(scene);
             SplashScreenLoader.close();
@@ -133,7 +139,7 @@ public class GUI extends Application {
     public void hide() {
         stage.hide();
     }
-    
+
     public boolean isShowing() {
         return stage.isShowing();
     }
@@ -141,7 +147,7 @@ public class GUI extends Application {
     public void setOnCloseRequest(EventHandler<WindowEvent> eventHandler) {
         stage.setOnCloseRequest(eventHandler);
     }
-    
+
     public void addWindowCloseHandler(EventHandler<WindowEvent> eventHandler) {
         stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, eventHandler);
     }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #494949;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cml.gui.plugins.PluginsController">
+    <stylesheets>
+        <URL value="@../../../media/buttonStyles.css" />
+        <URL value="@plugins.css" />
+    </stylesheets>
+    <children>
+        <HBox prefHeight="58.0" spacing="20.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" />
+                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;Georgia&quot;; -fx-font-size: 30px;" text="Plugins from the Modding Community">
+                    <HBox.margin>
+                        <Insets left="15.0" top="8.0" />
+                    </HBox.margin>
+                </Text>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+            </padding>
+        </HBox>
+        <TextField fx:id="searchName" layoutX="216.0" layoutY="50.0" onAction="#doSearch" onKeyTyped="#doSearchLazy" promptText="Search by Name" styleClass="button" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="82.0" />
+        <TextField fx:id="searchAuthor" layoutX="421.0" layoutY="50.0" onAction="#doSearch" onKeyTyped="#doSearchLazy" prefWidth="140.0" promptText="Search by ID" styleClass="button" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="82.0" />
+    </children>
+</AnchorPane>

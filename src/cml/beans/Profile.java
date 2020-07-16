@@ -17,13 +17,12 @@
 package cml.beans;
 
 import cml.Constants;
-import cml.Images;
-import static cml.Images.BLANK;
 import cml.Main;
 import cml.lib.files.AFileManager;
 import cml.lib.files.AFileManager.FileOptions;
 import cml.lib.files.ZipManager;
 import cml.lib.workshop.WorkshopConnectionHandler;
+import cml.lib.xmliconmap.CMLIcon;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -76,10 +75,10 @@ public class Profile {
             if (iconFile.exists()) {
                 this.icon.setValue(new Image(iconFile.toURI().toString()));
             } else {
-                this.icon.setValue(BLANK);
+                this.icon.setValue(Main.ICON_MAP.BLANK.getIcon(0));
             }
         } catch (NullPointerException ex) {
-            this.icon.setValue(BLANK);
+            this.icon.setValue(Main.ICON_MAP.BLANK.getIcon(0));
         }
         this.name = new SimpleStringProperty(directory.getName());
         try {
@@ -94,10 +93,10 @@ public class Profile {
     private Profile(boolean isDeleted) {
         this.modifications = new ArrayList();
         if (isDeleted) {
-            this.icon.setValue(Images.DELETE_PRESS_START);
+            this.icon.setValue(Main.ICON_MAP.DELETE_C.getIcon(CMLIcon.State.HOVER));
             this.name = new SimpleStringProperty("<< Invalid profile! >>");
         } else {
-            this.icon.setValue(BLANK);
+            this.icon.setValue(Main.ICON_MAP.BLANK.getIcon(0));
             this.name = new SimpleStringProperty("<< Please select a profile! >>");
         }
         this.directory = null;
@@ -130,7 +129,7 @@ public class Profile {
             this.icon.setValue(icon);
             AFileManager.IMAGE_MANAGER.write(new File(directory, "icon.png"), SwingFXUtils.fromFXImage(icon, null), "png");
         } else {
-            this.icon.setValue(BLANK);
+            this.icon.setValue(Main.ICON_MAP.BLANK.getIcon(0));
             AFileManager.FILE_MANAGER.delete(new File(directory, "icon.png"));
         }
         Main.updateProfileList();
