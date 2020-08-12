@@ -16,12 +16,15 @@
  */
 package cml.beans;
 
+import cml.Main;
+import cml.apply.PluginApplyManager;
 import cml.gui.plugins.PluginData;
 import cml.lib.files.AFileManager;
 import cml.lib.files.AFileManager.FileOptions;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListResourceBundle;
@@ -29,6 +32,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -62,6 +66,9 @@ public class Plugin {
         for (String line : configStr) {
             switch (readMode) {
                 default:
+                    if (line.isEmpty()) {
+                        continue;
+                    }
                     if (!line.contains(":")) {
                         switch (line.trim().toLowerCase()) {
                             case "ishook":
@@ -70,20 +77,24 @@ public class Plugin {
                             case "autorun":
                                 properties.put("autorun", true);
                                 break;
+                            case "ishandler":
+                                properties.put("ishandler", true);
+                                setupAsHandler();
+                                break;
                             default:
                                 properties.putIfAbsent("arguments", new ArrayList<String>());
                                 ((ArrayList<String>) properties.get("arguments")).add(line);
                                 break;
                         }
                     } else {
-                        String key = line.split(":")[0].trim();
-                        String value = line.split(":")[1].trim();
+                        String key = line.split(":")[0].trim().toLowerCase();
+                        String value = line.substring(line.indexOf(":") + 1).trim();
                         if (key.startsWith("hook")) {
                             properties.putIfAbsent("hooks", new HashMap<String, String>());
                             ((HashMap<String, String>) properties.get("hooks")).put(key.substring(4), value);
                             continue;
                         }
-                        switch (key.trim().toLowerCase()) {
+                        switch (key) {
                             case "executable":
                                 properties.put("executable", new File(directory, value));
                                 break;
@@ -93,6 +104,13 @@ public class Plugin {
                             case "ishook":
                                 properties.put("ishook", Boolean.valueOf(value));
                                 break;
+                            case "ishandler":
+                                properties.put("ishandler", Boolean.valueOf(value));
+                                if (Boolean.valueOf(value)) {
+                                    setupAsHandler();
+                                }
+                                break;
+                            case "argument":
                             case "arguments":
                                 properties.putIfAbsent("arguments", new ArrayList<String>());
                                 ((ArrayList<String>) properties.get("arguments")).add(value);
@@ -104,6 +122,10 @@ public class Plugin {
                     }
             }
         }
+    }
+
+    private void setupAsHandler() {
+        PluginApplyManager.managers.add(new PluginApplyManager(this));
     }
 
     private void addProperty(String line) {
@@ -127,17 +149,40 @@ public class Plugin {
     }
 
     public void run() throws IOException {
+        run(new String[]{});
+    }
+
+    public void run(String[] specialArgs) throws IOException {
+        if (!enabled.get()) {
+            return;
+        }
         if (isExecutable()) {
-            File executable = (File) properties.get("executable");
-            List<String> arguments = (List<String>) properties.get("arguments");
-            String args = '"' + executable.getPath() + '"' + collectArgs(arguments);
-            if (executable.getName().toLowerCase().endsWith(".jar")) {
-                Runtime.getRuntime().exec("java -jar " + args);
-            } else if (properties.containsKey("execution")) {
-                Runtime.getRuntime().exec(properties.get("execution") + " " + args);
+            String exec;
+            List<String> argumentsPointer = (List<String>) properties.get("arguments");
+            List<String> arguments;
+            if (argumentsPointer != null) {
+                arguments = new ArrayList(argumentsPointer);
             } else {
-                Runtime.getRuntime().exec(args);
+                arguments = new ArrayList();
             }
+            arguments.addAll(Arrays.asList(specialArgs));
+
+            if (hasExecutable()) {
+                File executable = (File) properties.get("executable");
+                String args = '"' + executable.getPath() + '"' + collectArgs(arguments);
+                if (properties.containsKey("execution")) {
+                    exec = parseExecution((String) properties.get("execution")) + " " + args;
+                } else if (executable.getName().toLowerCase().endsWith(".jar")) {
+                    exec = "java -jar " + args;
+                } else {
+                    exec = args;
+                }
+            } else {
+                exec = parseExecution((String) properties.get("execution")) + " " + collectArgs(arguments);
+            }
+
+            LOGGER.log(Level.FINE, "Executing \"{0}\" for Plugin \"{1}\"", new Object[]{exec, this.getName()});
+            Runtime.getRuntime().exec(exec, null, this.getDirectory());
         } else if (isFXML()) {
             File fxml = (File) properties.get("fxml");
             FXMLLoader loader = new FXMLLoader(fxml.toURI().toURL());
@@ -153,10 +198,15 @@ public class Plugin {
                 }
             });
             loader.setClassLoader(this.getClass().getClassLoader());
+            LOGGER.log(Level.FINE, "Loading FXML for Plugin {0}", this.getName());
             loader.load();
         } else {
             throw new UnsupportedOperationException("Plugin does not have a defined Executable or an FXML, and cannot be launched.");
         }
+    }
+
+    public boolean shouldAutoRun() {
+        return Main.AUTORUN_ENABLED_PROPERTY.get() && (boolean) properties.getOrDefault("autorun", false);
     }
 
     public boolean isAutoRun() {
@@ -173,8 +223,12 @@ public class Plugin {
         }
     }
 
-    public boolean isExecutable() {
+    public boolean hasExecutable() {
         return properties.containsKey("executable") && ((File) properties.get("executable")).exists();
+    }
+
+    public boolean isExecutable() {
+        return hasExecutable() || properties.containsKey("execution");
     }
 
     public boolean isFXML() {
@@ -214,7 +268,7 @@ public class Plugin {
             LOGGER.log(Level.WARNING, "Plugin \"{0}\" does not have a description.", getName());
             description = "This plugin did not have a description. Commence subtle shaming.";
         }
-        return description;
+        return description.replace("\\n", "\n");
     }
 
     public String getImageUrl() {
@@ -279,13 +333,23 @@ public class Plugin {
                     case "dir":
                     case "directory":
                         return this.directory.getAbsolutePath();
-
+                    case "\"dir\"":
+                    case "\"directory\"":
+                        return '\"' + this.directory.getAbsolutePath() + '\"';
+                    case "sm_version":
+                        return PluginApplyManager.getHeldSMVersion();
                     default:
                         return arg.trim();
                 }
             }
             return "";
         }).collect(Collectors.toList());
+    }
+
+    private static final Pattern DIRECTORY_PATTERN = Pattern.compile("{$plugindirectory}", Pattern.LITERAL + Pattern.CASE_INSENSITIVE);
+
+    private String parseExecution(String execution) {
+        return DIRECTORY_PATTERN.matcher(execution).replaceAll(this.getDirectory().getAbsolutePath().replace("\\", "\\\\"));
     }
 
 }

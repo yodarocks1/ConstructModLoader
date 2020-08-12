@@ -40,7 +40,7 @@ public final class Steam {
      * This function will try find the installPath of steam and then get all the
      * library paths.
      *
-     * @return true if it sucessfully found Steam
+     * @return true if it successfully found Steam
      */
     public static boolean reload() {
         LOGGER.log(Level.INFO, "Loading Steam installation path");
@@ -64,7 +64,7 @@ public final class Steam {
      * Load all libraries with the steam installPath
      *
      * @param installPath the path of the steam directory
-     * @return
+     * @return always true
      */
     public static boolean reload(File installPath) {
         LOGGER.log(Level.FINE, "Loading all Library locations");

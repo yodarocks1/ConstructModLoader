@@ -42,6 +42,7 @@ public class ThreadManager {
         stopped = true;
         THREADS.forEach(Thread::interrupt);
         ON_STOP.forEach(Runnable::run);
+        MANAGER.executor.shutdownNow();
     }
     
     public static void onStop(Runnable run) {

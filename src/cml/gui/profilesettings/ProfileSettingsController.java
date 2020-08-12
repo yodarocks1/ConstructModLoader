@@ -18,8 +18,8 @@ package cml.gui.profilesettings;
 
 import cml.Constants;
 import cml.ErrorManager;
-import cml.Images;
 import cml.Main;
+import cml.Media;
 import cml.beans.Modification;
 import cml.beans.Profile;
 import cml.gui.main.MainController;
@@ -28,6 +28,7 @@ import cml.gui.popup.CmlPopup;
 import cml.gui.popup.PopupData;
 import cml.lib.xmliconmap.CMLIcon;
 import cml.lib.xmliconmap.CMLIconConditional;
+import cml.lib.xmliconmap.CMLIconMap;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -79,7 +80,6 @@ public class ProfileSettingsController extends SubController {
 
     private static final Logger LOGGER = Logger.getLogger(ProfileSettingsController.class.getName());
 
-    @FXML private AnchorPane root;
     @FXML private AnchorPane profilePane;
     @FXML private Rectangle profileTopBorder;
     @FXML private Text profileNameText;
@@ -103,16 +103,10 @@ public class ProfileSettingsController extends SubController {
     @Override
     public void setVisible(boolean visible) {
         profilePane.setVisible(visible);
-        root.setMouseTransparent(!visible);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        AnchorPane.setBottomAnchor(root, 0.0);
-        AnchorPane.setTopAnchor(root, 0.0);
-        AnchorPane.setLeftAnchor(root, 0.0);
-        AnchorPane.setRightAnchor(root, 0.0);
-
         initializeProfile();
     }
 
@@ -129,7 +123,7 @@ public class ProfileSettingsController extends SubController {
 
         public void setProfile(Profile profile) {
             this.editingProfile = profile;
-            iconField.setImage(profile.getIcon());
+            iconField.setImage(profile.getIconSafe());
             descriptionField.setText(profile.getDescription());
             nameField.setText(profile.getName());
             if (parent != null) {
@@ -273,7 +267,6 @@ public class ProfileSettingsController extends SubController {
             profileNameText.textProperty().bind(newValue.getNameProperty());
             profileImage.imageProperty().bind(newValue.getIconProperty());
             modsListVBox.getItems().setAll(fromModList(newValue.getModifications()));
-            Main.activeModifications = Main.activeProfile.get().getActiveModifications();
             if (newValue.getDirectory() != null) {
                 openProfileFolder.setVisible(true);
                 deleteProfile.setVisible(true);
@@ -292,15 +285,15 @@ public class ProfileSettingsController extends SubController {
                 LOGGER.log(Level.SEVERE, "Failed to open profile " + Main.activeProfile.getValue().getName(), ex);
             }
         });
-        MainController.setImageMouseHandlers(openProfileFolder, Main.ICON_MAP.OPEN_FOLDER);
-        MainController.setImageMouseHandlers(deleteProfile, Main.ICON_MAP.DELETE);
-        MainController.setImageMouseHandlers(profileProperties, Main.ICON_MAP.PROFILE_SETTINGS);
+        MainController.setImageMouseHandlers(openProfileFolder, CMLIconMap.ICON_MAP.OPEN_FOLDER);
+        MainController.setImageMouseHandlers(deleteProfile, CMLIconMap.ICON_MAP.DELETE);
+        MainController.setImageMouseHandlers(profileProperties, CMLIconMap.ICON_MAP.PROFILE_SETTINGS);
 
         profileScrollBar.setOnMousePressed((event) -> {
             scrollCenter = event.getSceneY();
             scrollTranslate = profileScrollBar.getTranslateY();
         });
-        MainController.setImageMouseHandlers(profileScrollBar, Images.SCROLL, Images.SCROLL_SELECT, Images.SCROLL_PRESS);
+        MainController.setImageMouseHandlers(profileScrollBar, Media.SCROLL, Media.SCROLL_SELECT, Media.SCROLL_PRESS);
         profileScrollBar.addEventHandler(MouseEvent.MOUSE_DRAGGED, (event) -> {
             if (scrollEnabled.get()) {
                 event.consume();
@@ -308,32 +301,32 @@ public class ProfileSettingsController extends SubController {
                 double y = scrollTranslate + (event.getSceneY() - scrollCenter);
                 y = y > yMax ? yMax : (y < 0 ? 0 : y);
                 scroll.setValue(y / yMax);
-                profileScrollBar.setImage(Images.SCROLL_PRESS);
+                profileScrollBar.setImage(Media.SCROLL_PRESS);
             }
         });
         scrollEnabled.addListener((obs, oldValue, newValue) -> {
             if (newValue) {
                 profileScrollPane.setMouseTransparent(false);
-                profileScrollBar.setImage(Images.SCROLL);
-                profileScrollButtonTop.setImage(Images.SCROLL_B);
-                profileScrollButtonBottom.setImage(Images.SCROLL_B);
+                profileScrollBar.setImage(Media.SCROLL);
+                profileScrollButtonTop.setImage(Media.SCROLL_B);
+                profileScrollButtonBottom.setImage(Media.SCROLL_B);
             } else {
                 profileScrollPane.setMouseTransparent(true);
-                profileScrollBar.setImage(Images.SCROLL_DISABLE);
-                profileScrollButtonTop.setImage(Images.SCROLL_B_DISABLE);
-                profileScrollButtonBottom.setImage(Images.SCROLL_B_DISABLE);
+                profileScrollBar.setImage(Media.SCROLL_DISABLE);
+                profileScrollButtonTop.setImage(Media.SCROLL_B_DISABLE);
+                profileScrollButtonBottom.setImage(Media.SCROLL_B_DISABLE);
             }
         });
         
         profileScrollButtonTop.setOnMousePressed((event) -> {
             scroll.set(Math.max(0, scroll.get() - 0.05));
         });
-        MainController.setImageMouseHandlers(profileScrollButtonTop, Images.SCROLL_B, Images.SCROLL_B_SELECT, Images.SCROLL_B_PRESS);
+        MainController.setImageMouseHandlers(profileScrollButtonTop, Media.SCROLL_B, Media.SCROLL_B_SELECT, Media.SCROLL_B_PRESS);
         
         profileScrollButtonBottom.setOnMousePressed((event) -> {
             scroll.set(Math.min(1, scroll.get() + 0.05));
         });
-        MainController.setImageMouseHandlers(profileScrollButtonBottom, Images.SCROLL_B, Images.SCROLL_B_SELECT, Images.SCROLL_B_PRESS);
+        MainController.setImageMouseHandlers(profileScrollButtonBottom, Media.SCROLL_B, Media.SCROLL_B_SELECT, Media.SCROLL_B_PRESS);
 
         scroll.addListener((obs, oldValue, newValue) -> {
             double maxY = profileSliderBackground.getHeight() - 140;
@@ -365,7 +358,7 @@ public class ProfileSettingsController extends SubController {
 
     public void deleteActiveProfile() {
         deleteProfile.setMouseTransparent(true);
-        deleteProfile.setImage(Main.ICON_MAP.DELETE.getIcon(CMLIcon.State.HOVER));
+        deleteProfile.setImage(CMLIconMap.ICON_MAP.DELETE.getIcon(CMLIcon.State.HOVER));
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete profile: " + Main.activeProfile.getValue().getName(), ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {
@@ -375,7 +368,7 @@ public class ProfileSettingsController extends SubController {
                 LOGGER.log(Level.WARNING, "Deletion is disabled when -Domodify=false");
             }
         } else {
-            deleteProfile.setImage(Main.ICON_MAP.DELETE.getIcon(CMLIcon.State.NORMAL));
+            deleteProfile.setImage(CMLIconMap.ICON_MAP.DELETE.getIcon(CMLIcon.State.NORMAL));
             LOGGER.log(Level.INFO, "Deletion cancelled");
             deleteProfile.setMouseTransparent(false);
         }
@@ -392,7 +385,7 @@ public class ProfileSettingsController extends SubController {
         String newName = (String) result[2];
         String newDesc = (String) result[3];
 
-        if (newIcon != null && !newIcon.equals(editedProfile.getIcon())) {
+        if (newIcon != null && !newIcon.equals(editedProfile.getIconSafe())) {
             Platform.runLater(() -> editedProfile.setIcon(newIcon));
         }
 
@@ -438,7 +431,7 @@ public class ProfileSettingsController extends SubController {
                 LOGGER.log(Level.SEVERE, "Enabler - AccessDeniedException: Make sure you have given the program Administrator Privileges!");
             }
         });
-        CMLIcon enableIcon = new CMLIconConditional(Main.ICON_MAP.ENABLER, Main.ICON_MAP.DISABLER, Main.ICON_MAP, mod.enabledListener);
+        CMLIcon enableIcon = new CMLIconConditional(CMLIconMap.ICON_MAP.ENABLER, CMLIconMap.ICON_MAP.DISABLER, CMLIconMap.ICON_MAP, mod.enabledListener);
         MainController.setImageMouseHandlers(iv, enableIcon);
         iv.setPreserveRatio(true);
         iv.setFitHeight(24);

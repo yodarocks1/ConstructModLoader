@@ -26,40 +26,66 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 
 /**
- *
+ * 
  * @author benne
+ * @param <R> Result type
+ * @param <D> Internal data type (Should be an immutable type unless you have a 
+ * <em>compelling</em> reason otherwise)
  */
 public abstract class PopupData<R, D> {
 
     private final Map<Button, D> buttonData = new HashMap();
     private final Set<Button> buttonCloses = new HashSet();
     private final List<Button> buttons = new ArrayList();
-    private Button pressed = null;
+    private D pressed = null;
 
+    /**
+     * It is suggested that you only return the root node here.
+     * This is because it is better to create and cache it in a background
+     * thread rather than doing everything in the FX thread.
+     * @return The node to wrap
+     */
     protected abstract Node getNode();
 
+    /**
+     * Compute the result using the internal data.
+     * @param data The internal data as determined by the pressed button
+     * @return The result to return.
+     */
     protected abstract R getResult(D data);
 
     /**
      * Use to set title, make draggable, etc.
+     * It is suggested that you create and cache the root node here. This will
+     * run in a background thread.
      * @param parent CmlPopup that contains this instance.
      */
     protected abstract void setup(CmlPopup parent);
 
     //Final methods
     
+    /**
+     * Get the node that this popup should display
+     * @return The computed node
+     */
     public final Node toNode() {
         return getNode();
     }
     
-    public final void doSetup(CmlPopup parent) {
-        setup(parent);
-    }
-    
+    /**
+     * Get the result of the popup
+     * @return The computed result
+     */
     public final R getResult() {
-        return getResult(buttonData.get(pressed));
+        return getResult(pressed);
     }
 
+    /**
+     * Adds a button to the popup
+     * @param button The button itself
+     * @param data The data that it represents
+     * @param doClose Whether the button should close the popup on press
+     */
     protected final void addButton(Button button, D data, boolean doClose) {
         buttonData.put(button, data);
         buttons.add(button);
@@ -68,17 +94,24 @@ public abstract class PopupData<R, D> {
         }
     }
     
-    public final void pressed(Button button) {
-        if (buttonData.get(button) != null) {
-            pressed = button;
+    //Package-private methods
+    
+    final void doSetup(CmlPopup parent) {
+        setup(parent);
+    }
+    
+    final void pressed(Button button) {
+        D data = buttonData.get(button);
+        if (data != null) {
+            pressed = data;
         }
     }
     
-    public final List<Button> getButtons() {
+    final List<Button> getButtons() {
         return buttons;
     }
 
-    public final boolean doClose(Button button) {
+    final boolean doClose(Button button) {
         return buttonCloses.contains(button);
     }
 

@@ -28,6 +28,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
@@ -49,12 +50,12 @@ public class VanillaFolderManager {
         VANILLA_FOLDERS_CHECK.add("Survival");
     }
 
-    public static void regenVanilla() {
+    public static void regenVanilla(Optional<Runnable> onComplete) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("(Re)-Generate Vanilla Folder");
         alert.setHeaderText("Are you sure?");
         alert.setContentText("Before continuing, make sure that the location for the vanilla folder that you have entered is the desired location.\n\n"
-                + "NOTE: This process will continue in the background, regardless of the closure of Construct Mod Loader. Do not end this process or reboot your computer - it may corrupt your data.\n\n"
+                + "NOTE: This process will attempt to continue in the background, regardless of the closure of Construct Mod Loader. Do not end this process in your task manager or reboot your computer - it may corrupt your data.\n\n"
                 + "This process can take between 15 minutes and an hour, depending on your internet connection and drive speed. If you have an exceptionally low-end computer, this may take even longer.");
         alert.showAndWait();
         if (!alert.getResult().getButtonData().isCancelButton()) {
@@ -83,6 +84,9 @@ public class VanillaFolderManager {
                             ErrorManager.addStateCause("vanillaFolder not created");
                         }
                     }
+                    if (onComplete.isPresent()) {
+                        onComplete.orElse(null).run();
+                    }
                 }
 
                 private void copyDirectoryRec(String mainDirectory, String addend, FilenameFilter filter, String toPath) {
@@ -104,8 +108,9 @@ public class VanillaFolderManager {
                     }
                 }
             });
-
+            
             thread.start(); //This thread will not stop when the application closes because Steam validation would corrupt the game files.
+                            //Thus, it is not connected to ThreadManager's Executor
         }
     }
 

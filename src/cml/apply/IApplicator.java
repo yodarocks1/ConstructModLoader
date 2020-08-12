@@ -6,7 +6,8 @@
 package cml.apply;
 
 import cml.beans.Modification;
-import java.util.List;
+import java.io.File;
+import java.util.Map;
 
 /**
  *
@@ -16,5 +17,5 @@ public interface IApplicator {
 
     public void apply();
 
-    public void setModifications(List<Modification> activeModifications);
+    public void setModifications(Map<Modification, File> activeModifications);
 }

@@ -54,6 +54,18 @@
     -fx-image: url("../../../media/MultiStateIcons/Properties/ButtonPressed.png");
 }
 
+.pluginsTab {
+    -fx-image: url("../../../media/MultiStateIcons/Plugins/Button.png");
+}
+
+.pluginsTab:hover {
+    -fx-image: url("../../../media/MultiStateIcons/Plugins/ButtonSelect.png");
+}
+
+.pluginsTab:pressed {
+    -fx-image: url("../../../media/MultiStateIcons/Plugins/ButtonPressed.png");
+}
+
 #goBack {
     -fx-image: url("../../../media/MultiStateIcons/GoBack/Button.png");
 }
@@ -73,4 +85,29 @@
     -fx-border-color: #dff;
     -fx-border-width: 1;
     -fx-fill: #fff;
+}
+
+#activeProfileBox {
+    -fx-background-color: #696949dd;
+    -fx-background-radius: 8;
+    -fx-background-insets: 5px;
+    -fx-border-color: #797949dd;
+    -fx-border-radius: 8;
+    -fx-border-width: 2;
+    -fx-border-insets: 1px;
+}
+
+.text-field.autostyle {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: #ffffff;
+    -fx-padding: 0 0 -4px 0;
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-opacity: 1.0;
+}
+
+.text-field.autostyle * {
+    -fx-background-color: transparent;
+    -fx-opacity: 1.0;
 }

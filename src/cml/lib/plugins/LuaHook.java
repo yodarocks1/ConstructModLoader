@@ -16,6 +16,7 @@
  */
 package cml.lib.plugins;
 
+import cml.Constants;
 import cml.Main;
 import cml.gui.console.LogHandler;
 import cml.gui.console.StreamTee;
@@ -48,7 +49,7 @@ class LuaHook implements IHook<Varargs> {
     }
 
     public boolean load(String relativePath) {
-        return this.load(new File(Main.API_DIRECTORY, relativePath));
+        return this.load(new File(Constants.API_DIRECTORY, relativePath));
     }
 
     public boolean load(File file) {

@@ -43,7 +43,7 @@ class FileManager extends AFileManager<File> {
 
     @Override
     public void createDirectory(File directory, FileOptions... options) {
-        if (doModify()) {
+        if (doModify() && FileOptions.FILTER.getFrom(options).filter.accept(directory.getParentFile(), directory.getName())) {
             if (FileOptions.DEPTH.isIn(options)) {
                 directory.mkdirs();
             } else {
@@ -54,7 +54,7 @@ class FileManager extends AFileManager<File> {
 
     @Override
     public void deleteDirectory(File directory, FileOptions... options) {
-        if (doModify()) {
+        if (doModify() && FileOptions.FILTER.getFrom(options).filter.accept(directory.getParentFile(), directory.getName())) {
             if (FileOptions.DEPTH.isIn(options)) {
                 deleteRec(directory);
             } else {
@@ -62,19 +62,25 @@ class FileManager extends AFileManager<File> {
             }
         }
     }
-
+    
     private void deleteRec(File file) {
+        deleteRec(file, FileOptions.FILTER.NONE);
+    }
+    
+    private void deleteRec(File file, FileOptions.FILTER filter) {
         if (file.isDirectory()) {
-            for (File subFile : file.listFiles()) {
-                deleteRec(subFile);
+            for (File subFile : file.listFiles(filter.filter)) {
+                deleteRec(subFile, filter);
             }
         }
-        file.delete();
+        if (filter.filter.accept(file.getParentFile(), file.getName())) {
+            file.delete();
+        }
     }
 
     @Override
     public void copyDirectory(File directory, File destinationDirectory, FileOptions... options) {
-        if (doModify()) {
+        if (doModify() && FileOptions.FILTER.getFrom(options).filter.accept(directory.getParentFile(), directory.getName())) {
             if (FileOptions.DEPTH.isIn(options)) {
                 copyRec(directory, destinationDirectory, options);
             } else if (directory.exists()) {
@@ -86,7 +92,7 @@ class FileManager extends AFileManager<File> {
     private void copyRec(File file, File destination, FileOptions... options) {
         if (file.isDirectory()) {
             destination.mkdir();
-            for (String subFile : file.list()) {
+            for (String subFile : file.list(FileOptions.FILTER.getFrom(options).filter)) {
                 copyRec(new File(file, subFile), new File(destination, subFile), options);
             }
         } else {
@@ -139,7 +145,10 @@ class FileManager extends AFileManager<File> {
 
     @Override
     public void write(File file, byte[] bytes, FileOptions... options) {
-        if (doModify()) {
+        if (doModify() && FileOptions.FILTER.getFrom(options).filter.accept(file.getParentFile(), file.getName())) {
+            if (FileOptions.DEPTH.isIn(options)) {
+                createParentDirectories(file);
+            }
             if (FileOptions.REPLACE.isIn(options)) {
                 delete(file);
                 create(file);
@@ -157,14 +166,14 @@ class FileManager extends AFileManager<File> {
 
     @Override
     public void write(File file, String string, FileOptions... options) {
-        if (doModify()) {
+        if (doModify() && FileOptions.FILTER.getFrom(options).filter.accept(file.getParentFile(), file.getName())) {
             write(file, string.getBytes(), options);
         }
     }
 
     @Override
     public void copy(File file, File destination, FileOptions... options) {
-        if (doModify()) {
+        if (doModify() && FileOptions.FILTER.getFrom(options).filter.accept(file.getParentFile(), file.getName())) {
             if (FileOptions.REPLACE.isIn(options)) {
                 delete(destination);
                 create(destination);
@@ -186,7 +195,7 @@ class FileManager extends AFileManager<File> {
 
     @Override
     public void deleteOf(File file, FileOptions... options) {
-        if (doModify()) {
+        if (doModify() && FileOptions.FILTER.getFrom(options).filter.accept(file.getParentFile(), file.getName())) {
             if (file.isDirectory()) {
                 deleteDirectory(file, options);
             } else {

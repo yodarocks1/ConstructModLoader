@@ -16,11 +16,7 @@
  */
 package cml.lib.xmliconmap;
 
-import java.util.function.Consumer;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
 
 /**
  *
@@ -58,6 +54,13 @@ public class CMLIconConditional extends CMLIcon {
     public int getX() {
         return property.getValue() ? trueState.getX() : falseState.getX();
     }
+
+    @Override
+    public State[] getStates() {
+        return property.getValue() ? trueState.getStates() : falseState.getStates();
+    }
+    
+    
     
     public BooleanProperty getProperty() {
         return property;

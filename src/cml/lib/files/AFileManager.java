@@ -16,10 +16,13 @@
  */
 package cml.lib.files;
 
+import cml.Constants;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  *
@@ -55,8 +58,28 @@ public abstract class AFileManager<T> {
     public abstract void deleteOf(T file, FileOptions... options);
     public abstract void createWithParents(T file);
     
-    public enum FileOptions {
-        APPEND, CREATE, REPLACE, DEPTH;
+    public static class FileOptions {
+        public static final FileOptions APPEND = new FileOptions();
+        public static final FileOptions CREATE = new FileOptions();
+        public static final FileOptions REPLACE = new FileOptions();
+        public static final FileOptions DEPTH = new FileOptions();
+        
+        private FileOptions() {
+            
+        }
+        
+        public static final class FILTER extends FileOptions {
+            public static final FILTER NONE = new FILTER(Constants.NO_FILTER);
+            
+            public final FilenameFilter filter;
+            public FILTER (FilenameFilter filter) {
+                this.filter = filter;
+            }
+            
+            public static FileOptions.FILTER getFrom(FileOptions[] list) {
+                return (FILTER) Arrays.stream(list).filter((item) -> item instanceof FILTER).findFirst().orElse(NONE);
+            }
+        }
         
         public boolean isIn(FileOptions[] list) {
             return Arrays.stream(list).anyMatch((item) -> item.equals(this));

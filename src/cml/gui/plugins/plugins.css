@@ -5,3 +5,25 @@
 .mainFxmlClass {
 
 }
+
+.text.autostyle {
+    -fx-font-family: "LIBRARY 3 AM";
+}
+
+.radio-button .radio .dot {
+    -fx-background-color: #0aa;
+    -fx-translate-y: -4;
+}
+
+.radio-button {
+    -fx-effect: dropshadow(two-pass-box, #0aa, 2.0, 0.0, 0, 0);
+}
+
+.radio-button:selected .radio .dot {
+    -fx-background-color: #f00;
+    -fx-translate-y: 3;
+}
+
+.radio-button:selected {
+    -fx-effect: dropshadow(two-pass-box, #f00, 2.0, 0.0, 0, 0);
+}

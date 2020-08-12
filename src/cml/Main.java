@@ -8,16 +8,18 @@ package cml;
 import cml.apply.Apply;
 import cml.apply.MergeChanges;
 import cml.apply.ReplaceChanges;
-import cml.beans.Profile;
 import cml.beans.ModIncompatibilityException;
 import cml.beans.Modification;
+import cml.beans.Profile;
 import cml.gui.console.LogHandler;
+import cml.gui.splash.SplashScreenLoader;
 import cml.lib.files.AFileManager;
 import cml.lib.files.ZipManager;
+import cml.lib.lazyupdate.Flags;
 import cml.lib.registry.hardcoded.Steam;
+import cml.lib.url.SingleInstanceService;
 import cml.lib.workshop.WorkshopConnectionHandler;
 import cml.lib.workshop.WorkshopReader;
-import cml.lib.xmliconmap.CMLIcon;
 import cml.lib.xmliconmap.CMLIcon.State;
 import cml.lib.xmliconmap.CMLIconMap;
 import com.sun.javafx.application.LauncherImpl;
@@ -39,7 +41,9 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.logging.XMLFormatter;
 import java.util.stream.Collectors;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -56,7 +60,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -64,15 +67,33 @@ import javax.imageio.ImageIO;
  */
 public class Main {
 
-    protected static final Logger LOGGER;
-    
-    public static final File API_DIRECTORY = new File(".");
-    public static final CMLIconMap ICON_MAP = CMLIconMap.ICON_MAP;
-    
+    private static final Logger LOGGER;
+
+    /**
+     * The {@link SingleInstanceService} associated with this instance of the
+     * app.
+     */
+    public static final SingleInstanceService SIS = new SingleInstanceService(new File(System.getProperty("java.io.tmpdir"), "cml.lck"));
+
+    /**
+     * The defined location of the Scrap Mechanic folder.
+     */
     public static String scrapMechanicFolder = null;
+    /**
+     * The defined location of the Vanilla folder.
+     */
     public static String vanillaFolder = null;
+    /**
+     * The defined location of the Mods folder.
+     */
     public static String modsFolder = null;
+    /**
+     * The defined location of the Workshop folder.
+     */
     public static String workshopFolder = null;
+    /**
+     * The {@link WorkshopReader}, updated whenever the Workshop folder changes.
+     */
     public static ObjectProperty<WorkshopReader> workshopReader = new SimpleObjectProperty(null);
 
     public static List<Modification> activeModifications = new ArrayList();
@@ -85,6 +106,10 @@ public class Main {
     public static File patFile;
     public static final LogHandler LOG_HANDLER = new LogHandler(Level.ALL);
     public static final FileHandler FILE_HANDLER;
+    public static final FileHandler FILE_HANDLER2;
+
+    public static final BooleanProperty AUTORUN_ENABLED_PROPERTY = new SimpleBooleanProperty(!new File(Constants.API_DIRECTORY, "plugins/autorunDisabled").exists());
+    public static final BooleanProperty PLUGINS_ENABLED_PROPERTY = new SimpleBooleanProperty(!new File(Constants.API_DIRECTORY, "plugins/disabled").exists());
 
     public static PrintStream patchOutputStream;
 
@@ -101,22 +126,36 @@ public class Main {
         cmlLogger.addHandler(LOG_HANDLER);
 
         FileHandler handler = null;
+        FileHandler handler2 = null;
         try {
             handler = new FileHandler("heavy_log.xml");
             handler.setFormatter(new XMLFormatter());
             rootLogger.addHandler(handler);
             cmlLogger.addHandler(handler);
+            
+            handler2 = new FileHandler("log.txt");
+            rootLogger.addHandler(handler2);
+            cmlLogger.addHandler(handler2);
         } catch (IOException | SecurityException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Could not create File Handler", ex);
         }
         FILE_HANDLER = handler;
+        FILE_HANDLER2 = handler2;
     }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        checkForInstance(args);
         LauncherImpl.launchApplication(GUI.class, SplashScreenLoader.class, args);
+    }
+
+    private static void checkForInstance(String[] args) {
+        boolean obtainedLock = SIS.start(args);
+        if (!obtainedLock) {
+            System.exit(0);
+        }
     }
 
     public static void mainSetup() {
@@ -129,7 +168,7 @@ public class Main {
         LOGGER.log(Level.CONFIG, "Max Heap Memory (bytes): {0}", Runtime.getRuntime().maxMemory());
         LOGGER.log(Level.CONFIG, "Total Heap Memory (bytes): {0}", Runtime.getRuntime().totalMemory());
         LOGGER.log(Level.CONFIG, "Logger Format: {0}", System.getProperty("java.util.logging.SimpleFormatter.format", "<ABSENT>"));
-        LOGGER.log(Level.CONFIG, "API Directory: {0}", Main.API_DIRECTORY.getAbsolutePath());
+        LOGGER.log(Level.CONFIG, "API Directory: {0}", Constants.API_DIRECTORY.getAbsolutePath());
         System.out.println("System.out test");
         System.err.println("System.err test");
         LOGGER.log(Level.CONFIG, "Getting folders");
@@ -146,7 +185,7 @@ public class Main {
      * various folders.
      */
     private static void getFolders() {
-        File foldersTxt = new File(Main.API_DIRECTORY.getAbsolutePath() + Constants.FOLDERS_LOCATION_RELATIVE);
+        File foldersTxt = new File(Constants.API_DIRECTORY.getAbsolutePath(), Constants.FOLDERMAP_LOCATION);
         try {
             //Read the folders
             List<String> folders = Files.readAllLines(foldersTxt.toPath());
@@ -201,8 +240,8 @@ public class Main {
         String[] defaults = new String[4];
         File smFolder = Steam.findGamePath("Scrap Mechanic");
         defaults[0] = endSlash(smFolder.getAbsolutePath());
-        defaults[1] = new File (Main.API_DIRECTORY, "vanilla").getAbsolutePath();
-        defaults[2] = new File (Main.API_DIRECTORY, "mods").getAbsolutePath();
+        defaults[1] = new File(Constants.API_DIRECTORY.getParentFile(), "vanilla").getAbsolutePath();
+        defaults[2] = new File(Constants.API_DIRECTORY.getParentFile(), "mods").getAbsolutePath();
         defaults[3] = workshopFromGamePath(smFolder);
         return defaults;
     }
@@ -277,7 +316,7 @@ public class Main {
         } catch (IOException ex) {
             LOGGER.log(Level.SEVERE, "Could not create new profile \"" + profileName + "\"", ex);
         }
-        Main.updateProfileList();
+        Flags.setFlag(Flags.staticFlags(Profile.class), Flags.Flag.DO_UPDATE);
     }
 
     public static void updateProfileList() {
@@ -292,15 +331,15 @@ public class Main {
                 }
             }
             for (File proFile : modsFile.listFiles()) {
-                if (proFile.isDirectory() && !(proFile.getName().startsWith(Constants.IGNORE_PREFIX) && proFile.getName().endsWith(Constants.IGNORE_SUFFIX))) {
-                    Profile profile = new Profile(proFile);
+                if (proFile.isDirectory() && Constants.IGNORE_FILE_FILTER.accept(proFile.getParentFile(), proFile.getName())) {
+                    Profile profile = Profile.getOrCreate(proFile);
                     WorkshopConnectionHandler.reconnectIfConnected(workshopFolder, profile.getModifications().toArray(new Modification[0]));
                     profiles.add(profile);
                 }
             }
             ErrorManager.removeStateCause("ModsFolder <INVALID>");
         } else {
-            profiles = null;
+            profiles = new ArrayList();
             ErrorManager.addStateCause("ModsFolder <INVALID>");
         }
         activeProfile.setValue(Profile.EMPTY);
@@ -341,8 +380,7 @@ public class Main {
     }
 
     public static void applyModifications() {
-        Main.activeModifications = Main.activeProfile.get().getActiveModifications();
-        Apply.apply(Main.activeModifications);
+        Apply.apply(Main.activeProfile.get().getActiveModifications());
     }
 
     public static void downloadLatestRelease() {
@@ -363,7 +401,7 @@ public class Main {
             choiceDialog.setHeaderText("Incompatibility Handler (Certainty: True)");
             choiceDialog.setContentText("Choose only one mod to leave enabled: ");
             choiceDialog.getDialogPane().getButtonTypes().removeAll(ButtonType.CANCEL);
-            ((Stage) choiceDialog.getDialogPane().getScene().getWindow()).getIcons().add(ICON_MAP.ICON.getIcon(State.ERROR));
+            ((Stage) choiceDialog.getDialogPane().getScene().getWindow()).getIcons().add(CMLIconMap.ICON_MAP.ICON.getIcon(State.ERROR));
             choiceDialog.showAndWait();
             for (Modification offender : ex.getOffenders()) {
                 if (offender.getName().equals(choiceDialog.getSelectedItem())) {
@@ -381,7 +419,7 @@ public class Main {
             selectDialog.setHeaderText("Incompatibility Handler (Certainty: False)");
             selectDialog.getDialogPane().setBackground(background);
             selectDialog.getDialogPane().getScene().setFill(null);
-            ((Stage) selectDialog.getDialogPane().getScene().getWindow()).getIcons().add(ICON_MAP.ICON.getIcon(State.ERROR));
+            ((Stage) selectDialog.getDialogPane().getScene().getWindow()).getIcons().add(CMLIconMap.ICON_MAP.ICON.getIcon(State.ERROR));
             ListView checkList = new ListView();
             List<CheckBox> checkBoxes = new ArrayList();
             for (Modification offender : ex.getOffenders()) {
@@ -410,7 +448,6 @@ public class Main {
             selectDialog.getDialogPane().setContent(group);
             selectDialog.showAndWait();
         }
-        Main.activeModifications = Main.activeProfile.get().getActiveModifications();
         MergeChanges.modifiedBy.clear();
         ReplaceChanges.replacedBy.clear();
     }
@@ -430,7 +467,7 @@ public class Main {
     }
 
     public static void openLogs() {
-        File logFile = new File(Main.API_DIRECTORY, "heavy_log.xml");
+        File logFile = new File(Constants.API_DIRECTORY, "heavy_log.xml");
         try {
             Runtime.getRuntime().exec("explorer.exe /select," + logFile.getAbsolutePath());
         } catch (IOException ex) {

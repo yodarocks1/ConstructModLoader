@@ -27,12 +27,12 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 
 /**
@@ -43,6 +43,20 @@ public class ZipManager {
 
     private static final Logger LOGGER = Logger.getLogger(ZipManager.class.getName());
     public static final FilenameFilter ZIP_FILTER = (File dir, String name) -> name.toLowerCase().endsWith(".zip");
+    
+    public File asUnzipped(File original) {
+        if (ZipManager.isZipped(original)) {
+            try {
+                File unzipped = Files.createTempDirectory("unzipped").toFile();
+                AFileManager.ZIP_MANAGER.unzip(original, unzipped);
+                unzipped.deleteOnExit();
+                return unzipped;
+            } catch (IOException ex) {
+                LOGGER.log(Level.SEVERE, "Could not create temporary unzip file", ex);
+            }
+        }
+        return original;
+    }
 
     public void unzip(File zip, File destination) {
         if (AFileManager.FILE_MANAGER.doModify()) {

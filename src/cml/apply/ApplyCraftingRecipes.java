@@ -10,8 +10,6 @@ import cml.beans.Modification;
 import cml.lib.files.AFileManager;
 import cml.lib.files.AFileManager.FileOptions;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,15 +21,15 @@ import java.util.logging.Logger;
  *
  * @author benne
  */
-public class ApplyCraftingRecipes implements IApplicator {
+class ApplyCraftingRecipes implements IApplicator {
 
     private static final Logger LOGGER = Logger.getLogger(ApplyCraftingRecipes.class.getName());
-    public static final String CRAFTING_RECIPES_FOLDER_RELATIVE = "\\Crafting Recipes\\";
+    public static final String CRAFTING_RECIPES_FOLDER_RELATIVE = "Crafting Recipes";
     public static final String SM_CRAFTING_RECIPES_FOLDER = "Survival/CraftingRecipes/";
 
-    private List<Modification> activeModifications;
+    private List<File> activeModifications;
 
-    public ApplyCraftingRecipes(List<Modification> activeModifications) {
+    public ApplyCraftingRecipes(List<File> activeModifications) {
         this.activeModifications = activeModifications;
     }
 
@@ -45,8 +43,8 @@ public class ApplyCraftingRecipes implements IApplicator {
     }
 
     @Override
-    public void setModifications(List<Modification> activeModifications) {
-        this.activeModifications = activeModifications;
+    public void setModifications(Map<Modification, File> activeModifications) {
+        this.activeModifications = new ArrayList(activeModifications.values());
     }
 
     private void applyCraftingRecipes() {
@@ -58,17 +56,14 @@ public class ApplyCraftingRecipes implements IApplicator {
             }
         }
 
-        for (Modification activeModification : this.activeModifications) {
-            File recipeLists = new File(activeModification.getDirectory().getAbsolutePath() + CRAFTING_RECIPES_FOLDER_RELATIVE);
-            if (recipeLists.exists() && recipeLists.isDirectory()) {
-                for (File recipeList : recipeLists.listFiles()) {
-                    LOGGER.log(Level.FINEST, " Crafting list found: {0}", recipeList.getName());
-                    recipeListToMods.get(recipeList.getName()).add(AFileManager.FILE_MANAGER.readString(recipeList));
-                }
+        this.activeModifications.stream().map((File activeModification) -> new File(activeModification.getAbsolutePath(), CRAFTING_RECIPES_FOLDER_RELATIVE)).filter((File recipeLists) -> (recipeLists.exists() && recipeLists.isDirectory())).forEachOrdered((File recipeLists) -> {
+            for (File recipeList : recipeLists.listFiles()) {
+                LOGGER.log(Level.FINEST, " Crafting list found: {0}", recipeList.getName());
+                recipeListToMods.get(recipeList.getName()).add(AFileManager.FILE_MANAGER.readString(recipeList));
             }
-        }
+        });
 
-        for (String recipeList : recipeListToMods.keySet()) {
+        recipeListToMods.keySet().forEach((recipeList) -> {
             File recipeListFile = new File(Main.scrapMechanicFolder, SM_CRAFTING_RECIPES_FOLDER + recipeList);
             LOGGER.log(Level.FINEST, " Crafting list search: {0}", recipeList);
             if (!recipeListToMods.getOrDefault(recipeList, new ArrayList()).isEmpty()) {
@@ -79,7 +74,7 @@ public class ApplyCraftingRecipes implements IApplicator {
                     throw new UnsupportedOperationException("This recipe list (" + recipeList + ") or new recipe lists are not yet supported by ApplyCraftingRecipes.java. Please use MergeChanges.java or ReplaceChanges.java."); //Requires the deletion of recipe lists that are added by now-disabled mods.
                 }
             }
-        }
+        });
     }
 
     private String addRecipes(String original, String[] toAdd) {

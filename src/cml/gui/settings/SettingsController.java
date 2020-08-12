@@ -19,9 +19,11 @@ package cml.gui.settings;
 import cml.Constants;
 import cml.ErrorManager;
 import cml.Main;
+import cml.beans.Profile;
 import cml.gui.main.MainController;
 import cml.gui.main.SubController;
 import cml.lib.git.UpdateManager;
+import cml.lib.lazyupdate.Flags;
 import cml.lib.registry.hardcoded.Steam;
 import cml.lib.steam.shortcut.ShortcutManager;
 import cml.lib.steam.verify.VanillaFolderManager;
@@ -30,6 +32,7 @@ import java.io.File;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,6 +64,7 @@ public class SettingsController extends SubController {
     @FXML private TextField workshopFolder;
     @FXML private ButtonBar errorBar;
     @FXML private Text shortcutStatus;
+    @FXML private Button regenVanillaButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -77,7 +81,7 @@ public class SettingsController extends SubController {
         modsFolder.setOnAction((event) -> {
             String text = modsFolder.getText();
             Main.modsFolder = Main.endSlash(text);
-            Main.updateProfileList();
+            Flags.setFlag(Flags.staticFlags(Profile.class), Flags.Flag.DO_UPDATE);
             mainController.showSuccess(3000);
         });
         vanillaFolder.setOnAction((event) -> {
@@ -100,7 +104,7 @@ public class SettingsController extends SubController {
             }
         });
 
-        ErrorManager.State.addListener((obs, oldValue, newValue) -> {
+        ErrorManager.STATE.addListener((obs, oldValue, newValue) -> {
             if (newValue.isError()) {
                 errorBar.setVisible(true);
             } else {
@@ -108,7 +112,7 @@ public class SettingsController extends SubController {
             }
         });
         ErrorManager.addCauseResolver("vanillaFolder not created", () -> {
-            VanillaFolderManager.regenVanilla();
+            regenVanilla();
         });
         ErrorManager.addCauseResolver("ModsFolder <INVALID>", () -> {
             mainController.switchToMenu(MainController.SETTINGS);
@@ -171,7 +175,7 @@ public class SettingsController extends SubController {
         if (previousFailure) {
             UpdateManager.openUpdate();
         } else {
-            boolean success = UpdateManager.update(new File(Main.API_DIRECTORY, "UpdateAssets.zip"));
+            boolean success = UpdateManager.update(new File(Constants.API_DIRECTORY, "UpdateAssets.zip"));
             if (success) {
                 updateAvailableText.setText("Update applied! Please restart to avoid conflicts and apply the update.");
             } else {
@@ -187,10 +191,11 @@ public class SettingsController extends SubController {
     }
 
     public void regenVanilla() {
-        VanillaFolderManager.regenVanilla();
+        regenVanillaButton.setDisable(true);
+        VanillaFolderManager.regenVanilla(Optional.of(() -> regenVanillaButton.setDisable(false)));
     }
 
-    public void errorAutoResolve() {
+    public void autoResolveErrors() {
         if (!ErrorManager.autoResolve()) {
             showErrorCauses();
         }
@@ -201,7 +206,7 @@ public class SettingsController extends SubController {
         String time = now.format(DateTimeFormatter.ISO_LOCAL_DATE) + " " + now.format(DateTimeFormatter.ISO_LOCAL_TIME);
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Error Causes (" + time + ")");
-        alert.setContentText(ErrorManager.State.getValue().toString());
+        alert.setContentText(ErrorManager.STATE.getValue().toString());
         alert.initModality(Modality.NONE);
         alert.show();
     }

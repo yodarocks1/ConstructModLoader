@@ -1,0 +1,57 @@
+
+.text {
+    -fx-font-size: 15px;
+    -fx-margin-top: 0px;
+}
+
+.outer-text {
+    -fx-font-family: "LIBRARY 3 AM";
+    -fx-font-size: 14px;
+}
+
+.background {
+    -fx-background-radius: 2 10 2 10;
+    -fx-border-radius: 2 10 2 10;
+}
+
+.gray {
+    -fx-background-color: #333;
+    -fx-border-color: #777;
+} .gray * .text {
+    -fx-fill: #fff;
+}
+
+.green {
+    -fx-background-color: #0a0;
+    -fx-border-color: #0c0;
+} .green * .text {
+    -fx-fill: #fff;
+}
+
+.blue {
+    -fx-background-color: #00f;
+    -fx-border-color: #08f;
+} .blue * .text {
+    -fx-fill: #fff;
+}
+
+.yellow {
+    -fx-background-color: #ff0;
+    -fx-border-color: #fff
+} .yellow * .text {
+    -fx-fill: #000;
+}
+
+.orange {
+    -fx-background-color: #b60;
+    -fx-border-color: #fa0;
+} .orange * .text {
+    -fx-fill: #fff;
+}
+
+.red {
+    -fx-background-color: #a00;
+    -fx-border-color: #f00;
+} .red * .text {
+    -fx-fill: #fff;
+}

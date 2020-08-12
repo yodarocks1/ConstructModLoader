@@ -50,4 +50,14 @@
     nbproject/build-impl.xml and nbproject/jfx-impl.xml.
 
     -->
+	<target name="-create-installer">
+		<exec dir="./Construct Mod Loader" executable="cmd" >
+			<arg line="/c InternalUpdateExe.bat"/>
+		</exec>
+	</target>
+	<target name="-clean-cml-locks">
+		<exec dir="." executable="cmd" >
+			<arg line="/c CleanupLocks.bat"/>
+		</exec>
+	</target>
 </project>

@@ -20,104 +20,73 @@ import cml.Constants;
 import cml.Main;
 import cml.lib.files.AFileManager;
 import cml.lib.files.AFileManager.FileOptions;
-import cml.lib.files.ZipManager;
-import cml.lib.workshop.WorkshopConnectionHandler;
+import cml.lib.lazyupdate.FlagUpdater;
+import cml.lib.lazyupdate.Flags;
 import cml.lib.xmliconmap.CMLIcon;
+import cml.lib.xmliconmap.CMLIconMap;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import javax.management.openmbean.KeyAlreadyExistsException;
 
 /**
  *
  * @author benne
  */
-public class Profile {
-
-    public static final Profile EMPTY = new Profile(false);
-    public static final Profile DELETED = new Profile(true);
-
-    private static final Logger LOGGER = Logger.getLogger(Profile.class.getName());
-    private static final String ICON_RELATIVE = "icon.png";
-    private static final String DESC_RELATIVE = "description.txt";
-
-    private List<Modification> modifications;
-    private ObjectProperty<Image> icon = new SimpleObjectProperty();
-    private StringProperty name;
-    private StringProperty description;
-    private File directory;
-
-    public Profile(File directory) {
-        this.directory = directory;
-        this.modifications = new ArrayList();
-        for (File zipFile : directory.listFiles(ZipManager.ZIP_FILTER)) {
-            if (zipFile.isFile()) {
-                AFileManager.ZIP_MANAGER.unzip(zipFile, new File(directory, zipFile.getName().replace(".zip", "").replace('.', ' ')));
-                AFileManager.FILE_MANAGER.delete(zipFile);
+public abstract class Profile {
+    
+    static {
+        FlagUpdater.setListener(Flags.staticFlags(Profile.class), (entry) -> {
+            switch (entry.getKey()) {
+                case "DO_UPDATE":
+                    Platform.runLater(() -> Main.updateProfileList());
+                    break;
             }
-        }
-        for (File file : directory.listFiles()) {
-            if (file.isDirectory() && !(file.getName().startsWith(Constants.IGNORE_PREFIX) && file.getName().endsWith(Constants.IGNORE_SUFFIX))) {
-                this.modifications.add(new Modification(file));
-            }
-        }
-        try {
-            File iconFile = new File(directory, ICON_RELATIVE);
-            if (iconFile.exists()) {
-                this.icon.setValue(new Image(iconFile.toURI().toString()));
-            } else {
-                this.icon.setValue(Main.ICON_MAP.BLANK.getIcon(0));
-            }
-        } catch (NullPointerException ex) {
-            this.icon.setValue(Main.ICON_MAP.BLANK.getIcon(0));
-        }
-        this.name = new SimpleStringProperty(directory.getName());
-        try {
-            this.description = new SimpleStringProperty(Files.readAllLines(new File(directory, DESC_RELATIVE).toPath()).get(0));
-        } catch (IOException ex) {
-            LOGGER.log(Level.WARNING, "Profile {0} does not have a description.", this.name);
-        } catch (IndexOutOfBoundsException ex) {
-            this.description = new SimpleStringProperty("");
-        }
+        });
     }
 
-    private Profile(boolean isDeleted) {
-        this.modifications = new ArrayList();
-        if (isDeleted) {
-            this.icon.setValue(Main.ICON_MAP.DELETE_C.getIcon(CMLIcon.State.HOVER));
-            this.name = new SimpleStringProperty("<< Invalid profile! >>");
-        } else {
-            this.icon.setValue(Main.ICON_MAP.BLANK.getIcon(0));
-            this.name = new SimpleStringProperty("<< Please select a profile! >>");
-        }
-        this.directory = null;
-        this.description = new SimpleStringProperty("");
+    /**
+     * An <code>InvalidProfile</code> that represents an absence of definition.
+     * Typically used for default values.
+     * <p>
+     * This {@link Profile} is immutable.
+     */
+    public static final Profile EMPTY = new InvalidProfile(CMLIconMap.ICON_MAP.BLANK.getIcon(0), "<< Please select a profile! >>");
+    /**
+     * An <code>InvalidProfile</code> that represents an invalid definition.
+     * <p>
+     * This {@link Profile} is immutable.
+     */
+    public static final Profile INVALID = new InvalidProfile(CMLIconMap.ICON_MAP.DELETE_C.getIcon(CMLIcon.State.HOVER), "<< Invalid profile! >>");
+    public static final String CACHE_HASH_LOC = "cachehash.dat";
+    public static final String SELECTED_LOC = "selected.asc";
+    
+    static final String ICON_RELATIVE = "icon.png";
+    static final String DESC_RELATIVE = "description.txt";
+    
+    final ObjectProperty<Image> icon = new SimpleObjectProperty();
+    final StringProperty name;
+    final StringProperty description;
+    
+    Profile(String name) {
+        this.name = new SimpleStringProperty(name);
+        this.description = new SimpleStringProperty();
     }
+    
+    public abstract void setModifications(List<Modification> modifications);
+    public abstract List<Modification> getModifications();
+    public abstract void updateModifications();
+    public abstract List<Modification> getActiveModifications();
 
-    public void setModifications(List<Modification> modifications) {
-        this.modifications = modifications;
-        if (Main.activeProfile.get().equals(this)) {
-            Main.activeModifications = getActiveModifications();
-        }
-    }
-
-    public List<Modification> getModifications() {
-        return modifications;
-    }
-
-    public List<Modification> getActiveModifications() {
-        List<Modification> active = new ArrayList();
-        modifications.stream().filter((mod) -> (mod.isEnabled())).forEachOrdered(active::add);
-        return active;
+    public Image getIconSafe() {
+        return (icon.get() == null) ? CMLIconMap.ICON_MAP.BLANK.getIcon(0) : icon.get();
     }
 
     public Image getIcon() {
@@ -127,12 +96,10 @@ public class Profile {
     public void setIcon(Image icon) {
         if (icon != null) {
             this.icon.setValue(icon);
-            AFileManager.IMAGE_MANAGER.write(new File(directory, "icon.png"), SwingFXUtils.fromFXImage(icon, null), "png");
         } else {
-            this.icon.setValue(Main.ICON_MAP.BLANK.getIcon(0));
-            AFileManager.FILE_MANAGER.delete(new File(directory, "icon.png"));
+            this.icon.setValue(CMLIconMap.ICON_MAP.BLANK.getIcon(0));
         }
-        Main.updateProfileList();
+        Flags.setFlag(Flags.staticFlags(Profile.class), Flags.Flag.DO_UPDATE);
     }
 
     public String getName() {
@@ -140,12 +107,10 @@ public class Profile {
     }
 
     public void setName(String name) {
+        Profile.PROFILES.remove(name);
+        Profile.PROFILES.put(name, this);
         this.name.setValue(name);
-        File newDirectory = new File(directory.getParentFile(), name);
-        AFileManager.FILE_MANAGER.copyDirectory(directory, newDirectory, FileOptions.DEPTH, FileOptions.CREATE);
-        AFileManager.FILE_MANAGER.deleteDirectory(directory, FileOptions.DEPTH);
-        this.directory = newDirectory;
-        Main.updateProfileList();
+        Flags.setFlag(Flags.staticFlags(this), Flags.Flag.DO_UPDATE);
     }
 
     public String getDescription() {
@@ -154,37 +119,119 @@ public class Profile {
 
     public void setDescription(String description) {
         this.description.setValue(description);
-        AFileManager.FILE_MANAGER.write(new File(directory, DESC_RELATIVE), description, FileOptions.REPLACE);
-        Main.updateProfileList();
+        
     }
 
-    public File getDirectory() {
-        return directory;
-    }
+    public abstract File getDirectory();
+    public abstract void delete();
 
-    public void delete() {
-        if (directory != null) {
-            this.modifications.forEach(WorkshopConnectionHandler::disconnect);
-            AFileManager.FILE_MANAGER.deleteDirectory(directory, FileOptions.DEPTH);
-        }
+    public void saveAsSelected() {
+        saveAsSelected(this);
     }
 
     @Override
     public String toString() {
-        return name.get();
+        return getName();
     }
-    
+
     public StringProperty getNameProperty() {
         return name;
     }
-    
+
     public StringProperty getDescProperty() {
         return description;
     }
-    
+
     public ObjectProperty<Image> getIconProperty() {
         return icon;
     }
+
+    public abstract String getLeft();
+    public abstract String getCenter();
+    public abstract String getRight();
+
+    public static void saveAsSelected(Profile profile) {
+        if (profile == null || profile.getDirectory() == null) {
+            AFileManager.FILE_MANAGER.delete(new File(Constants.API_DIRECTORY, Profile.SELECTED_LOC));
+            return;
+        }
+        AFileManager.FILE_MANAGER.write(new File(Constants.API_DIRECTORY, Profile.SELECTED_LOC), profile.getName(), FileOptions.REPLACE);
+    }
     
     
+    //
+    
+    private static final Map<String, Profile> PROFILES = new HashMap();
+    
+    /**
+     * Get a profile by name
+     * @param name The profile name to find
+     * @return The profile with the given name if it exists; otherwise, returns
+     * {@link #INVALID}
+     */
+    public static Profile get(String name) {
+        return PROFILES.getOrDefault(name, INVALID);
+    }
+    /**
+     * Get a profile by name
+     * @param directory The profile name to find (uses directory name)
+     * @return The profile with the given name if it exists; otherwise, returns
+     * {@link #INVALID}
+     */
+    public static Profile get(File directory) {
+        return get(directory.getName());
+    }
+    
+    /**
+     * Get a profile by name if it exists; otherwise, create it.
+     * @param name The profile name to find
+     * @param parentDirectory The directory that the profile should be a child to
+     * if it is to be created.
+     * @return The profile with the given name if it exists; otherwise, a new profile
+     * with the given name.
+     */
+    public static Profile getOrCreate(String name, File parentDirectory) {
+        if (PROFILES.containsKey(name)) {
+            return PROFILES.get(name);
+        } else {
+            PROFILES.put(name, create(new File(parentDirectory, name)));
+            return PROFILES.get(name);
+        }
+    }
+    /**
+     * Get a profile by name if it exists; otherwise, create it.
+     * @param directory The directory that represents the profile; directory name
+     * is used for the search.
+     * @return The profile with the given name if it exists; otherwise, a new profile
+     * at the given directory.
+     */
+    public static Profile getOrCreate(File directory) {
+        return getOrCreate(directory.getName(), directory.getParentFile());
+    }
+    
+    /**
+     * Creates a profile at the given location
+     * @param directory The location at which the directory should be created
+     * @return The new profile
+     * @throws KeyAlreadyExistsException If the profile already exists
+     */
+    public static Profile create(File directory) {
+        if (directory != null && PROFILES.containsKey(directory.getName())) {
+            throw new KeyAlreadyExistsException();
+        }
+        if (directory != null) {
+            return new ValidProfile(directory);
+        }
+        return INVALID;
+    }
+    
+    /**
+     * Check if a profile is valid
+     * @param profile The profile to check
+     * @return Whether the profile is valid
+     */
+    public static boolean isValid(Profile profile) {
+        return profile instanceof ValidProfile;
+    }
+
 }

@@ -16,25 +16,25 @@
  */
 package cml.gui.plugins;
 
+import cml.Main;
 import cml.beans.Plugin;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -53,7 +53,7 @@ public class PluginData implements Initializable {
     @FXML Text name;
     @FXML Text author;
     @FXML TextArea description;
-    @FXML MenuItem launch;
+    @FXML Button launch;
     @FXML CheckMenuItem enabled;
     @FXML CheckMenuItem autorun;
     @FXML CheckMenuItem showAdvanced;
@@ -81,12 +81,16 @@ public class PluginData implements Initializable {
         }
     }
 
+    public Node toNode() {
+        return root;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         try {
-            image.setImage(SwingFXUtils.toFXImage(ImageIO.read(new URL(wrapped.getImageUrl()).openStream()), null));
-        } catch (IOException ex) {
+            image.setImage(new Image(wrapped.getImageUrl()));
+        } catch (IllegalArgumentException ex) {
             LOGGER.log(Level.SEVERE, "Could not read image for plugin " + wrapped.getName(), ex);
         }
 
@@ -104,10 +108,10 @@ public class PluginData implements Initializable {
                     }
                 }
             });
-            launch.disableProperty().bind(wrapped.getEnabledProperty().not());
-            autorun.disableProperty().bind(wrapped.getEnabledProperty().not());
             autorun.selectedProperty().addListener((obs, oldValue, newValue) -> {
-                wrapped.setAutoRun(newValue);
+                if (newValue != oldValue) {
+                    wrapped.setAutoRun(newValue);
+                }
             });
         } else {
             launch.setDisable(true);
@@ -119,8 +123,16 @@ public class PluginData implements Initializable {
             if (newValue != wrapped.isEnabled()) {
                 if (newValue) {
                     wrapped.enable();
+                    if (Main.PLUGINS_ENABLED_PROPERTY.get()) {
+                        launch.setDisable(false);
+                        if (Main.AUTORUN_ENABLED_PROPERTY.get()) {
+                            autorun.setDisable(false);
+                        }
+                    }
                 } else {
                     wrapped.disable();
+                    launch.setDisable(true);
+                    autorun.setDisable(true);
                 }
             }
         });
@@ -170,6 +182,58 @@ public class PluginData implements Initializable {
             configTooltipText.setVisible(false);
         });
 
+        Main.PLUGINS_ENABLED_PROPERTY.addListener((obs, oldValue, newValue) -> {
+            if (newValue) {
+                enabled.setDisable(false);
+                if (enabled.isSelected()) {
+                    launch.setDisable(false);
+                    if (Main.AUTORUN_ENABLED_PROPERTY.get()) {
+                        autorun.setDisable(false);
+                    }
+                }
+                showAdvanced.setDisable(false);
+            } else {
+                enabled.setDisable(true);
+                launch.setDisable(true);
+                showAdvanced.setDisable(true);
+                showAdvanced.setSelected(false);
+            }
+        });
+
+        Main.AUTORUN_ENABLED_PROPERTY.addListener((obs, oldValue, newValue) -> {
+            if (newValue) {
+                if (enabled.isSelected() && Main.PLUGINS_ENABLED_PROPERTY.get()) {
+                    autorun.setDisable(false);
+                }
+            } else {
+                autorun.setDisable(true);
+            }
+        });
+
+        //Default values
+        enabled.setSelected(wrapped.isEnabled());
+        autorun.setSelected(wrapped.isAutoRun());
+
+        if (Main.PLUGINS_ENABLED_PROPERTY.get()) {
+            enabled.setDisable(false);
+            if (enabled.isSelected()) {
+                launch.setDisable(false);
+            }
+            showAdvanced.setDisable(false);
+        } else {
+            enabled.setDisable(true);
+            launch.setDisable(true);
+            showAdvanced.setDisable(true);
+            showAdvanced.setSelected(false);
+        }
+
+        if (Main.AUTORUN_ENABLED_PROPERTY.get()) {
+            if (enabled.isSelected()) {
+                autorun.setDisable(false);
+            }
+        } else {
+            autorun.setDisable(true);
+        }
     }
 
 }

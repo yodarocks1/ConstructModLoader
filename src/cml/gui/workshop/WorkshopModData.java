@@ -17,14 +17,15 @@
 package cml.gui.workshop;
 
 import cml.ErrorManager;
-import cml.GifAnimation;
-import cml.Images;
-import cml.Main;
+import cml.Media;
 import cml.beans.Profile;
 import cml.gui.main.MainController;
+import cml.lib.animation.Animation;
+import cml.lib.animation.AnimationFrame;
 import cml.lib.threadmanager.ThreadManager;
 import cml.lib.workshop.WorkshopConnectionHandler;
 import cml.lib.workshop.WorkshopMod;
+import cml.lib.xmliconmap.CMLIconMap;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -113,7 +114,7 @@ public class WorkshopModData implements Initializable {
         if (mod.isApplicable()) {
             Profile destination = controller.getDestination();
             if (destination != null) {
-                Images.CONVERT_PRESS_ANIM.animate(convert);
+                Media.CONVERT_PRESS_ANIM.animate(convert);
                 Thread convertThread = new Thread(() -> {
                     WorkshopConnectionHandler.connectAndConvertInto(mod, destination.getDirectory());
                 });
@@ -128,9 +129,9 @@ public class WorkshopModData implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        MainController.setImageMouseHandlers(showInWorkshop, Main.ICON_MAP.WORKSHOP);
+        MainController.setImageMouseHandlers(showInWorkshop, CMLIconMap.ICON_MAP.WORKSHOP);
         if (mod.isApplicable()) {
-            MainController.setImageMouseHandlers(convert, Images.CONVERT, Images.CONVERT_SELECT_ANIM, Images.CONVERT_PRESS_ANIM, false);
+            MainController.setImageMouseHandlers(convert, Media.CONVERT, Media.CONVERT_SELECT_ANIM, Media.CONVERT_PRESS_ANIM, false);
         }
         if (mod.getPreview().exists()) {
             try {
@@ -284,7 +285,7 @@ public class WorkshopModData implements Initializable {
                 }
             } else {
                 try {
-                    GifAnimation animation = new GifAnimation(new URL(imageUrl).openStream());
+                    Animation animation = new Animation(AnimationFrame.fromGif(new URL(imageUrl).openStream()));
                     ImageView imageView = new ImageView();
                     imageView.setPreserveRatio(true);
                     imageView.visibleProperty().addListener((obs, oldValue, newValue) -> {

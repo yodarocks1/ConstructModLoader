@@ -16,22 +16,17 @@
  */
 package cml.gui.console;
 
-import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.logging.Formatter;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-import java.util.logging.XMLFormatter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
@@ -47,7 +42,7 @@ import javafx.scene.text.Text;
  *
  * @author benne
  */
-public class LogData implements Initializable {
+class LogData implements Initializable {
 
     private static final Logger LOGGER = Logger.getLogger(LogData.class.getName());
     private static final Map<Level, Color> LEVEL_TO_COLOR = new HashMap();

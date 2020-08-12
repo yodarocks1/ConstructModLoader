@@ -20,11 +20,15 @@ import cml.Constants;
 import cml.Main;
 import cml.beans.Plugin;
 import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -33,11 +37,16 @@ import java.util.stream.Collectors;
 public class PluginManager {
 
     public static final AHookManager LUA_HOOK_MANAGER = new LuaHookManager();
-    private static final List<Plugin> ALL_PLUGINS = new ArrayList();
+    private static final ObservableList<Plugin> ALL_PLUGINS = FXCollections.observableArrayList();
+    private static final File DISABLE_FILE = new File(Constants.API_DIRECTORY, "plugins/disabled");
+    private static final File AUTORUN_DISABLE_FILE = new File(Constants.API_DIRECTORY, "plugins/autorunDisabled");
 
     public static void loadPlugins() {
-        File pluginFolder = new File(Main.API_DIRECTORY, "plugins");
-        ALL_PLUGINS.addAll(Arrays.stream(pluginFolder.listFiles(Constants.IGNORE_PATH_FILTER)).map((File file) -> new Plugin(file)).collect(Collectors.toList()));
+        File pluginFolder = new File(Constants.API_DIRECTORY, "plugins");
+        ALL_PLUGINS.setAll(Arrays.stream(pluginFolder.listFiles(Constants.IGNORE_PATH_FILTER)).filter((file) -> file.isDirectory()).map((file) -> new Plugin(file)).collect(Collectors.toList()));
+        
+        Main.PLUGINS_ENABLED_PROPERTY.set(!DISABLE_FILE.exists());
+        Main.AUTORUN_ENABLED_PROPERTY.set(!AUTORUN_DISABLE_FILE.exists() && !DISABLE_FILE.exists());
     }
 
     public static void processHooks() {
@@ -54,6 +63,10 @@ public class PluginManager {
             });
         }));
     }
+    
+    public static ObservableList<Plugin> getPlugins() {
+        return FXCollections.unmodifiableObservableList(ALL_PLUGINS);
+    }
 
     public static List<Plugin> getLoadedPlugins() {
         return ALL_PLUGINS.stream().filter(plugin -> plugin.isEnabled()).collect(Collectors.toList());
@@ -61,6 +74,50 @@ public class PluginManager {
     
     public static Map<String, IHook> getHooks() {
         return LUA_HOOK_MANAGER.getHooks();
+    }
+    
+    static {
+        Main.PLUGINS_ENABLED_PROPERTY.addListener((obs, oldValue, newValue) -> {
+            setPluginsStatus(newValue);
+            if (!newValue) {
+                Main.AUTORUN_ENABLED_PROPERTY.setValue(false);
+            }
+        });
+        Main.AUTORUN_ENABLED_PROPERTY.addListener((obs, oldValue, newValue) -> {
+            setAutorunStatus(newValue);
+        });
+    }
+    
+    private static void setAutorunStatus(boolean enabled) {
+        if (enabled) {
+            if (AUTORUN_DISABLE_FILE.exists()) {
+                AUTORUN_DISABLE_FILE.delete();
+            }
+        } else {
+            if (!AUTORUN_DISABLE_FILE.exists()) {
+                try {
+                    AUTORUN_DISABLE_FILE.createNewFile();
+                } catch (IOException ex) {
+                    Logger.getLogger(PluginManager.class.getName()).log(Level.SEVERE, "Could not disable autorun", ex);
+                }
+            }
+        }
+    }
+    
+    private static void setPluginsStatus(boolean enabled) {
+        if (enabled) {
+            if (DISABLE_FILE.exists()) {
+                DISABLE_FILE.delete();
+            }
+        } else {
+            if (!DISABLE_FILE.exists()) {
+                try {
+                    DISABLE_FILE.createNewFile();
+                } catch (IOException ex) {
+                    Logger.getLogger(PluginManager.class.getName()).log(Level.SEVERE, "Could not disable plugin system", ex);
+                }
+            }
+        }
     }
 
 }

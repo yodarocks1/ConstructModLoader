@@ -628,12 +628,21 @@ public class Patch {
         LinkedList<String> text = new LinkedList(textList);
         Patch patch;
         Pattern patchHeader
-                = Pattern.compile("^@@ -(\\d+),?(\\d*) \\+(\\d+),?(\\d*) @@$");
+                = Pattern.compile("^@@ -([0-9]+),?([0-9]*) " + Pattern.quote("+") + "([0-9]+),?([0-9]*) @@$", Pattern.MULTILINE);
         Matcher m;
         char sign;
         String line;
         while (!text.isEmpty()) {
-            m = patchHeader.matcher(text.getFirst());
+            if (text.getFirst().trim().isEmpty()) {
+                //Blank line? Fine.
+                text.removeFirst();
+                continue;
+            } else if (text.getFirst().trim().charAt(0) == '#') {
+                //Who stuck a comment here? Continue, I guess.
+                text.removeFirst();
+                continue;
+            }
+            m = patchHeader.matcher(text.getFirst().trim());
             if (!m.matches()) {
                 throw new IllegalArgumentException(
                         "Invalid patch string: " + text.getFirst());
@@ -700,6 +709,9 @@ public class Patch {
                     case '@':
                         // Start of next patch.
                         break OUTER;
+                    case '#':
+                        // Comment.
+                        break;
                     default:
                         // WTF?
                         throw new IllegalArgumentException(

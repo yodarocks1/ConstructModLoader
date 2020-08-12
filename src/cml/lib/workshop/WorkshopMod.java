@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 public class WorkshopMod {
 
     private static final Logger LOGGER = Logger.getLogger(WorkshopMod.class.getName());
-    public static final String CML_MOD_TYPE = "CML";
+    public static final String CML_MOD_TYPE = "cml";
 
     private File directory;
     private final int workshopId;
@@ -49,27 +49,26 @@ public class WorkshopMod {
     public WorkshopMod(File directory) {
         this.directory = directory;
         this.workshopId = Integer.valueOf(directory.getName());
-        for (String jsonLine : AFileManager.FILE_MANAGER.readList(new File(directory.getAbsolutePath(), "description.json"))) {
-            jsonLine = jsonLine.trim().replace(",", "");
-            String[] jsonLineSplit = jsonLine.split(" : ");
+        AFileManager.FILE_MANAGER.readList(new File(directory.getAbsolutePath(), "description.json")).stream().map((jsonLine) -> jsonLine.replace(",", "").trim()).forEachOrdered((jsonLine) -> {
+            String[] jsonLineSplit = jsonLine.split(":");
             if (jsonLine.startsWith("\"description\"")) {
-                this.description = jsonLineSplit[1].replace("\"", "").replace("\\n", "\n").replace("#FFFFFF", "");
+                this.description = jsonLineSplit[1].trim().replace("\"", "").replace("\\n", "\n").replace("#FFFFFF", "");
             } else if (jsonLine.startsWith("\"name\"")) {
-                this.name = jsonLineSplit[1].replace("\"", "") + " (W#" + workshopId + ")";
+                this.name = jsonLineSplit[1].trim().replace("\"", "") + " (W#" + workshopId + ")";
             } else if (jsonLine.startsWith("\"type\"")) {
-                this.type = jsonLineSplit[1].replace("\"", "");
+                this.type = jsonLineSplit[1].replace("\"", "").trim();
                 if (type.equalsIgnoreCase(CML_MOD_TYPE)) {
                     this.CMLMod = true;
                 }
             } else if (jsonLine.startsWith("\"cml\"")) {
                 this.CMLMod = Boolean.valueOf(jsonLineSplit[1].replace("\"", ""));
             }
-        }
+        });
         this.preview = new File(directory, "preview.png");
         if (!preview.exists()) {
             this.preview = new File(directory, "preview.jpg");
             if (!preview.exists()) {
-                File[] files = directory.listFiles((File dir, String name) -> name.endsWith(".png") || name.endsWith(".jpg"));
+                File[] files = directory.listFiles((File dir, String fileName) -> fileName.endsWith(".png") || fileName.endsWith(".jpg"));
                 if (files.length > 0) {
                     this.preview = files[0];
                 }
@@ -109,8 +108,8 @@ public class WorkshopMod {
                             .map((typeLine) -> typeLine.replace("\"type\":", "").replace("\"", "")).collect(Collectors.joining());
                     switch (descriptionType) {
                         case "Tile":
-                        case "Terrain Assets":
-                        case "Challenge Pack":
+                        case "TerrainAssets":
+                        case "ChallengePack":
                             return new WorkshopMod(directory, Integer.valueOf(directory.getName()), descriptionType);
                         default:
                             return new WorkshopMod(directory);

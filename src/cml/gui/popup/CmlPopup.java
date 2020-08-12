@@ -63,6 +63,10 @@ public class CmlPopup<R, D> implements Initializable {
 
     @SuppressWarnings("LeakingThisInConstructor")
     public CmlPopup(Modality modality, PopupData<R, D> contentManager) {
+        this(modality, null, contentManager);
+    }
+
+    public CmlPopup(Modality modality, Window owner, PopupData<R, D> contentManager) {
         this.contentManager = contentManager;
         Platform.runLater(() -> {
             try {
@@ -72,18 +76,16 @@ public class CmlPopup<R, D> implements Initializable {
                 Scene scene = new Scene(root);
                 scene.setFill(Color.TRANSPARENT);
                 this.stage = new Stage();
-                stage.setScene(scene);
-                stage.initStyle(StageStyle.TRANSPARENT);
+                this.stage.setScene(scene);
+                if (owner != null) {
+                    this.stage.initOwner(owner);
+                }
+                this.stage.initStyle(StageStyle.TRANSPARENT);
                 this.stage.initModality(modality);
             } catch (IOException ex) {
                 LOGGER.log(Level.SEVERE, "Could not load popup", ex);
             }
         });
-    }
-
-    public CmlPopup(Modality modality, Window owner, PopupData<R, D> contentManager) {
-        this(modality, contentManager);
-        this.stage.initOwner(owner);
     }
 
     public final void setContentManager(PopupData<R, D> contentManager) {

@@ -23,7 +23,7 @@ import javafx.scene.control.ListView;
  *
  * @author benne
  */
-public class LogListCell extends ListCell<LogData> {
+class LogListCell extends ListCell<LogData> {
 
     private final ListView list;
     

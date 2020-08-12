@@ -29,7 +29,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,15 +40,13 @@ public class UpdateManager {
     
     private static final Logger LOGGER = Logger.getLogger(UpdateManager.class.getName());
     
-    private static final String UPDATE_ASSET_PREFIX = "https://github.com/yodarocks1/ConstructModLoader/releases/download/";
-    private static final String UPDATE_ASSET_SUFFIX = "/UpdateAssets.zip";
+    private static final String UPDATE_ASSET_URL = "https://github.com/yodarocks1/ConstructModLoader/releases/latest/download/UpdateAssets.zip";
 
     private static String[] update = null;
 
     public static String[] checkForUpdate() {
         String releaseName = "";
         String releaseURL = "";
-        String tagURLId = "";
         try {
             URL url = new URL("https://api.github.com/repos/yodarocks1/ConstructModLoader/releases/latest");
 
@@ -63,7 +60,6 @@ public class UpdateManager {
                         String section = sectionLong.trim();
                         if (section.startsWith("\"html_url\":\"https://github.com/yodarocks1/ConstructModLoader/releases/tag")) {
                             releaseURL = section.substring(section.indexOf(":") + 1).replace("\"", "");
-                            tagURLId = section.substring(section.indexOf("tag/")).replace("\"", "");
                             LOGGER.log(Level.INFO, "  URL: {0}", releaseURL);
                         } else if (section.startsWith("\"tag_name\"")) {
                             releaseName = section.substring(section.indexOf(":") + 1).replace("\"", "");
@@ -86,7 +82,7 @@ public class UpdateManager {
                 return new String[]{"", ""};
             }
         }
-        update = new String[]{releaseName, releaseURL, tagURLId};
+        update = new String[]{releaseName, releaseURL};
         return update;
     }
 
@@ -96,9 +92,8 @@ public class UpdateManager {
      * @return Whether the update was successfully downloaded
      */
     public static boolean update(File outputLocation) {
-        String updateAssetUrl = UPDATE_ASSET_PREFIX + update[2] + UPDATE_ASSET_SUFFIX;
         try {
-            URL url = new URL(updateAssetUrl);
+            URL url = new URL(UPDATE_ASSET_URL);
             HttpURLConnection httpClient = (HttpURLConnection) url.openConnection();
             httpClient.setRequestMethod("GET");
             httpClient.setInstanceFollowRedirects(true);
@@ -114,7 +109,7 @@ public class UpdateManager {
             LOGGER.log(Level.INFO, "Update has been successfully downloaded.");
             return true;
         } catch (MalformedURLException ex) {
-            LOGGER.log(Level.SEVERE, "Update Asset URL is invalid: " + updateAssetUrl, ex);
+            LOGGER.log(Level.SEVERE, "Update Asset URL is invalid: " + UPDATE_ASSET_URL, ex);
         } catch (IOException ex) {
             LOGGER.log(Level.SEVERE, "Failed to download Update Asset from Github", ex);
         }

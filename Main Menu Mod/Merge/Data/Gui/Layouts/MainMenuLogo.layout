@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" name="LogoPanel" position_real="0.364583 0 0.3125 0.402779">
+        <Property key="NeedKey" value="false" />
+        <Property key="NeedMouse" value="false" />
+        <Widget type="ImageBox" skin="ImageBox" position_real="0.133333 0.186207 0.866667 0.48046">
+            <Property key="ImageTexture" value="gui_mainmenu_logo_cml.png" />
+        </Widget>
+    </Widget>
+</MyGUI>

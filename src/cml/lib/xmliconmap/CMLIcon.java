@@ -70,7 +70,7 @@ public class CMLIcon {
     }
     
     public Image getIcon(int stateIndex, Image empty) {
-        if (stateIndex >= states.length) {
+        if (stateIndex >= getStates().length) {
             return empty;
         } else {
             return map.getIcon(getX(), getY() + (getH() * stateIndex), getW(), getH());
@@ -79,10 +79,10 @@ public class CMLIcon {
     
     public Image getIcon(State state, Image empty) {
         int index = 0;
-        for (index = 0; index < states.length; index++) {
-            if (states[index].equals(state)) {
+        for (index = 0; index < getStates().length; index++) {
+            if (getStates()[index].equals(state)) {
                 break;
-            } else if (index == states.length - 1) {
+            } else if (index == getStates().length - 1) {
                 return empty;
             }
         }

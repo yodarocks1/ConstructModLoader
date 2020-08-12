@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" name="BottomPanel" position_real="0.260417 0.877778 0.479167 0.122222">
+        <Property key="NeedKey" value="false" />
+        <Widget type="Button" skin="EditButton" name="Edit" position_real="0.461957 0 0.076087 0.393939" />
+        <Widget type="TextBox" skin="TextBox" name="Version" position_real="0.25 0.75 0.75 0.151515">
+            <Property key="Caption" value="Scrap Mechanic BETA Ver 0.3.5. Build 479. 2019 Axolot Games. All rights reserved." />
+            <Property key="FontName" value="InventoryItemDescription" />
+            <Property key="TextAlign" value="Right VCenter" />
+        </Widget>
+        <Widget type="TextBox" skin="TextBox" name="CMLVersion" position_real="0 0.75 0.25 0.151515">
+            <Property key="Caption" value="CML <VERSION> - <MOD_COUNT> mods loaded" />
+            <Property key="FontName" value="InventoryItemDescription" />
+            <Property key="TextAlign" value="Left VCenter" />
+        </Widget>
+    </Widget>
+    <Widget type="Widget" skin="PanelEmpty" name="CMLHeader" position_real="0.260417 0.022222 0.479167 0.222222">
+        <Widget type="TextBox" skin="TextBox" name="CMLProfile" position_real="0 0 1 0.151515">
+            <Property key="Caption" value="Construct Mod Loader - <PROFILE_NAME>" />
+            <Property key="FontName" value="MenuButtonCaption" />
+            <Property key="TextAlign" value="Center" />
+        </Widget>
+        <Widget type="TextBox" skin="TextBox" name="CMLProfileAuthor" position_real="0.25 0.1 0.5 0.151515">
+            <Property key="Caption" value="<PROFILE_LEFT>" />
+            <Property key="FontName" value="InventoryItemDescription" />
+            <Property key="TextAlign" value="Left VCenter" />
+            <Property key="TextColour" value="1 0.8980392 0.6" />
+        </Widget>
+        <Widget type="TextBox" skin="TextBox" name="CMLProfileAuthor" position_real="0.25 0.1 0.5 0.151515">
+            <Property key="Caption" value="<PROFILE_CENTER>" />
+            <Property key="FontName" value="InventoryItemDescription" />
+            <Property key="TextAlign" value="Center" />
+            <Property key="TextColour" value="1 0.8980392 0.6" />
+        </Widget>
+        <Widget type="TextBox" skin="TextBox" name="CMLProfileVersion" position_real="0.25 0.1 0.5 0.151515">
+            <Property key="Caption" value="<PROFILE_RIGHT>" />
+            <Property key="FontName" value="InventoryItemDescription" />
+            <Property key="TextAlign" value="Right VCenter" />
+            <Property key="TextColour" value="1 0.8980392 0.6" />
+        </Widget>
+    </Widget>
+    <Widget type="ImageBox" skin="ImageBox" position_real="0.4796875 0.075 0.040625 0.0704863">
+        <Property key="ImageTexture" value="cml_profile_image.png" />
+    </Widget>
+</MyGUI>

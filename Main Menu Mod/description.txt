@@ -1,0 +1,6 @@
+Main Menu Mod
+
+CML Main Menu screen
+ Shows active profile
+ Shows # of installed mods
+ Shows current CML version

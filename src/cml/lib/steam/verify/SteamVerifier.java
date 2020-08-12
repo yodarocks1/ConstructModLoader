@@ -87,7 +87,7 @@ public class SteamVerifier {
         
         if (output.startsWith("\"steam.exe\"")) {
             try {
-                Runtime.getRuntime().exec(Constants.KILL_VERIFY_COMMAND.replace("<<id>>", output.split(",")[1].replace("\"", "")));
+                Runtime.getRuntime().exec(Constants.TASK_KILL_COMMAND.replace("<<id>>", output.split(",")[1].replace("\"", "")));
             } catch (IOException ex) {
                 LOGGER.log(Level.SEVERE, "Could not kill validator process with data: " + output, ex);
             }

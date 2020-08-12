@@ -36,7 +36,7 @@ public class Modification {
         this.name = directory.getName();
         try (BufferedReader br = Files.newBufferedReader(new File(directory.toPath() + "/description.txt").toPath())) {
             this.description = br.lines().reduce("Description: ", String::concat);
-        } catch (IOException ex) {
+        } catch (IOException | NullPointerException ex) {
             LOGGER.log(Level.WARNING, "Modification {0} does not contain file `description.txt`", this.name);
         }
         enabledFile = new File(directory, "enabled");

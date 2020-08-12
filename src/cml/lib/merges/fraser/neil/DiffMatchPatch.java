@@ -62,7 +62,7 @@ public class DiffMatchPatch {
      * it is only called with the output of URLEncoder.encode which returns
      * uppercase hex.
      *
-     * Example: "%3F" -> "?", "%24" -> "$", etc.
+     * Example: "%3F" -&gt; "?", "%24" -&gt; "$", etc.
      *
      * @param str The string to escape.
      * @return The escaped string.

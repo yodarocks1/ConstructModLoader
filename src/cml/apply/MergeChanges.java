@@ -41,22 +41,22 @@ import java.util.logging.Logger;
 public class MergeChanges implements IApplicator {
 
     private static final Logger LOGGER = Logger.getLogger(MergeChanges.class.getName());
-    public static final String MERGE_FOLDER_RELATIVE = "\\Merge\\";
-    public static final String PATCH_FOLDER_RELATIVE = "\\Patch\\";
+    public static final String MERGE_FOLDER = "Merge";
+    public static final String PATCH_FOLDER = "Patch";
 
     public static Map<String, List<Modification>> modifiedBy = new HashMap();
 
     public static Map<File, String> fileToPatched = new HashMap();
 
     
-    private List<Modification> activeModifications;
+    private Map<Modification, File> activeModifications;
 
-    public MergeChanges(List<Modification> activeModifications) {
+    public MergeChanges(Map<Modification, File> activeModifications) {
         this.activeModifications = activeModifications;
     }
 
     public MergeChanges() {
-        this.activeModifications = new ArrayList();
+        this.activeModifications = new HashMap();
     }
 
     @Override
@@ -65,34 +65,36 @@ public class MergeChanges implements IApplicator {
     }
 
     @Override
-    public void setModifications(List<Modification> activeModifications) {
+    public void setModifications(Map<Modification, File> activeModifications) {
         this.activeModifications = activeModifications;
         prepareMerge();
     }
 
-    public void prepareMerge() {
+    private void prepareMerge() {
         LOGGER.log(Level.FINE, "Preparing merge {Note: Merge must occur before all other IApplicators}");
         modifiedBy.clear();
 
         Map<Modification, Map<String, LinkedList<Patch>>> patchMap = new HashMap();
         Set<String> paths = new HashSet();
-        for (Modification activeModification : activeModifications) {
-            File mergeFolder = new File(activeModification.getDirectory().getAbsolutePath() + MERGE_FOLDER_RELATIVE);
+        activeModifications.keySet().stream().map((activeModification) -> {
+            File mergeFolder = new File(activeModifications.get(activeModification).getAbsolutePath(), MERGE_FOLDER);
             if (mergeFolder.exists()) {
                 LOGGER.log(Level.FINE, "  Modification {0} (Merge):", activeModification.getName());
                 patchMap.put(activeModification, new HashMap());
                 makePatchRecursive(mergeFolder.getAbsolutePath(), "", patchMap.get(activeModification), paths);
             }
-            File patchFolder = new File(activeModification.getDirectory().getAbsolutePath() + PATCH_FOLDER_RELATIVE);
+            return activeModification;
+        }).forEachOrdered((activeModification) -> {
+            File patchFolder = new File(activeModifications.get(activeModification).getAbsolutePath(), PATCH_FOLDER);
             if (patchFolder.exists()) {
                 patchMap.putIfAbsent(activeModification, new HashMap());
                 LOGGER.log(Level.FINE, "  Modification {0} (Patch):", activeModification.getName());
                 addPatchesRecursive(patchFolder.getAbsolutePath(), "", patchMap.get(activeModification), paths);
             }
-        }
+        });
 
         fileToPatched = new HashMap();
-        for (String path : paths) {
+        paths.forEach((path) -> {
             String original = "";
             String result;
             File file = new File(Main.scrapMechanicFolder, path);
@@ -105,10 +107,10 @@ public class MergeChanges implements IApplicator {
             }
             result = applyPatches(original, path, patchMap);
             fileToPatched.put(file, result);
-        }
+        });
     }
 
-    public void applyMerge() {
+    private void applyMerge() {
         LOGGER.log(Level.FINER, "Merging");
         writePatches(fileToPatched);
     }
@@ -147,7 +149,7 @@ public class MergeChanges implements IApplicator {
         LOGGER.log(Level.FINEST, "      -Addend: {0}", pathAddend);
         if (thisFile.isDirectory()) {
             for (File file : thisFile.listFiles()) {
-                addPatchesRecursive(pathStart, pathAddend + "\\" + file.getName(), patchMap, paths);
+                addPatchesRecursive(pathStart, pathAddend + File.separator + file.getName(), patchMap, paths);
             }
         } else {
             if (!paths.contains(pathAddend)) {
@@ -189,7 +191,7 @@ public class MergeChanges implements IApplicator {
         return finalText;
     }
 
-    public void writePatches(Map<File, String> fileToPatched) {
+    private void writePatches(Map<File, String> fileToPatched) {
         writePatchRecursive("", fileToPatched);
     }
 
@@ -211,7 +213,7 @@ public class MergeChanges implements IApplicator {
                 LOGGER.log(Level.FINER, "  + Writing  {0}", path);
                 AFileManager.FILE_MANAGER.write(smFile, fileToPatched.get(smFile), FileOptions.REPLACE);
             } else if (smFile.length() != vanillaFile.length()) {
-                LOGGER.log(Level.FINER, "  '' Writing  {0}", path);
+                LOGGER.log(Level.FINER, "  : Writing  {0}", path);
                 AFileManager.FILE_MANAGER.copy(vanillaFile, smFile, FileOptions.REPLACE);
             }
         } else {

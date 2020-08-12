@@ -16,10 +16,13 @@
  */
 package cml.gui.console;
 
+import cml.Constants;
 import cml.GUI;
-import cml.Images;
+import cml.Media;
 import cml.Main;
 import cml.lib.threadmanager.ThreadManager;
+import cml.lib.xmliconmap.CMLIconConditional;
+import cml.lib.xmliconmap.CMLIconMap;
 import java.awt.AWTException;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -115,7 +118,7 @@ public class ConsoleController implements Initializable {
         Platform.setImplicitExit(false);
         this.stage = stage;
         stage.initStyle(StageStyle.TRANSPARENT);
-        stage.getIcons().add(Main.ICON_MAP.ICON.getIcon(0));
+        stage.getIcons().add(CMLIconMap.ICON_MAP.ICON.getIcon(0));
         stage.setTitle("Console - Construct Mod Loader");
 
         PopupMenu menu = new PopupMenu();
@@ -142,7 +145,7 @@ public class ConsoleController implements Initializable {
             menu.add(hideLoader);
             menu.add(closeItem);
 
-            trayIcon = new TrayIcon(SwingFXUtils.fromFXImage(Main.ICON_MAP.ICON.getIcon(0), null), "Console - Construct Mod Loader", menu);
+            trayIcon = new TrayIcon(SwingFXUtils.fromFXImage(CMLIconMap.ICON_MAP.ICON.getIcon(0), null), "Console - Construct Mod Loader", menu);
             trayIcon.setImageAutoSize(true);
             trayIcon.addActionListener(e -> Platform.runLater(() -> maximizeFromTray()));
 
@@ -257,7 +260,7 @@ public class ConsoleController implements Initializable {
         }
 
         private File makeDialog() {
-            TextInputDialog writeToFileDialog = new TextInputDialog(new File(Main.API_DIRECTORY, "log.xml").getAbsolutePath());
+            TextInputDialog writeToFileDialog = new TextInputDialog(new File(Constants.API_DIRECTORY, "log.xml").getAbsolutePath());
             writeToFileDialog.setHeaderText("Write the current log to file");
             writeToFileDialog.setContentText("Please give a destination file");
             writeToFileDialog.initOwner(stage);

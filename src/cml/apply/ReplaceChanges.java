@@ -22,8 +22,6 @@ import cml.beans.Modification;
 import cml.lib.files.AFileManager;
 import cml.lib.files.AFileManager.FileOptions;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,12 +36,20 @@ import java.util.logging.Logger;
 public class ReplaceChanges implements IApplicator {
 
     private static final Logger LOGGER = Logger.getLogger(ReplaceChanges.class.getName());
-    public static final String REPLACE_FOLDER_RELATIVE = "\\Replace\\";
+    public static final String REPLACE_FOLDER_RELATIVE = "Replace";
     public static Map<String, List<Modification>> replacedBy = new HashMap();
 
-    private List<Modification> activeModifications = new ArrayList();
+    private Map<Modification, File> activeModifications;
 
-    private Map<File, File> newToOld = new HashMap();
+    private final Map<File, File> newToOld = new HashMap();
+    
+    public ReplaceChanges(Map<Modification, File> activeModifications) {
+        this.activeModifications = activeModifications;
+    }
+    
+    public ReplaceChanges() {
+        activeModifications = new HashMap();
+    }
 
     @Override
     public void apply() {
@@ -51,20 +57,20 @@ public class ReplaceChanges implements IApplicator {
     }
 
     @Override
-    public void setModifications(List<Modification> activeModifications) {
+    public void setModifications(Map<Modification, File> activeModifications) {
         this.activeModifications = activeModifications;
         prepareReplacement();
     }
 
-    public void prepareReplacement() {
+    private void prepareReplacement() {
         LOGGER.log(Level.FINE, "Preparing to replace");
-        for (Modification activeModification : activeModifications) {
-            File replaceFolder = new File(activeModification.getDirectory().getAbsolutePath() + REPLACE_FOLDER_RELATIVE);
+        activeModifications.keySet().forEach((activeModification) -> {
+            File replaceFolder = new File(activeModifications.get(activeModification).getAbsolutePath(), REPLACE_FOLDER_RELATIVE);
             if (replaceFolder.exists()) {
                 LOGGER.log(Level.FINER, "  Modification {0}:", activeModification.getName());
                 prepareReplacementRec(replaceFolder.getAbsolutePath(), "", activeModification);
             }
-        }
+        });
     }
 
     private void prepareReplacementRec(String directory, String addend, Modification mod) {
@@ -91,7 +97,7 @@ public class ReplaceChanges implements IApplicator {
         }
     }
 
-    public void applyReplacement() {
+    private void applyReplacement() {
         LOGGER.log(Level.FINE, "Replacing");
         newToOld.keySet().forEach((newFile) -> {
             AFileManager.FILE_MANAGER.copy(newToOld.get(newFile), newFile, FileOptions.REPLACE);

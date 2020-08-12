@@ -72,7 +72,7 @@
                     <Font name="Georgia" size="14.0" />
                 </font>
             </Text>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#errorAutoResolve" text="Automatically Resolve">
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#autoResolveErrors" text="Automatically Resolve">
                 <font>
                     <Font name="Georgia" size="12.0" />
                 </font>

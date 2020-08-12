@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 /**
@@ -37,8 +38,9 @@ public class ErrorManager {
     private static final ErrorManager ERROR = new ErrorManager(true);
     private static final Map<String, Runnable> RESOLVE = new HashMap();
     private static final Logger LOGGER = Logger.getLogger(ErrorManager.class.getName());
-
-    public static ObjectProperty<ErrorManager> State = new SimpleObjectProperty(NO_ERROR);
+    
+    private static final ObjectProperty<ErrorManager> READABLE_STATE = new SimpleObjectProperty(NO_ERROR);
+    public static final ReadOnlyProperty<ErrorManager> STATE = READABLE_STATE;
 
     private final List<String> causes = new ArrayList();
     private final boolean error;
@@ -53,7 +55,7 @@ public class ErrorManager {
                 LOGGER.log(Level.INFO, "User Error resolved: \"{0}\"\n  Remaining errors: {1}", new Object[]{cause, causes.size()});
             }
             if (this.causes.isEmpty()) {
-                State.setValue(NO_ERROR);
+                READABLE_STATE.setValue(NO_ERROR);
             }
         }
     }
@@ -62,7 +64,7 @@ public class ErrorManager {
         if (!this.error) {
             ERROR.addCause(cause);
             Platform.runLater(() -> {
-                State.setValue(ERROR);
+                READABLE_STATE.setValue(ERROR);
             });
         } else if (!causes.contains(cause)) {
             LOGGER.log(Level.WARNING, "User Error caught: \"{0}\"", cause);
@@ -84,7 +86,7 @@ public class ErrorManager {
     }
 
     public static void addStateCause(String cause) {
-        State.getValue().addCause(cause);
+        READABLE_STATE.getValue().addCause(cause);
     }
     
     public static void addCauseResolver(String cause, Runnable resolver) {
@@ -92,25 +94,25 @@ public class ErrorManager {
     }
 
     public static void removeStateCause(String cause) {
-        State.getValue().removeCause(cause);
+        READABLE_STATE.getValue().removeCause(cause);
     }
 
     public static boolean isStateError() {
-        return State.getValue().isError();
+        return READABLE_STATE.getValue().isError();
     }
     
     public static boolean autoResolve() {
-        ErrorManager state = State.getValue();
+        ErrorManager state = READABLE_STATE.getValue();
         if (state.isError()) {
-            for (String cause : state.getCauses()) {
+            state.getCauses().forEach((cause) -> {
                 if (RESOLVE.containsKey(cause)) {
                     LOGGER.log(Level.INFO, "Resolving Error \"{0}\"", cause);
                     RESOLVE.get(cause).run();
                 } else {
                     LOGGER.log(Level.WARNING, "Could auto-resolve Error \"{0}\" - No resolver exists", cause);
                 }
-            }
+            });
         }
-        return State.getValue().isError();
+        return READABLE_STATE.getValue().isError();
     }
 }

@@ -1,0 +1,4454 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-08-11T17:45:34</date>
+  <millis>1597189534426</millis>
+  <sequence>0</sequence>
+  <logger>cml.Main</logger>
+  <level>INFO</level>
+  <class>cml.Main</class>
+  <method>mainSetup</method>
+  <thread>12</thread>
+  <message>--    Main  setup    --</message>
+</record>
+<record>
+  <date>2020-08-11T17:45:34</date>
+  <millis>1597189534496</millis>
+  <sequence>1</sequence>
+  <logger>cml.Main</logger>
+  <level>CONFIG</level>
+  <class>cml.Main</class>
+  <method>mainSetup</method>
+  <thread>12</thread>
+  <message>CML Version: V+B.2.0</message>
+  <param>+B.2.0</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:34</date>
+  <millis>1597189534507</millis>
+  <sequence>2</sequence>
+  <logger>cml.Main</logger>
+  <level>CONFIG</level>
+  <class>cml.Main</class>
+  <method>mainSetup</method>
+  <thread>12</thread>
+  <message>Operating System: Windows 10 [10.0]</message>
+  <param>Windows 10</param>
+  <param>10.0</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:34</date>
+  <millis>1597189534541</millis>
+  <sequence>3</sequence>
+  <logger>cml.Main</logger>
+  <level>CONFIG</level>
+  <class>cml.Main</class>
+  <method>mainSetup</method>
+  <thread>12</thread>
+  <message>Architecture: amd64</message>
+  <param>amd64</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:34</date>
+  <millis>1597189534558</millis>
+  <sequence>4</sequence>
+  <logger>cml.Main</logger>
+  <level>CONFIG</level>
+  <class>cml.Main</class>
+  <method>mainSetup</method>
+  <thread>12</thread>
+  <message>Available Processors: 2</message>
+  <param>2</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:34</date>
+  <millis>1597189534584</millis>
+  <sequence>5</sequence>
+  <logger>cml.Main</logger>
+  <level>CONFIG</level>
+  <class>cml.Main</class>
+  <method>mainSetup</method>
+  <thread>12</thread>
+  <message>Free Heap Memory (bytes): 131,109,616</message>
+  <param>131109616</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:34</date>
+  <millis>1597189534615</millis>
+  <sequence>6</sequence>
+  <logger>cml.Main</logger>
+  <level>CONFIG</level>
+  <class>cml.Main</class>
+  <method>mainSetup</method>
+  <thread>12</thread>
+  <message>Max Heap Memory (bytes): 1,901,592,576</message>
+  <param>1901592576</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:34</date>
+  <millis>1597189534665</millis>
+  <sequence>7</sequence>
+  <logger>cml.Main</logger>
+  <level>CONFIG</level>
+  <class>cml.Main</class>
+  <method>mainSetup</method>
+  <thread>12</thread>
+  <message>Total Heap Memory (bytes): 176,160,768</message>
+  <param>176160768</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:34</date>
+  <millis>1597189534682</millis>
+  <sequence>8</sequence>
+  <logger>cml.Main</logger>
+  <level>CONFIG</level>
+  <class>cml.Main</class>
+  <method>mainSetup</method>
+  <thread>12</thread>
+  <message>Logger Format: [%1$tF %1$tT] [%4$-7s] %5$s%6$s - %2$s%n</message>
+  <param>[%1$tF %1$tT] [%4$-7s] %5$s%6$s - %2$s%n</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:34</date>
+  <millis>1597189534695</millis>
+  <sequence>9</sequence>
+  <logger>cml.Main</logger>
+  <level>CONFIG</level>
+  <class>cml.Main</class>
+  <method>mainSetup</method>
+  <thread>12</thread>
+  <message>API Directory: C:\Users\benne\Documents\NetBeansProjects\Construct Mod Loader</message>
+  <param>C:\Users\benne\Documents\NetBeansProjects\Construct Mod Loader</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:34</date>
+  <millis>1597189534736</millis>
+  <sequence>12</sequence>
+  <logger>System.out</logger>
+  <level>SEVERE</level>
+  <thread>12</thread>
+  <message>System.out test
+</message>
+</record>
+<record>
+  <date>2020-08-11T17:45:34</date>
+  <millis>1597189534754</millis>
+  <sequence>15</sequence>
+  <logger>System.err</logger>
+  <level>SEVERE</level>
+  <thread>12</thread>
+  <message>System.err test
+</message>
+</record>
+<record>
+  <date>2020-08-11T17:45:34</date>
+  <millis>1597189534754</millis>
+  <sequence>16</sequence>
+  <logger>cml.Main</logger>
+  <level>CONFIG</level>
+  <class>cml.Main</class>
+  <method>mainSetup</method>
+  <thread>12</thread>
+  <message>Getting folders</message>
+</record>
+<record>
+  <date>2020-08-11T17:45:34</date>
+  <millis>1597189534795</millis>
+  <sequence>17</sequence>
+  <logger>cml.lib.workshop.WorkshopReader</logger>
+  <level>INFO</level>
+  <class>cml.lib.workshop.WorkshopReader</class>
+  <method>reloadAllMods</method>
+  <thread>12</thread>
+  <message>Reloading all workshop mods</message>
+</record>
+<record>
+  <date>2020-08-11T17:45:34</date>
+  <millis>1597189534958</millis>
+  <sequence>18</sequence>
+  <logger>cml.Main</logger>
+  <level>INFO</level>
+  <class>cml.Main</class>
+  <method>mainSetup</method>
+  <thread>12</thread>
+  <message>Setting logs</message>
+</record>
+<record>
+  <date>2020-08-11T17:45:35</date>
+  <millis>1597189535064</millis>
+  <sequence>19</sequence>
+  <logger>cml.Main</logger>
+  <level>INFO</level>
+  <class>cml.Main</class>
+  <method>setLog</method>
+  <thread>12</thread>
+  <message>Pat: C:\Program Files (x86)\Construct\mods\_._patches_._\2020-08-11+17;45;35.txt</message>
+  <param>C:\Program Files (x86)\Construct\mods\_._patches_._\2020-08-11+17;45;35.txt</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:35</date>
+  <millis>1597189535153</millis>
+  <sequence>20</sequence>
+  <logger>cml.Main</logger>
+  <level>INFO</level>
+  <class>cml.Main</class>
+  <method>mainSetup</method>
+  <thread>12</thread>
+  <message>Updating profile list</message>
+</record>
+<record>
+  <date>2020-08-11T17:45:35</date>
+  <millis>1597189535565</millis>
+  <sequence>21</sequence>
+  <logger>cml.beans.Modification</logger>
+  <level>WARNING</level>
+  <class>cml.beans.Modification</class>
+  <method>&lt;init&gt;</method>
+  <thread>12</thread>
+  <message>Modification Bits and Bobs does not contain file `description.txt`</message>
+  <param>Bits and Bobs</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:35</date>
+  <millis>1597189535796</millis>
+  <sequence>22</sequence>
+  <logger>cml.Main</logger>
+  <level>INFO</level>
+  <class>cml.Main</class>
+  <method>mainSetup</method>
+  <thread>12</thread>
+  <message>-- GUI initalization --</message>
+</record>
+<record>
+  <date>2020-08-11T17:45:36</date>
+  <millis>1597189536415</millis>
+  <sequence>23</sequence>
+  <logger>cml.gui.main.MainController</logger>
+  <level>INFO</level>
+  <class>cml.gui.main.MainController</class>
+  <method>lambda$fromProfileList$32</method>
+  <thread>12</thread>
+  <message>Detected Profile: ABCd</message>
+  <param>ABCd</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:36</date>
+  <millis>1597189536429</millis>
+  <sequence>24</sequence>
+  <logger>cml.gui.main.MainController</logger>
+  <level>INFO</level>
+  <class>cml.gui.main.MainController</class>
+  <method>lambda$fromProfileList$32</method>
+  <thread>12</thread>
+  <message>Detected Profile: asdf</message>
+  <param>asdf</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:36</date>
+  <millis>1597189536437</millis>
+  <sequence>25</sequence>
+  <logger>cml.gui.main.MainController</logger>
+  <level>INFO</level>
+  <class>cml.gui.main.MainController</class>
+  <method>lambda$fromProfileList$32</method>
+  <thread>12</thread>
+  <message>Detected Profile: Developer Profile</message>
+  <param>Developer Profile</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:36</date>
+  <millis>1597189536446</millis>
+  <sequence>26</sequence>
+  <logger>cml.gui.main.MainController</logger>
+  <level>INFO</level>
+  <class>cml.gui.main.MainController</class>
+  <method>lambda$fromProfileList$32</method>
+  <thread>12</thread>
+  <message>Detected Profile: Vanilla</message>
+  <param>Vanilla</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:36</date>
+  <millis>1597189536465</millis>
+  <sequence>27</sequence>
+  <logger>cml.gui.profilesettings.ProfileSettingsController</logger>
+  <level>INFO</level>
+  <class>cml.gui.profilesettings.ProfileSettingsController</class>
+  <method>lambda$fromModList$12</method>
+  <thread>12</thread>
+  <message>Detected mod: Bits and Bobs</message>
+  <param>Bits and Bobs</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:36</date>
+  <millis>1597189536490</millis>
+  <sequence>28</sequence>
+  <logger>cml.gui.profilesettings.ProfileSettingsController</logger>
+  <level>INFO</level>
+  <class>cml.gui.profilesettings.ProfileSettingsController</class>
+  <method>lambda$fromModList$12</method>
+  <thread>12</thread>
+  <message>Detected mod: Dev Mode Mod - Merge Example</message>
+  <param>Dev Mode Mod - Merge Example</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:36</date>
+  <millis>1597189536502</millis>
+  <sequence>29</sequence>
+  <logger>cml.gui.profilesettings.ProfileSettingsController</logger>
+  <level>INFO</level>
+  <class>cml.gui.profilesettings.ProfileSettingsController</class>
+  <method>lambda$fromModList$12</method>
+  <thread>12</thread>
+  <message>Detected mod: Dev Mode Mod - Patch Example</message>
+  <param>Dev Mode Mod - Patch Example</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:36</date>
+  <millis>1597189536522</millis>
+  <sequence>30</sequence>
+  <logger>cml.gui.profilesettings.ProfileSettingsController</logger>
+  <level>INFO</level>
+  <class>cml.gui.profilesettings.ProfileSettingsController</class>
+  <method>lambda$fromModList$12</method>
+  <thread>12</thread>
+  <message>Detected mod: Example Mod</message>
+  <param>Example Mod</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:49</date>
+  <millis>1597189549583</millis>
+  <sequence>31</sequence>
+  <logger>cml.apply.Apply</logger>
+  <level>INFO</level>
+  <class>cml.apply.Apply</class>
+  <method>apply</method>
+  <thread>38</thread>
+  <message>--Apply.apply()--</message>
+</record>
+<record>
+  <date>2020-08-11T17:45:51</date>
+  <millis>1597189551213</millis>
+  <sequence>32</sequence>
+  <logger>cml.apply.Apply</logger>
+  <level>INFO</level>
+  <class>cml.apply.Apply</class>
+  <method>apply</method>
+  <thread>38</thread>
+  <message>Checking for incompatibilities</message>
+</record>
+<record>
+  <date>2020-08-11T17:45:51</date>
+  <millis>1597189551232</millis>
+  <sequence>33</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINE</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>prepareMerge</method>
+  <thread>38</thread>
+  <message>Preparing merge {Note: Merge must occur before all other IApplicators}</message>
+</record>
+<record>
+  <date>2020-08-11T17:45:51</date>
+  <millis>1597189551277</millis>
+  <sequence>34</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINE</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>lambda$prepareMerge$0</method>
+  <thread>38</thread>
+  <message>Modification Main Menu Mod (Merge):</message>
+  <param>Main Menu Mod</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:51</date>
+  <millis>1597189551343</millis>
+  <sequence>35</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINEST</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>makePatchRecursive</method>
+  <thread>38</thread>
+  <message>-Addend:</message>
+  <param></param>
+</record>
+<record>
+  <date>2020-08-11T17:45:51</date>
+  <millis>1597189551388</millis>
+  <sequence>36</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINEST</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>makePatchRecursive</method>
+  <thread>38</thread>
+  <message>-Addend: \Data</message>
+  <param>\Data</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:51</date>
+  <millis>1597189551397</millis>
+  <sequence>37</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINEST</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>makePatchRecursive</method>
+  <thread>38</thread>
+  <message>-Addend: \Data\Gui</message>
+  <param>\Data\Gui</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:51</date>
+  <millis>1597189551404</millis>
+  <sequence>38</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINEST</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>makePatchRecursive</method>
+  <thread>38</thread>
+  <message>-Addend: \Data\Gui\Layouts</message>
+  <param>\Data\Gui\Layouts</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:51</date>
+  <millis>1597189551415</millis>
+  <sequence>39</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINEST</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>makePatchRecursive</method>
+  <thread>38</thread>
+  <message>-Addend: \Data\Gui\Layouts\MainMenuBottom.layout</message>
+  <param>\Data\Gui\Layouts\MainMenuBottom.layout</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:51</date>
+  <millis>1597189551421</millis>
+  <sequence>40</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINEST</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>makePatchRecursive</method>
+  <thread>38</thread>
+  <message>Path found: \Data\Gui\Layouts\MainMenuBottom.layout</message>
+  <param>\Data\Gui\Layouts\MainMenuBottom.layout</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:51</date>
+  <millis>1597189551441</millis>
+  <sequence>41</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINEST</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>makePatchRecursive</method>
+  <thread>38</thread>
+  <message>-Addend: \Data\Gui\Layouts\MainMenuLogo.layout</message>
+  <param>\Data\Gui\Layouts\MainMenuLogo.layout</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:51</date>
+  <millis>1597189551446</millis>
+  <sequence>42</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINEST</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>makePatchRecursive</method>
+  <thread>38</thread>
+  <message>Path found: \Data\Gui\Layouts\MainMenuLogo.layout</message>
+  <param>\Data\Gui\Layouts\MainMenuLogo.layout</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:51</date>
+  <millis>1597189551454</millis>
+  <sequence>43</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINE</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>lambda$prepareMerge$1</method>
+  <thread>38</thread>
+  <message>Modification Dev Mode Mod - Patch Example (Patch):</message>
+  <param>Dev Mode Mod - Patch Example</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:51</date>
+  <millis>1597189551460</millis>
+  <sequence>44</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINEST</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>addPatchesRecursive</method>
+  <thread>38</thread>
+  <message>-Addend:</message>
+  <param></param>
+</record>
+<record>
+  <date>2020-08-11T17:45:51</date>
+  <millis>1597189551516</millis>
+  <sequence>45</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINEST</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>addPatchesRecursive</method>
+  <thread>38</thread>
+  <message>-Addend: \Survival</message>
+  <param>\Survival</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:51</date>
+  <millis>1597189551521</millis>
+  <sequence>46</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINEST</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>addPatchesRecursive</method>
+  <thread>38</thread>
+  <message>-Addend: \Survival\Scripts</message>
+  <param>\Survival\Scripts</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:51</date>
+  <millis>1597189551527</millis>
+  <sequence>47</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINEST</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>addPatchesRecursive</method>
+  <thread>38</thread>
+  <message>-Addend: \Survival\Scripts\game</message>
+  <param>\Survival\Scripts\game</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:51</date>
+  <millis>1597189551544</millis>
+  <sequence>48</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINEST</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>addPatchesRecursive</method>
+  <thread>38</thread>
+  <message>-Addend: \Survival\Scripts\game\SurvivalGame.lua</message>
+  <param>\Survival\Scripts\game\SurvivalGame.lua</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:51</date>
+  <millis>1597189551561</millis>
+  <sequence>49</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINEST</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>addPatchesRecursive</method>
+  <thread>38</thread>
+  <message>Path found: \Survival\Scripts\game\SurvivalGame.lua</message>
+  <param>\Survival\Scripts\game\SurvivalGame.lua</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:52</date>
+  <millis>1597189552204</millis>
+  <sequence>50</sequence>
+  <logger>cml.apply.ReplaceChanges</logger>
+  <level>FINE</level>
+  <class>cml.apply.ReplaceChanges</class>
+  <method>prepareReplacement</method>
+  <thread>38</thread>
+  <message>Preparing to replace</message>
+</record>
+<record>
+  <date>2020-08-11T17:45:52</date>
+  <millis>1597189552214</millis>
+  <sequence>51</sequence>
+  <logger>cml.apply.ReplaceChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.ReplaceChanges</class>
+  <method>lambda$prepareReplacement$0</method>
+  <thread>38</thread>
+  <message>Modification Main Menu Mod:</message>
+  <param>Main Menu Mod</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:52</date>
+  <millis>1597189552219</millis>
+  <sequence>52</sequence>
+  <logger>cml.apply.ReplaceChanges</logger>
+  <level>SEVERE</level>
+  <class>cml.apply.ReplaceChanges</class>
+  <method>prepareReplacementRec</method>
+  <thread>38</thread>
+  <message>Incompatibility found in file C:\Users\benne\Documents\NetBeansProjects\Construct Mod Loader\Main Menu Mod\Replace\Data\Gui\gui_mainmenu_logo_cml.png</message>
+  <param>C:\Users\benne\Documents\NetBeansProjects\Construct Mod Loader\Main Menu Mod\Replace</param>
+  <param>\Data\Gui\gui_mainmenu_logo_cml.png</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:52</date>
+  <millis>1597189552229</millis>
+  <sequence>53</sequence>
+  <logger>cml.apply.Apply</logger>
+  <level>INFO</level>
+  <class>cml.apply.Apply</class>
+  <method>apply</method>
+  <thread>38</thread>
+  <message>No incompatibilities detected.
+Applying modifications</message>
+</record>
+<record>
+  <date>2020-08-11T17:45:52</date>
+  <millis>1597189552236</millis>
+  <sequence>54</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>applyMerge</method>
+  <thread>38</thread>
+  <message>Merging</message>
+</record>
+<record>
+  <date>2020-08-11T17:45:52</date>
+  <millis>1597189552241</millis>
+  <sequence>55</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Cache</message>
+  <param>\Cache</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:52</date>
+  <millis>1597189552246</millis>
+  <sequence>56</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \ChallengeData</message>
+  <param>\ChallengeData</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:52</date>
+  <millis>1597189552252</millis>
+  <sequence>57</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Challenges</message>
+  <param>\Challenges</param>
+</record>
+<record>
+  <date>2020-08-11T17:45:58</date>
+  <millis>1597189558177</millis>
+  <sequence>58</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Character\Char_Tools\char_spudgun_frier_preview.rend</message>
+</record>
+<record>
+  <date>2020-08-11T17:45:58</date>
+  <millis>1597189558575</millis>
+  <sequence>59</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Character\customization_options.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:46:00</date>
+  <millis>1597189560143</millis>
+  <sequence>60</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Data\CML-Objects</message>
+  <param>\Data\CML-Objects</param>
+</record>
+<record>
+  <date>2020-08-11T17:46:00</date>
+  <millis>1597189560223</millis>
+  <sequence>61</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Effects\Database\EffectSets\projectile.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:46:00</date>
+  <millis>1597189560496</millis>
+  <sequence>62</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Effects\Database\EffectSets\spudgun.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:46:00</date>
+  <millis>1597189560617</millis>
+  <sequence>63</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Effects\Database\EffectSets\stone.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:46:00</date>
+  <millis>1597189560730</millis>
+  <sequence>64</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Effects\Database\EffectSets\water.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:46:00</date>
+  <millis>1597189560909</millis>
+  <sequence>65</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Data\ExampleMods</message>
+  <param>\Data\ExampleMods</param>
+</record>
+<record>
+  <date>2020-08-11T17:46:01</date>
+  <millis>1597189561184</millis>
+  <sequence>66</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Data\Gui\cml_profile_image.png</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Data\Gui\cml_profile_image.png</param>
+</record>
+<record>
+  <date>2020-08-11T17:46:01</date>
+  <millis>1597189561415</millis>
+  <sequence>67</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Fonts\Fonts.xml</message>
+</record>
+<record>
+  <date>2020-08-11T17:46:01</date>
+  <millis>1597189561651</millis>
+  <sequence>68</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Fonts\ManualFontDataInput.xml</message>
+</record>
+<record>
+  <date>2020-08-11T17:46:01</date>
+  <millis>1597189561867</millis>
+  <sequence>69</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Fonts2\NewFonts.xml</message>
+</record>
+<record>
+  <date>2020-08-11T17:46:02</date>
+  <millis>1597189562059</millis>
+  <sequence>70</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\GuiConfig.xml</message>
+</record>
+<record>
+  <date>2020-08-11T17:46:02</date>
+  <millis>1597189562122</millis>
+  <sequence>71</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Data\Gui\gui_mainmenu_logo_cml.png</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Data\Gui\gui_mainmenu_logo_cml.png</param>
+</record>
+<record>
+  <date>2020-08-11T17:46:02</date>
+  <millis>1597189562254</millis>
+  <sequence>72</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\IconMap.png</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:31</date>
+  <millis>1597189651763</millis>
+  <sequence>73</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Data\Gui\Language\Brazilian\CacheSettings.json</message>
+  <param>\Data\Gui\Language\Brazilian\CacheSettings.json</param>
+</record>
+<record>
+  <date>2020-08-11T17:47:31</date>
+  <millis>1597189651807</millis>
+  <sequence>74</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Brazilian\Fonts.xml</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:32</date>
+  <millis>1597189652063</millis>
+  <sequence>75</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Brazilian\InterfaceTags.txt</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:32</date>
+  <millis>1597189652717</millis>
+  <sequence>76</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Brazilian\InventoryItemDescriptions.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:33</date>
+  <millis>1597189653243</millis>
+  <sequence>77</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Data\Gui\Language\Chinese\CacheSettings.json</message>
+  <param>\Data\Gui\Language\Chinese\CacheSettings.json</param>
+</record>
+<record>
+  <date>2020-08-11T17:47:33</date>
+  <millis>1597189653387</millis>
+  <sequence>78</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Chinese\Fonts.xml</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:33</date>
+  <millis>1597189653651</millis>
+  <sequence>79</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Chinese\InterfaceTags.txt</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:34</date>
+  <millis>1597189654315</millis>
+  <sequence>80</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Chinese\InventoryItemDescriptions.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:34</date>
+  <millis>1597189654873</millis>
+  <sequence>81</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Data\Gui\Language\English\CacheSettings.json</message>
+  <param>\Data\Gui\Language\English\CacheSettings.json</param>
+</record>
+<record>
+  <date>2020-08-11T17:47:34</date>
+  <millis>1597189654894</millis>
+  <sequence>82</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\English\Fonts.xml</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:35</date>
+  <millis>1597189655185</millis>
+  <sequence>83</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\English\InterfaceTags.txt</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:36</date>
+  <millis>1597189656129</millis>
+  <sequence>84</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\English\InventoryItemDescriptions.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:37</date>
+  <millis>1597189657030</millis>
+  <sequence>85</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Data\Gui\Language\French\CacheSettings.json</message>
+  <param>\Data\Gui\Language\French\CacheSettings.json</param>
+</record>
+<record>
+  <date>2020-08-11T17:47:37</date>
+  <millis>1597189657054</millis>
+  <sequence>86</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\French\Fonts.xml</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:37</date>
+  <millis>1597189657440</millis>
+  <sequence>87</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\French\InterfaceTags.txt</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:38</date>
+  <millis>1597189658434</millis>
+  <sequence>88</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\French\InventoryItemDescriptions.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:39</date>
+  <millis>1597189659367</millis>
+  <sequence>89</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Data\Gui\Language\German\CacheSettings.json</message>
+  <param>\Data\Gui\Language\German\CacheSettings.json</param>
+</record>
+<record>
+  <date>2020-08-11T17:47:39</date>
+  <millis>1597189659380</millis>
+  <sequence>90</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\German\Fonts.xml</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:39</date>
+  <millis>1597189659626</millis>
+  <sequence>91</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\German\InterfaceTags.txt</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:40</date>
+  <millis>1597189660501</millis>
+  <sequence>92</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\German\InventoryItemDescriptions.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:41</date>
+  <millis>1597189661186</millis>
+  <sequence>93</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Data\Gui\Language\Italian\CacheSettings.json</message>
+  <param>\Data\Gui\Language\Italian\CacheSettings.json</param>
+</record>
+<record>
+  <date>2020-08-11T17:47:41</date>
+  <millis>1597189661214</millis>
+  <sequence>94</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Italian\Fonts.xml</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:41</date>
+  <millis>1597189661555</millis>
+  <sequence>95</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Italian\InterfaceTags.txt</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:42</date>
+  <millis>1597189662310</millis>
+  <sequence>96</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Italian\InventoryItemDescriptions.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:43</date>
+  <millis>1597189663045</millis>
+  <sequence>97</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Data\Gui\Language\Japanese\CacheSettings.json</message>
+  <param>\Data\Gui\Language\Japanese\CacheSettings.json</param>
+</record>
+<record>
+  <date>2020-08-11T17:47:43</date>
+  <millis>1597189663068</millis>
+  <sequence>98</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Japanese\Fonts.xml</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:43</date>
+  <millis>1597189663394</millis>
+  <sequence>99</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Japanese\InterfaceTags.txt</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:44</date>
+  <millis>1597189664423</millis>
+  <sequence>100</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Japanese\InventoryItemDescriptions.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:45</date>
+  <millis>1597189665308</millis>
+  <sequence>101</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Data\Gui\Language\Korean\CacheSettings.json</message>
+  <param>\Data\Gui\Language\Korean\CacheSettings.json</param>
+</record>
+<record>
+  <date>2020-08-11T17:47:45</date>
+  <millis>1597189665320</millis>
+  <sequence>102</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Korean\Fonts.xml</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:45</date>
+  <millis>1597189665652</millis>
+  <sequence>103</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Korean\InterfaceTags.txt</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:46</date>
+  <millis>1597189666526</millis>
+  <sequence>104</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Korean\InventoryItemDescriptions.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:47</date>
+  <millis>1597189667248</millis>
+  <sequence>105</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Data\Gui\Language\Polish\CacheSettings.json</message>
+  <param>\Data\Gui\Language\Polish\CacheSettings.json</param>
+</record>
+<record>
+  <date>2020-08-11T17:47:47</date>
+  <millis>1597189667280</millis>
+  <sequence>106</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Polish\Fonts.xml</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:47</date>
+  <millis>1597189667573</millis>
+  <sequence>107</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Polish\InterfaceTags.txt</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:48</date>
+  <millis>1597189668404</millis>
+  <sequence>108</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Polish\InventoryItemDescriptions.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:49</date>
+  <millis>1597189669101</millis>
+  <sequence>109</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Data\Gui\Language\Russian\CacheSettings.json</message>
+  <param>\Data\Gui\Language\Russian\CacheSettings.json</param>
+</record>
+<record>
+  <date>2020-08-11T17:47:49</date>
+  <millis>1597189669120</millis>
+  <sequence>110</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Russian\Fonts.xml</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:49</date>
+  <millis>1597189669520</millis>
+  <sequence>111</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Russian\InterfaceTags.txt</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:50</date>
+  <millis>1597189670775</millis>
+  <sequence>112</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Russian\InventoryItemDescriptions.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:51</date>
+  <millis>1597189671754</millis>
+  <sequence>113</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Data\Gui\Language\Spanish\CacheSettings.json</message>
+  <param>\Data\Gui\Language\Spanish\CacheSettings.json</param>
+</record>
+<record>
+  <date>2020-08-11T17:47:51</date>
+  <millis>1597189671785</millis>
+  <sequence>114</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Spanish\Fonts.xml</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:52</date>
+  <millis>1597189672281</millis>
+  <sequence>115</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Spanish\InterfaceTags.txt</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:53</date>
+  <millis>1597189673347</millis>
+  <sequence>116</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Language\Spanish\InventoryItemDescriptions.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:54</date>
+  <millis>1597189674467</millis>
+  <sequence>117</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\ChallengeBuilder.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:54</date>
+  <millis>1597189674821</millis>
+  <sequence>118</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\ChallengeBuilderLevelItem.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:55</date>
+  <millis>1597189675140</millis>
+  <sequence>119</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\ChallengeBuilderPackItem.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:55</date>
+  <millis>1597189675393</millis>
+  <sequence>120</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\ChallengeBuilderPopups.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:55</date>
+  <millis>1597189675603</millis>
+  <sequence>121</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\ChallengeModeMenuPack.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:56</date>
+  <millis>1597189676093</millis>
+  <sequence>122</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\ChallengeModeMenuPlay.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:56</date>
+  <millis>1597189676475</millis>
+  <sequence>123</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\CharacterCustomizationMenu.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:56</date>
+  <millis>1597189676897</millis>
+  <sequence>124</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\ChooseGameMode.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:57</date>
+  <millis>1597189677074</millis>
+  <sequence>125</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\ContainerGuiAmmunition.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:57</date>
+  <millis>1597189677187</millis>
+  <sequence>126</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\ContainerGuiBattery.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:57</date>
+  <millis>1597189677322</millis>
+  <sequence>127</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\ContainerGuiChemical.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:57</date>
+  <millis>1597189677493</millis>
+  <sequence>128</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\ContainerGuiFertilizer.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:57</date>
+  <millis>1597189677674</millis>
+  <sequence>129</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\ContainerGuiGas.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:57</date>
+  <millis>1597189677883</millis>
+  <sequence>130</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\ContainerGuiSeed.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:58</date>
+  <millis>1597189678253</millis>
+  <sequence>131</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\ContainerGuiWater.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:58</date>
+  <millis>1597189678429</millis>
+  <sequence>132</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\ControlOptionsSetBinding.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:58</date>
+  <millis>1597189678566</millis>
+  <sequence>133</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\CookBotGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:58</date>
+  <millis>1597189678746</millis>
+  <sequence>134</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\CraftbotGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:59</date>
+  <millis>1597189679496</millis>
+  <sequence>135</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\CraftBotIngredientItem.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:59</date>
+  <millis>1597189679537</millis>
+  <sequence>136</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\CraftBotProcessItem.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:47:59</date>
+  <millis>1597189679709</millis>
+  <sequence>137</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\CreativeModeMenu.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:00</date>
+  <millis>1597189680339</millis>
+  <sequence>138</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\DressBotGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:00</date>
+  <millis>1597189680669</millis>
+  <sequence>139</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\HideoutGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:00</date>
+  <millis>1597189680960</millis>
+  <sequence>140</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\HorizontalSlider_Piston_Indexed.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:01</date>
+  <millis>1597189681111</millis>
+  <sequence>141</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\HorizontalSlider_Piston_Speed.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:01</date>
+  <millis>1597189681248</millis>
+  <sequence>142</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\Inventory.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:01</date>
+  <millis>1597189681771</millis>
+  <sequence>143</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\MainMenu.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:01</date>
+  <millis>1597189681940</millis>
+  <sequence>144</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>+ Writing  \Data\Gui\Layouts\MainMenuBottom.layout</message>
+  <param>\Data\Gui\Layouts\MainMenuBottom.layout</param>
+</record>
+<record>
+  <date>2020-08-11T17:48:01</date>
+  <millis>1597189681961</millis>
+  <sequence>145</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>+ Writing  \Data\Gui\Layouts\MainMenuLogo.layout</message>
+  <param>\Data\Gui\Layouts\MainMenuLogo.layout</param>
+</record>
+<record>
+  <date>2020-08-11T17:48:01</date>
+  <millis>1597189681993</millis>
+  <sequence>146</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\MechanicStationGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:02</date>
+  <millis>1597189682248</millis>
+  <sequence>147</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\MenuBackButton.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:02</date>
+  <millis>1597189682364</millis>
+  <sequence>148</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\NewChallengePackItem.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:02</date>
+  <millis>1597189682548</millis>
+  <sequence>149</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\OptionsItem_Binding.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:02</date>
+  <millis>1597189682632</millis>
+  <sequence>150</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\OptionsItem_DropDown.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:02</date>
+  <millis>1597189682711</millis>
+  <sequence>151</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\OptionsItem_OnOff.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:02</date>
+  <millis>1597189682782</millis>
+  <sequence>152</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\OptionsItem_Slider.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:02</date>
+  <millis>1597189682894</millis>
+  <sequence>153</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\OptionsMainMenu.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:03</date>
+  <millis>1597189683063</millis>
+  <sequence>154</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\PistonGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:03</date>
+  <millis>1597189683277</millis>
+  <sequence>155</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\Placeholder_ContainerGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:03</date>
+  <millis>1597189683433</millis>
+  <sequence>156</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\Placeholder_EngineGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:03</date>
+  <millis>1597189683756</millis>
+  <sequence>157</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\Placeholder_ExportGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:03</date>
+  <millis>1597189683899</millis>
+  <sequence>158</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\Placeholder_ImportGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:04</date>
+  <millis>1597189684103</millis>
+  <sequence>159</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\Placeholder_InGameMenu.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:04</date>
+  <millis>1597189684366</millis>
+  <sequence>160</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\Placeholder_LightGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:04</date>
+  <millis>1597189684497</millis>
+  <sequence>161</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\Placeholder_LogicGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:04</date>
+  <millis>1597189684622</millis>
+  <sequence>162</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\Placeholder_SensorGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:04</date>
+  <millis>1597189684926</millis>
+  <sequence>163</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\Placeholder_SequenceGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:05</date>
+  <millis>1597189685172</millis>
+  <sequence>164</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\Placeholder_ToneBot.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:05</date>
+  <millis>1597189685459</millis>
+  <sequence>165</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\PopUp_YN.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:05</date>
+  <millis>1597189685565</millis>
+  <sequence>166</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\SeatUpgradeGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:05</date>
+  <millis>1597189685854</millis>
+  <sequence>167</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\SequenceListItem.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:06</date>
+  <millis>1597189686088</millis>
+  <sequence>168</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\SequenceStepItem.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:06</date>
+  <millis>1597189686205</millis>
+  <sequence>169</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\SteeringBearingGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:06</date>
+  <millis>1597189686577</millis>
+  <sequence>170</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\SurvivalModeMenu.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:06</date>
+  <millis>1597189686842</millis>
+  <sequence>171</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\TimerGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:07</date>
+  <millis>1597189687093</millis>
+  <sequence>172</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\VerticalSlider_Engine.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:07</date>
+  <millis>1597189687233</millis>
+  <sequence>173</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\Layouts\WorkbenchBotGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:07</date>
+  <millis>1597189687858</millis>
+  <sequence>174</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\LoadingScreen.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:08</date>
+  <millis>1597189688264</millis>
+  <sequence>175</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\MessageGui.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:08</date>
+  <millis>1597189688446</millis>
+  <sequence>176</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\MessageGuiLoadingBar.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:08</date>
+  <millis>1597189688644</millis>
+  <sequence>177</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\MessageGuiTextInput.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:09</date>
+  <millis>1597189689150</millis>
+  <sequence>178</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Data\Gui\Resolutions\1280x720\cml_profile_image.png</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Data\Gui\Resolutions\1280x720\cml_profile_image.png</param>
+</record>
+<record>
+  <date>2020-08-11T17:48:09</date>
+  <millis>1597189689538</millis>
+  <sequence>179</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Data\Gui\Resolutions\1920x1080\cml_profile_image.png</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Data\Gui\Resolutions\1920x1080\cml_profile_image.png</param>
+</record>
+<record>
+  <date>2020-08-11T17:48:10</date>
+  <millis>1597189690113</millis>
+  <sequence>180</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Data\Gui\Resolutions\2560x1440\cml_profile_image.png</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Data\Gui\Resolutions\2560x1440\cml_profile_image.png</param>
+</record>
+<record>
+  <date>2020-08-11T17:48:10</date>
+  <millis>1597189690515</millis>
+  <sequence>181</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Data\Gui\Resolutions\3840x2160\cml_profile_image.png</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Data\Gui\Resolutions\3840x2160\cml_profile_image.png</param>
+</record>
+<record>
+  <date>2020-08-11T17:48:10</date>
+  <millis>1597189690885</millis>
+  <sequence>182</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Gui\YNCMessageGuiNoTitle.layout</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:11</date>
+  <millis>1597189691000</millis>
+  <sequence>183</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Melee\attacks.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:11</date>
+  <millis>1597189691294</millis>
+  <sequence>184</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Objects\Collision\obj_interactive_button.obj</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:11</date>
+  <millis>1597189691314</millis>
+  <sequence>185</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Objects\Collision\obj_interactive_switch.obj</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:11</date>
+  <millis>1597189691420</millis>
+  <sequence>186</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Objects\Database\ShapeSets\interactive.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:13</date>
+  <millis>1597189693702</millis>
+  <sequence>187</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Particles\Enviroment\critters\p_enviroment_nightmoth.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:18</date>
+  <millis>1597189698157</millis>
+  <sequence>188</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Data\Scripts\game\Spudgun.lua</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:18</date>
+  <millis>1597189698920</millis>
+  <sequence>189</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Data\Terrain</message>
+  <param>\Data\Terrain</param>
+</record>
+<record>
+  <date>2020-08-11T17:48:19</date>
+  <millis>1597189699165</millis>
+  <sequence>190</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Logs</message>
+  <param>\Logs</param>
+</record>
+<record>
+  <date>2020-08-11T17:48:19</date>
+  <millis>1597189699263</millis>
+  <sequence>191</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Release\concrt140.dll</message>
+</record>
+<record>
+  <date>2020-08-11T17:48:24</date>
+  <millis>1597189704922</millis>
+  <sequence>192</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Release\d3dcompiler_47.dll</message>
+</record>
+<record>
+  <date>2020-08-11T17:50:15</date>
+  <millis>1597189815199</millis>
+  <sequence>193</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Release\msvcp140.dll</message>
+</record>
+<record>
+  <date>2020-08-11T17:50:28</date>
+  <millis>1597189828356</millis>
+  <sequence>194</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Release\msvcp140_1.dll</message>
+</record>
+<record>
+  <date>2020-08-11T17:50:29</date>
+  <millis>1597189829733</millis>
+  <sequence>195</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Release\msvcp140_codecvt_ids.dll</message>
+</record>
+<record>
+  <date>2020-08-11T17:50:31</date>
+  <millis>1597189831487</millis>
+  <sequence>196</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Release\MyGUIEngine.dll</message>
+</record>
+<record>
+  <date>2020-08-11T17:51:33</date>
+  <millis>1597189893850</millis>
+  <sequence>197</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Release\ScrapMechanic.exe</message>
+</record>
+<record>
+  <date>2020-08-11T17:57:29</date>
+  <millis>1597190249439</millis>
+  <sequence>198</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Release\UnmodifiedCrcCalculator.exe</message>
+</record>
+<record>
+  <date>2020-08-11T17:59:27</date>
+  <millis>1597190367873</millis>
+  <sequence>199</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Release\vccorlib140.dll</message>
+</record>
+<record>
+  <date>2020-08-11T17:59:35</date>
+  <millis>1597190375444</millis>
+  <sequence>200</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Release\vcruntime140.dll</message>
+</record>
+<record>
+  <date>2020-08-11T17:59:38</date>
+  <millis>1597190378030</millis>
+  <sequence>201</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Screenshots</message>
+  <param>\Screenshots</param>
+</record>
+<record>
+  <date>2020-08-11T17:59:38</date>
+  <millis>1597190378934</millis>
+  <sequence>202</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Survival\Character\Char_Male</message>
+  <param>\Survival\Character\Char_Male</param>
+</record>
+<record>
+  <date>2020-08-11T17:59:39</date>
+  <millis>1597190379952</millis>
+  <sequence>203</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\CraftingRecipes\craftbot.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:59:41</date>
+  <millis>1597190381149</millis>
+  <sequence>204</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\CraftingRecipes\hideout.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:59:41</date>
+  <millis>1597190381299</millis>
+  <sequence>205</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\CraftingRecipes\item_names.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:59:43</date>
+  <millis>1597190383132</millis>
+  <sequence>206</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\DungeonTiles\Warehouse_Interior_ConstructionFloor_01.tile</message>
+</record>
+<record>
+  <date>2020-08-11T17:59:43</date>
+  <millis>1597190383286</millis>
+  <sequence>207</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\DungeonTiles\Warehouse_Interior_ConstructionFloor_02.tile</message>
+</record>
+<record>
+  <date>2020-08-11T17:59:43</date>
+  <millis>1597190383578</millis>
+  <sequence>208</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\DungeonTiles\Warehouse_Interior_EncryptorFloor_01.tile</message>
+</record>
+<record>
+  <date>2020-08-11T17:59:43</date>
+  <millis>1597190383799</millis>
+  <sequence>209</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\DungeonTiles\Warehouse_Interior_OfficeFloor_01.tile</message>
+</record>
+<record>
+  <date>2020-08-11T17:59:43</date>
+  <millis>1597190383968</millis>
+  <sequence>210</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\DungeonTiles\Warehouse_Interior_OfficeFloor_02.tile</message>
+</record>
+<record>
+  <date>2020-08-11T17:59:44</date>
+  <millis>1597190384117</millis>
+  <sequence>211</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\DungeonTiles\Warehouse_Interior_OfficeFloor_03.tile</message>
+</record>
+<record>
+  <date>2020-08-11T17:59:44</date>
+  <millis>1597190384281</millis>
+  <sequence>212</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\DungeonTiles\Warehouse_Interior_StorageFloor_01.tile</message>
+</record>
+<record>
+  <date>2020-08-11T17:59:44</date>
+  <millis>1597190384444</millis>
+  <sequence>213</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\DungeonTiles\Warehouse_Interior_StorageFloor_02.tile</message>
+</record>
+<record>
+  <date>2020-08-11T17:59:44</date>
+  <millis>1597190384841</millis>
+  <sequence>214</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\DungeonTiles\Warehouse_Interior_StorageFloor_03.tile</message>
+</record>
+<record>
+  <date>2020-08-11T17:59:44</date>
+  <millis>1597190384958</millis>
+  <sequence>215</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\DungeonTiles\Warehouse_Interior_StorageFloor_04.tile</message>
+</record>
+<record>
+  <date>2020-08-11T17:59:45</date>
+  <millis>1597190385328</millis>
+  <sequence>216</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\DungeonTiles\Warehouse_Interior_StorageFloor_05.tile</message>
+</record>
+<record>
+  <date>2020-08-11T17:59:45</date>
+  <millis>1597190385514</millis>
+  <sequence>217</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Effects\Database\EffectSets\glowstick.json</message>
+</record>
+<record>
+  <date>2020-08-11T17:59:46</date>
+  <millis>1597190386280</millis>
+  <sequence>218</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Gui\IconMapSurvival.png</message>
+</record>
+<record>
+  <date>2020-08-11T18:02:53</date>
+  <millis>1597190573776</millis>
+  <sequence>219</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Gui\IconMapSurvival.xml</message>
+</record>
+<record>
+  <date>2020-08-11T18:02:57</date>
+  <millis>1597190577020</millis>
+  <sequence>220</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Gui\Language\Brazilian</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Gui\Language\Brazilian</param>
+</record>
+<record>
+  <date>2020-08-11T18:02:57</date>
+  <millis>1597190577027</millis>
+  <sequence>221</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Gui\Language\Chinese</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Gui\Language\Chinese</param>
+</record>
+<record>
+  <date>2020-08-11T18:02:57</date>
+  <millis>1597190577093</millis>
+  <sequence>222</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Gui\Language\English\inventoryDescriptions.json</message>
+</record>
+<record>
+  <date>2020-08-11T18:02:59</date>
+  <millis>1597190579101</millis>
+  <sequence>223</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Gui\Language\French</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Gui\Language\French</param>
+</record>
+<record>
+  <date>2020-08-11T18:02:59</date>
+  <millis>1597190579108</millis>
+  <sequence>224</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Gui\Language\German</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Gui\Language\German</param>
+</record>
+<record>
+  <date>2020-08-11T18:02:59</date>
+  <millis>1597190579115</millis>
+  <sequence>225</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Gui\Language\Japanese</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Gui\Language\Japanese</param>
+</record>
+<record>
+  <date>2020-08-11T18:02:59</date>
+  <millis>1597190579119</millis>
+  <sequence>226</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Gui\Language\Korean</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Gui\Language\Korean</param>
+</record>
+<record>
+  <date>2020-08-11T18:02:59</date>
+  <millis>1597190579126</millis>
+  <sequence>227</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Gui\Language\Polish</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Gui\Language\Polish</param>
+</record>
+<record>
+  <date>2020-08-11T18:02:59</date>
+  <millis>1597190579140</millis>
+  <sequence>228</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Gui\Language\Russian</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Gui\Language\Russian</param>
+</record>
+<record>
+  <date>2020-08-11T18:02:59</date>
+  <millis>1597190579154</millis>
+  <sequence>229</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Gui\Language\Spanish</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Gui\Language\Spanish</param>
+</record>
+<record>
+  <date>2020-08-11T18:02:59</date>
+  <millis>1597190579378</millis>
+  <sequence>230</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Harvestables\Collision\Remains</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Harvestables\Collision\Remains</param>
+</record>
+<record>
+  <date>2020-08-11T18:02:59</date>
+  <millis>1597190579454</millis>
+  <sequence>231</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Harvestables\Database\HarvestableSets\hvs_farmables.json</message>
+</record>
+<record>
+  <date>2020-08-11T18:02:59</date>
+  <millis>1597190579802</millis>
+  <sequence>232</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Harvestables\Database\HarvestableSets\hvs_plantables.json</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:00</date>
+  <millis>1597190580156</millis>
+  <sequence>233</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Harvestables\Database\HarvestableSets\hvs_remains.json</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Harvestables\Database\HarvestableSets\hvs_remains.json</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:00</date>
+  <millis>1597190580362</millis>
+  <sequence>234</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Harvestables\Database\harvestablesets.json</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:00</date>
+  <millis>1597190580577</millis>
+  <sequence>235</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Harvestables\Mesh\Fillers\hvs_fillers_haypile_01.fbx</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:01</date>
+  <millis>1597190581525</millis>
+  <sequence>236</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Harvestables\Mesh\Fillers\hvs_fillers_haypile_02.fbx</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:03</date>
+  <millis>1597190583068</millis>
+  <sequence>237</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Harvestables\Mesh\Fillers\hvs_fillers_haypile_03.fbx</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:04</date>
+  <millis>1597190584975</millis>
+  <sequence>238</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Harvestables\Mesh\Plantables\hvs_plantables_cotton.fbx</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Harvestables\Mesh\Plantables\hvs_plantables_cotton.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:05</date>
+  <millis>1597190585005</millis>
+  <sequence>239</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Harvestables\Mesh\Plantables\hvs_plantables_cotton_finished.fbx</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Harvestables\Mesh\Plantables\hvs_plantables_cotton_finished.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:05</date>
+  <millis>1597190585012</millis>
+  <sequence>240</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Harvestables\Mesh\Plantables\hvs_plantables_cotton_pose0.fbx</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Harvestables\Mesh\Plantables\hvs_plantables_cotton_pose0.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:05</date>
+  <millis>1597190585050</millis>
+  <sequence>241</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Harvestables\Mesh\Plantables\hvs_plantables_cotton_pose1.fbx</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Harvestables\Mesh\Plantables\hvs_plantables_cotton_pose1.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:05</date>
+  <millis>1597190585223</millis>
+  <sequence>242</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Harvestables\Renderable\Plantables\hvs_plantables_cotton.rend</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Harvestables\Renderable\Plantables\hvs_plantables_cotton.rend</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:05</date>
+  <millis>1597190585270</millis>
+  <sequence>243</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Harvestables\Renderable\Plantables\hvs_plantables_cotton_growing.rend</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Harvestables\Renderable\Plantables\hvs_plantables_cotton_growing.rend</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:06</date>
+  <millis>1597190586151</millis>
+  <sequence>244</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\LocalBlueprints\Kit_Warehouse_Toilets_Wall_End_01.blueprint</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:08</date>
+  <millis>1597190588055</millis>
+  <sequence>245</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\LocalBlueprints\StartAreaFarm_Weelbarrow_01.blueprint</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:08</date>
+  <millis>1597190588406</millis>
+  <sequence>246</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\LocalPrefabs\decal_prefabs\road_straight_curved.prefab</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:08</date>
+  <millis>1597190588726</millis>
+  <sequence>247</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\LocalPrefabs\Kit_Warehouse_Shell_Storage_2x4x2_A.prefab</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:09</date>
+  <millis>1597190589185</millis>
+  <sequence>248</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\LocalPrefabs\Ruins_Kit_Lamps_01.prefab</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\LocalPrefabs\Ruins_Kit_Lamps_01.prefab</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:09</date>
+  <millis>1597190589200</millis>
+  <sequence>249</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\LocalPrefabs\Ruins_Kit_Lamps_02.prefab</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\LocalPrefabs\Ruins_Kit_Lamps_02.prefab</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:09</date>
+  <millis>1597190589228</millis>
+  <sequence>250</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\LocalPrefabs\Ruins_Kit_Lamps_03.prefab</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\LocalPrefabs\Ruins_Kit_Lamps_03.prefab</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:09</date>
+  <millis>1597190589240</millis>
+  <sequence>251</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\LocalPrefabs\Ruins_Kit_Lamps_Broken_01.prefab</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\LocalPrefabs\Ruins_Kit_Lamps_Broken_01.prefab</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:09</date>
+  <millis>1597190589366</millis>
+  <sequence>252</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\LocalPrefabs\Warehouse_Room_Storage_2x4x2_01.prefab</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:09</date>
+  <millis>1597190589863</millis>
+  <sequence>253</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\LocalPrefabs\Warehouse_Room_Utility_1x2x1_Door_SsWw_01.prefab</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:10</date>
+  <millis>1597190590188</millis>
+  <sequence>254</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\LocalPrefabs\Warehouse_Room_Utility_1x2x1_Door_Ww_01.prefab</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:10</date>
+  <millis>1597190590676</millis>
+  <sequence>255</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Database\rotationsets.json</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:10</date>
+  <millis>1597190590740</millis>
+  <sequence>256</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Database\ShapeSets\building.json</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:11</date>
+  <millis>1597190591362</millis>
+  <sequence>257</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Database\ShapeSets\construction.json</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:11</date>
+  <millis>1597190591909</millis>
+  <sequence>258</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Database\ShapeSets\consumable.json</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:12</date>
+  <millis>1597190592307</millis>
+  <sequence>259</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Database\ShapeSets\decor.json</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:12</date>
+  <millis>1597190592978</millis>
+  <sequence>260</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Database\ShapeSets\lights.json</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:13</date>
+  <millis>1597190593274</millis>
+  <sequence>261</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Database\ShapeSets\manmade.json</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:13</date>
+  <millis>1597190593629</millis>
+  <sequence>262</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Database\ShapeSets\outfitpackage.json</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:13</date>
+  <millis>1597190593757</millis>
+  <sequence>263</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Database\ShapeSets\plantables.json</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:14</date>
+  <millis>1597190594310</millis>
+  <sequence>264</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Database\ShapeSets\resources.json</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:14</date>
+  <millis>1597190594588</millis>
+  <sequence>265</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Database\ShapeSets\tool_parts.json</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:14</date>
+  <millis>1597190594705</millis>
+  <sequence>266</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Database\ShapeSets\warehouse.json</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:15</date>
+  <millis>1597190595823</millis>
+  <sequence>267</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Database\shapesets.json</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:16</date>
+  <millis>1597190596074</millis>
+  <sequence>268</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Mesh\consumable\obj_consumable_ammo.fbx</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:28</date>
+  <millis>1597190608206</millis>
+  <sequence>269</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\consumable\obj_consumable_ammo_lod1.fbx</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\consumable\obj_consumable_ammo_lod1.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:28</date>
+  <millis>1597190608285</millis>
+  <sequence>270</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Mesh\consumable\obj_consumable_corn_lod1.fbx</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:29</date>
+  <millis>1597190609063</millis>
+  <sequence>271</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\decor\obj_decor_basketstack_lod1.fbx</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\decor\obj_decor_basketstack_lod1.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:29</date>
+  <millis>1597190609089</millis>
+  <sequence>272</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\decor\obj_decor_basket_lod1.fbx</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\decor\obj_decor_basket_lod1.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:29</date>
+  <millis>1597190609143</millis>
+  <sequence>273</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\decor\obj_decor_sunshakemachine_lod1.fbx</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\decor\obj_decor_sunshakemachine_lod1.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:29</date>
+  <millis>1597190609149</millis>
+  <sequence>274</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\decor\obj_decor_sunshakeudder_lod1.fbx</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\decor\obj_decor_sunshakeudder_lod1.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:29</date>
+  <millis>1597190609759</millis>
+  <sequence>275</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Mesh\manmade\obj_manmade_holidayposter.fbx</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:30</date>
+  <millis>1597190610926</millis>
+  <sequence>276</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\manmade\obj_manmade_holidayposter_lod1.fbx</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\manmade\obj_manmade_holidayposter_lod1.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:30</date>
+  <millis>1597190610973</millis>
+  <sequence>277</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Mesh\manmade\obj_manmade_saleSign.fbx</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:32</date>
+  <millis>1597190612098</millis>
+  <sequence>278</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\manmade\obj_manmade_saleSign_lod1.fbx</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\manmade\obj_manmade_saleSign_lod1.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:32</date>
+  <millis>1597190612119</millis>
+  <sequence>279</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Mesh\manmade\obj_manmade_scraproof01.fbx</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:33</date>
+  <millis>1597190613573</millis>
+  <sequence>280</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\manmade\obj_manmade_scraproof01_lod1.fbx</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\manmade\obj_manmade_scraproof01_lod1.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:33</date>
+  <millis>1597190613594</millis>
+  <sequence>281</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Mesh\manmade\obj_manmade_scraproof02.fbx</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:35</date>
+  <millis>1597190615639</millis>
+  <sequence>282</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\manmade\obj_manmade_scraproof02_lod1.fbx</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\manmade\obj_manmade_scraproof02_lod1.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:35</date>
+  <millis>1597190615646</millis>
+  <sequence>283</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Mesh\manmade\obj_manmade_scraproof03.fbx</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:37</date>
+  <millis>1597190617218</millis>
+  <sequence>284</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\manmade\obj_manmade_scraproof03_lod1.fbx</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\manmade\obj_manmade_scraproof03_lod1.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:37</date>
+  <millis>1597190617225</millis>
+  <sequence>285</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Mesh\manmade\obj_manmade_scrapwall01.fbx</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:39</date>
+  <millis>1597190619672</millis>
+  <sequence>286</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\manmade\obj_manmade_scrapwall01_lod1.fbx</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\manmade\obj_manmade_scrapwall01_lod1.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:39</date>
+  <millis>1597190619692</millis>
+  <sequence>287</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Objects\Mesh\manmade\obj_manmade_scrapwallSmall.fbx</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:41</date>
+  <millis>1597190621172</millis>
+  <sequence>288</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\manmade\obj_manmade_scrapwallSmall_lod1.fbx</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\manmade\obj_manmade_scrapwallSmall_lod1.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:41</date>
+  <millis>1597190621234</millis>
+  <sequence>289</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\manmade\obj_manmade_signFresh_off_lod1.fbx</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\manmade\obj_manmade_signFresh_off_lod1.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:41</date>
+  <millis>1597190621240</millis>
+  <sequence>290</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\manmade\obj_manmade_signFresh_on_lod1.fbx</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Mesh\manmade\obj_manmade_signFresh_on_lod1.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:41</date>
+  <millis>1597190621577</millis>
+  <sequence>291</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Renderable\decor</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Renderable\decor</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:41</date>
+  <millis>1597190621676</millis>
+  <sequence>292</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Renderable\manmade</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Renderable\manmade</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:41</date>
+  <millis>1597190621709</millis>
+  <sequence>293</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Renderable\Plantables\obj_plantables_ammo.rend</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Renderable\Plantables\obj_plantables_ammo.rend</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:42</date>
+  <millis>1597190622176</millis>
+  <sequence>294</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Textures\consumable\obj_consumable_seedbag_cotton_dif.tga</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Objects\Textures\consumable\obj_consumable_seedbag_cotton_dif.tga</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:43</date>
+  <millis>1597190623200</millis>
+  <sequence>295</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Projectiles\projectiles.json</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:43</date>
+  <millis>1597190623439</millis>
+  <sequence>296</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\characters\GlobCharacter.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:43</date>
+  <millis>1597190623579</millis>
+  <sequence>297</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\characters\MechanicCharacter.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:43</date>
+  <millis>1597190623876</millis>
+  <sequence>298</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\characters\TotebotCharacter.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:44</date>
+  <millis>1597190624051</millis>
+  <sequence>299</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\characters\WocCharacter.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:44</date>
+  <millis>1597190624295</millis>
+  <sequence>300</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\containers\ConsumableContainer.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:44</date>
+  <millis>1597190624457</millis>
+  <sequence>301</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\harvestable\BurntTree.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:44</date>
+  <millis>1597190624589</millis>
+  <sequence>302</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\harvestable\CornPlant.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:44</date>
+  <millis>1597190624625</millis>
+  <sequence>303</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\harvestable\CottonPlant.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:44</date>
+  <millis>1597190624740</millis>
+  <sequence>304</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>- Deleting old file at C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Scripts\game\harvestable\GlowstickRemains.lua</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Survival\Scripts\game\harvestable\GlowstickRemains.lua</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:44</date>
+  <millis>1597190624746</millis>
+  <sequence>305</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\harvestable\GrowingHarvestable.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:44</date>
+  <millis>1597190624942</millis>
+  <sequence>306</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\harvestable\GrowingOilGeyser.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:45</date>
+  <millis>1597190625007</millis>
+  <sequence>307</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\harvestable\HarvestableSoil.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:45</date>
+  <millis>1597190625154</millis>
+  <sequence>308</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\harvestable\LootHarvestable.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:45</date>
+  <millis>1597190625336</millis>
+  <sequence>309</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\harvestable\OilGeyser.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:45</date>
+  <millis>1597190625452</millis>
+  <sequence>310</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\harvestable\PigmentFlower.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:45</date>
+  <millis>1597190625576</millis>
+  <sequence>311</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\harvestable\SlimyClam.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:45</date>
+  <millis>1597190625680</millis>
+  <sequence>312</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\harvestable\StoneChunk.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:45</date>
+  <millis>1597190625937</millis>
+  <sequence>313</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\harvestable\TreeTrunk.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:46</date>
+  <millis>1597190626314</millis>
+  <sequence>314</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\interactables\Crafter.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:47</date>
+  <millis>1597190627341</millis>
+  <sequence>315</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\interactables\DriverSeat.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:47</date>
+  <millis>1597190627673</millis>
+  <sequence>316</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\interactables\ElectricEngine.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:48</date>
+  <millis>1597190628095</millis>
+  <sequence>317</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\interactables\GasEngine.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:48</date>
+  <millis>1597190628572</millis>
+  <sequence>318</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\interactables\HideoutTrader.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:49</date>
+  <millis>1597190629007</millis>
+  <sequence>319</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\interactables\LostItems.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:49</date>
+  <millis>1597190629255</millis>
+  <sequence>320</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\interactables\PackingStationScreen.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:49</date>
+  <millis>1597190629546</millis>
+  <sequence>321</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\interactables\PowerCoreSocket.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:49</date>
+  <millis>1597190629794</millis>
+  <sequence>322</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\interactables\Refinery.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:50</date>
+  <millis>1597190630557</millis>
+  <sequence>323</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\interactables\Seat.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:50</date>
+  <millis>1597190630817</millis>
+  <sequence>324</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\interactables\Vacuum.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:51</date>
+  <millis>1597190631574</millis>
+  <sequence>325</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\managers\FireManager.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:51</date>
+  <millis>1597190631885</millis>
+  <sequence>326</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\managers\UnitManager.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:52</date>
+  <millis>1597190632400</millis>
+  <sequence>327</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>+ Writing  \Survival\Scripts\game\SurvivalGame.lua</message>
+  <param>\Survival\Scripts\game\SurvivalGame.lua</param>
+</record>
+<record>
+  <date>2020-08-11T18:03:52</date>
+  <millis>1597190632414</millis>
+  <sequence>328</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\SurvivalPlayer.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:53</date>
+  <millis>1597190633540</millis>
+  <sequence>329</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\survival_harvestable.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:53</date>
+  <millis>1597190633687</millis>
+  <sequence>330</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\survival_items.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:55</date>
+  <millis>1597190635854</millis>
+  <sequence>331</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\survival_loot.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:56</date>
+  <millis>1597190636284</millis>
+  <sequence>332</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\survival_spawns.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:56</date>
+  <millis>1597190636876</millis>
+  <sequence>333</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\terrain\overworld\poi.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:57</date>
+  <millis>1597190637356</millis>
+  <sequence>334</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\tools\Bucket.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:57</date>
+  <millis>1597190637810</millis>
+  <sequence>335</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\tools\CarryTool.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:58</date>
+  <millis>1597190638421</millis>
+  <sequence>336</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\tools\Fertilizer.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:58</date>
+  <millis>1597190638776</millis>
+  <sequence>337</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\tools\Glowstick.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:59</date>
+  <millis>1597190639053</millis>
+  <sequence>338</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\tools\Planter.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:59</date>
+  <millis>1597190639181</millis>
+  <sequence>339</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\tools\PotatoGatling.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:03:59</date>
+  <millis>1597190639865</millis>
+  <sequence>340</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\tools\PotatoRifle.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:00</date>
+  <millis>1597190640576</millis>
+  <sequence>341</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\tools\PotatoShotgun.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:01</date>
+  <millis>1597190641133</millis>
+  <sequence>342</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\tools\Sledgehammer.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:01</date>
+  <millis>1597190641711</millis>
+  <sequence>343</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\tools\SoilBag.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:02</date>
+  <millis>1597190642149</millis>
+  <sequence>344</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\units\FarmbotUnit.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:02</date>
+  <millis>1597190642936</millis>
+  <sequence>345</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\units\HayBotUnit.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:03</date>
+  <millis>1597190643839</millis>
+  <sequence>346</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\units\TapeBotUnit.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:04</date>
+  <millis>1597190644434</millis>
+  <sequence>347</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\game\worlds\BaseWorld.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:04</date>
+  <millis>1597190644787</millis>
+  <sequence>348</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>Writing  \Survival\Scripts\util.lua</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:05</date>
+  <millis>1597190645230</millis>
+  <sequence>349</sequence>
+  <logger>cml.apply.MergeChanges</logger>
+  <level>FINER</level>
+  <class>cml.apply.MergeChanges</class>
+  <method>writePatchRecursive</method>
+  <thread>38</thread>
+  <message>/ Ignoring \Survival\Terrain</message>
+  <param>\Survival\Terrain</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:05</date>
+  <millis>1597190645235</millis>
+  <sequence>350</sequence>
+  <logger>cml.apply.ReplaceChanges</logger>
+  <level>FINE</level>
+  <class>cml.apply.ReplaceChanges</class>
+  <method>applyReplacement</method>
+  <thread>38</thread>
+  <message>Replacing</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:07</date>
+  <millis>1597190647982</millis>
+  <sequence>351</sequence>
+  <logger>cml.apply.ReplaceChanges</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ReplaceChanges</class>
+  <method>lambda$applyReplacement$1</method>
+  <thread>38</thread>
+  <message>Replace: C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Data\Gui\gui_mainmenu_logo_cml.png</message>
+  <param>C:\Program Files (x86)\Steam\steamapps\common\Scrap Mechanic\Data\Gui\gui_mainmenu_logo_cml.png</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:07</date>
+  <millis>1597190647986</millis>
+  <sequence>352</sequence>
+  <logger>cml.apply.ApplyCraftingRecipes</logger>
+  <level>FINE</level>
+  <class>cml.apply.ApplyCraftingRecipes</class>
+  <method>applyCraftingRecipes</method>
+  <thread>38</thread>
+  <message>Applying crafting recipes</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:07</date>
+  <millis>1597190647992</millis>
+  <sequence>353</sequence>
+  <logger>cml.apply.ApplyCraftingRecipes</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyCraftingRecipes</class>
+  <method>lambda$applyCraftingRecipes$2</method>
+  <thread>38</thread>
+  <message>Crafting list found: craftbot.json</message>
+  <param>craftbot.json</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:08</date>
+  <millis>1597190648069</millis>
+  <sequence>354</sequence>
+  <logger>cml.apply.ApplyCraftingRecipes</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyCraftingRecipes</class>
+  <method>lambda$applyCraftingRecipes$3</method>
+  <thread>38</thread>
+  <message>Crafting list search: item_names.json</message>
+  <param>item_names.json</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:08</date>
+  <millis>1597190648074</millis>
+  <sequence>355</sequence>
+  <logger>cml.apply.ApplyCraftingRecipes</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyCraftingRecipes</class>
+  <method>lambda$applyCraftingRecipes$3</method>
+  <thread>38</thread>
+  <message>Crafting list search: workbench.json</message>
+  <param>workbench.json</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:08</date>
+  <millis>1597190648077</millis>
+  <sequence>356</sequence>
+  <logger>cml.apply.ApplyCraftingRecipes</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyCraftingRecipes</class>
+  <method>lambda$applyCraftingRecipes$3</method>
+  <thread>38</thread>
+  <message>Crafting list search: cookbot.json</message>
+  <param>cookbot.json</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:08</date>
+  <millis>1597190648081</millis>
+  <sequence>357</sequence>
+  <logger>cml.apply.ApplyCraftingRecipes</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyCraftingRecipes</class>
+  <method>lambda$applyCraftingRecipes$3</method>
+  <thread>38</thread>
+  <message>Crafting list search: dressbot.json</message>
+  <param>dressbot.json</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:08</date>
+  <millis>1597190648084</millis>
+  <sequence>358</sequence>
+  <logger>cml.apply.ApplyCraftingRecipes</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyCraftingRecipes</class>
+  <method>lambda$applyCraftingRecipes$3</method>
+  <thread>38</thread>
+  <message>Crafting list search: refinery.json</message>
+  <param>refinery.json</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:08</date>
+  <millis>1597190648091</millis>
+  <sequence>359</sequence>
+  <logger>cml.apply.ApplyCraftingRecipes</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyCraftingRecipes</class>
+  <method>lambda$applyCraftingRecipes$3</method>
+  <thread>38</thread>
+  <message>Crafting list search: craftbot.json</message>
+  <param>craftbot.json</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:08</date>
+  <millis>1597190648221</millis>
+  <sequence>360</sequence>
+  <logger>cml.apply.ApplyCraftingRecipes</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyCraftingRecipes</class>
+  <method>lambda$applyCraftingRecipes$3</method>
+  <thread>38</thread>
+  <message>Crafting list search: hideout.json</message>
+  <param>hideout.json</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:08</date>
+  <millis>1597190648224</millis>
+  <sequence>361</sequence>
+  <logger>cml.apply.ApplyCraftingRecipes</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyCraftingRecipes</class>
+  <method>lambda$applyCraftingRecipes$3</method>
+  <thread>38</thread>
+  <message>Crafting list search: dispenser.json</message>
+  <param>dispenser.json</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:08</date>
+  <millis>1597190648231</millis>
+  <sequence>362</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINER</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>cleanObjects</method>
+  <thread>38</thread>
+  <message>Clearing Objects folder</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:08</date>
+  <millis>1597190648266</millis>
+  <sequence>363</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINE</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>cloneObjects</method>
+  <thread>38</thread>
+  <message>Filling Objects folder</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:08</date>
+  <millis>1597190648272</millis>
+  <sequence>364</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>cloneObjectsRec</method>
+  <thread>38</thread>
+  <message>Copying object file: texture_asg.tga</message>
+  <param>texture_asg.tga</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:08</date>
+  <millis>1597190648400</millis>
+  <sequence>365</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>cloneObjectsRec</method>
+  <thread>38</thread>
+  <message>Copying object file: texture_dif.tga</message>
+  <param>texture_dif.tga</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:08</date>
+  <millis>1597190648579</millis>
+  <sequence>366</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>cloneObjectsRec</method>
+  <thread>38</thread>
+  <message>Copying object file: texture_nor.tga</message>
+  <param>texture_nor.tga</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:08</date>
+  <millis>1597190648899</millis>
+  <sequence>367</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>cloneObjectsRec</method>
+  <thread>38</thread>
+  <message>Copying object file: examplemod.png</message>
+  <param>examplemod.png</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:09</date>
+  <millis>1597190649146</millis>
+  <sequence>368</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>cloneObjectsRec</method>
+  <thread>38</thread>
+  <message>Copying object file: examplemod.xml</message>
+  <param>examplemod.xml</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:09</date>
+  <millis>1597190649164</millis>
+  <sequence>369</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>cloneObjectsRec</method>
+  <thread>38</thread>
+  <message>Copying object file: iconmaps.txt</message>
+  <param>iconmaps.txt</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:09</date>
+  <millis>1597190649190</millis>
+  <sequence>370</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>cloneObjectsRec</method>
+  <thread>38</thread>
+  <message>Copying object file: inventorydesc.txt</message>
+  <param>inventorydesc.txt</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:09</date>
+  <millis>1597190649299</millis>
+  <sequence>371</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>cloneObjectsRec</method>
+  <thread>38</thread>
+  <message>Copying object file: examplemod.json</message>
+  <param>examplemod.json</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:09</date>
+  <millis>1597190649347</millis>
+  <sequence>372</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>cloneObjectsRec</method>
+  <thread>38</thread>
+  <message>Copying object file: examplemod.json</message>
+  <param>examplemod.json</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:09</date>
+  <millis>1597190649386</millis>
+  <sequence>373</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>cloneObjectsRec</method>
+  <thread>38</thread>
+  <message>Copying object file: shapesets.txt</message>
+  <param>shapesets.txt</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:09</date>
+  <millis>1597190649411</millis>
+  <sequence>374</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>cloneObjectsRec</method>
+  <thread>38</thread>
+  <message>Copying object file: collision.obj</message>
+  <param>collision.obj</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:09</date>
+  <millis>1597190649488</millis>
+  <sequence>375</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>cloneObjectsRec</method>
+  <thread>38</thread>
+  <message>Copying object file: mesh.fbx</message>
+  <param>mesh.fbx</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:10</date>
+  <millis>1597190650413</millis>
+  <sequence>376</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>cloneObjectsRec</method>
+  <thread>38</thread>
+  <message>Copying object file: script.lua</message>
+  <param>script.lua</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:10</date>
+  <millis>1597190650453</millis>
+  <sequence>377</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>cloneObjectsRec</method>
+  <thread>38</thread>
+  <message>Copying object file: texture_asg.tga</message>
+  <param>texture_asg.tga</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:11</date>
+  <millis>1597190651342</millis>
+  <sequence>378</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>cloneObjectsRec</method>
+  <thread>38</thread>
+  <message>Copying object file: texture_dif.tga</message>
+  <param>texture_dif.tga</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:14</date>
+  <millis>1597190654713</millis>
+  <sequence>379</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINEST</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>cloneObjectsRec</method>
+  <thread>38</thread>
+  <message>Copying object file: texture_nor.tga</message>
+  <param>texture_nor.tga</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:15</date>
+  <millis>1597190655560</millis>
+  <sequence>380</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINE</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>updateItems</method>
+  <thread>38</thread>
+  <message>Updating items:</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:15</date>
+  <millis>1597190655588</millis>
+  <sequence>381</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINE</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>updateSurvivalItems</method>
+  <thread>38</thread>
+  <message>Updating survival items</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:17</date>
+  <millis>1597190657131</millis>
+  <sequence>382</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINE</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>updateShapeSets</method>
+  <thread>38</thread>
+  <message>Updating shape sets</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:17</date>
+  <millis>1597190657145</millis>
+  <sequence>383</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINE</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>updateIcons</method>
+  <thread>38</thread>
+  <message>Updating icon maps</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:18</date>
+  <millis>1597190658002</millis>
+  <sequence>384</sequence>
+  <logger>cml.lib.xmliconmap.IconMapCreator</logger>
+  <level>FINE</level>
+  <class>cml.lib.xmliconmap.IconMapCreator</class>
+  <method>flush</method>
+  <thread>38</thread>
+  <message>Drawing IconMap
+  Size: [4,032,1,920]
+  Icons: 801</message>
+  <param>4032</param>
+  <param>1920</param>
+  <param>801</param>
+</record>
+<record>
+  <date>2020-08-11T18:04:25</date>
+  <millis>1597190665274</millis>
+  <sequence>385</sequence>
+  <logger>cml.apply.ApplyObjects</logger>
+  <level>FINE</level>
+  <class>cml.apply.ApplyObjects</class>
+  <method>updateInventoryDescriptions</method>
+  <thread>38</thread>
+  <message>Updating inventory descriptions</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:25</date>
+  <millis>1597190665291</millis>
+  <sequence>386</sequence>
+  <logger>cml.apply.Apply</logger>
+  <level>INFO</level>
+  <class>cml.apply.Apply</class>
+  <method>apply</method>
+  <thread>38</thread>
+  <message>Modifications applied</message>
+</record>
+<record>
+  <date>2020-08-11T18:04:26</date>
+  <millis>1597190666638</millis>
+  <sequence>387</sequence>
+  <logger>cml.Main</logger>
+  <level>INFO</level>
+  <class>cml.Main</class>
+  <method>launchGame</method>
+  <thread>38</thread>
+  <message>Launching Scrap Mechanic</message>
+</record>
+<record>
+  <date>2020-08-11T23:01:36</date>
+  <millis>1597208496910</millis>
+  <sequence>388</sequence>
+  <logger>cml.GUI</logger>
+  <level>INFO</level>
+  <class>cml.GUI</class>
+  <method>stop</method>
+  <thread>12</thread>
+  <message>Stopping...</message>
+</record>
+<record>
+  <date>2020-08-11T23:01:37</date>
+  <millis>1597208497218</millis>
+  <sequence>389</sequence>
+  <logger>cml.lib.lazyupdate.ChangeDetector</logger>
+  <level>SEVERE</level>
+  <class>cml.lib.lazyupdate.ChangeDetector</class>
+  <method>lambda$recursivelyCheck$2</method>
+  <thread>30</thread>
+  <message>Change Detector stopped
+java.lang.InterruptedException: sleep interrupted
+	at java.lang.Thread.sleep(Native Method)
+	at cml.lib.lazyupdate.ChangeDetector.lambda$recursivelyCheck$2(ChangeDetector.java:121)
+	at java.lang.Thread.run(Thread.java:748)</message>
+  <exception>
+    <message>java.lang.InterruptedException: sleep interrupted</message>
+    <frame>
+      <class>java.lang.Thread</class>
+      <method>sleep</method>
+    </frame>
+    <frame>
+      <class>cml.lib.lazyupdate.ChangeDetector</class>
+      <method>lambda$recursivelyCheck$2</method>
+      <line>121</line>
+    </frame>
+    <frame>
+      <class>java.lang.Thread</class>
+      <method>run</method>
+      <line>748</line>
+    </frame>
+  </exception>
+</record>
+<record>
+  <date>2020-08-11T23:01:37</date>
+  <millis>1597208497222</millis>
+  <sequence>390</sequence>
+  <logger>cml.lib.lazyupdate.FlagUpdater</logger>
+  <level>SEVERE</level>
+  <class>cml.lib.lazyupdate.FlagUpdater</class>
+  <method>lambda$recursivelyCheck$2</method>
+  <thread>31</thread>
+  <message>Flag Updater stopped
+java.lang.InterruptedException: sleep interrupted
+	at java.lang.Thread.sleep(Native Method)
+	at java.lang.Thread.sleep(Thread.java:340)
+	at java.util.concurrent.TimeUnit.sleep(TimeUnit.java:386)
+	at cml.lib.lazyupdate.FlagUpdater.lambda$recursivelyCheck$2(FlagUpdater.java:87)
+	at java.lang.Thread.run(Thread.java:748)</message>
+  <exception>
+    <message>java.lang.InterruptedException: sleep interrupted</message>
+    <frame>
+      <class>java.lang.Thread</class>
+      <method>sleep</method>
+    </frame>
+    <frame>
+      <class>java.lang.Thread</class>
+      <method>sleep</method>
+      <line>340</line>
+    </frame>
+    <frame>
+      <class>java.util.concurrent.TimeUnit</class>
+      <method>sleep</method>
+      <line>386</line>
+    </frame>
+    <frame>
+      <class>cml.lib.lazyupdate.FlagUpdater</class>
+      <method>lambda$recursivelyCheck$2</method>
+      <line>87</line>
+    </frame>
+    <frame>
+      <class>java.lang.Thread</class>
+      <method>run</method>
+      <line>748</line>
+    </frame>
+  </exception>
+</record>
+</log>

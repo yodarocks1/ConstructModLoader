@@ -5,7 +5,9 @@
 /Construct Mod Loader/Construct Mod Loader.msi
 /Construct Mod Loader/ConstructModLoader.jar
 /Construct Mod Loader/L4j/
-/Construct Mod Loader/CML App.ico
-/Construct Mod Loader/launch4jconfig.xml
-/Construct Mod Loader/
 /dist/
+/Construct Mod Loader/La4j/jre/
+/Construct Mod Loader/La4j/sign.ps1
+/Construct Mod Loader/La4j/sign_installer.ps1
+/Construct Mod Loader/La4j/sign_noBundle.ps1
+/steamcmd/

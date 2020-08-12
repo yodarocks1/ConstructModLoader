@@ -16,7 +16,7 @@
  */
 package cml.lib.xmliconmap;
 
-import cml.Main;
+import cml.Constants;
 import cml.lib.xmliconmap.CMLIcon.State;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -42,7 +42,7 @@ public class CMLIconMap {
     static {
         CMLIconMap map;
         try {
-            map = new CMLIconMap(ImageIO.read(new File(Main.API_DIRECTORY, "IconMap.png")), false);
+            map = new CMLIconMap(ImageIO.read(new File(Constants.API_DIRECTORY, "IconMap.png")), true);
         } catch (IOException ex) {
             LOGGER.log(Level.SEVERE, "Failed to read CML icon map", ex);
             map = null;
@@ -58,14 +58,41 @@ public class CMLIconMap {
         this.isCompact.setValue(isCompact);
     }
 
+    /**
+     * A completely transparent, 24x24 image.
+     */
     public final CMLIcon EMPTY = new CMLIcon(1000, 488, 24, 24, this);
+    /**
+     * The default, "Blank" image.
+     */
     public final CMLIcon BLANK = new CMLIcon(894, 1280, 130, 130, this);
+    /**
+     * CML Icon.
+     */
     public final CMLIcon ICON = new CMLIcon(768, 512, 256, 256, this, State.NORMAL, State.ERROR, State.SUCCESS);
+    /**
+     * Enabled toggle switch.
+     */
     public final CMLIcon ENABLER = new CMLIcon(1413, 390, 259, 130, this, State.NORMAL, State.HOVER, State.PRESS);
+    /**
+     * Disabled toggle switch.
+     */
     public final CMLIcon DISABLER = new CMLIcon(1802, 780, 259, 130, this, State.NORMAL, State.HOVER, State.PRESS);
+    /**
+     * Send to tray button.
+     */
     public final CMLIcon TO_TRAY = new CMLIcon(1157, 0, 130, 130, this, State.NORMAL, State.HOVER, State.PRESS);
+    /**
+     * Opposite of the maximize button.
+     */
     public final CMLIcon TO_WINDOW = new CMLIcon(1287, 0, 130, 130, this, State.NORMAL, State.HOVER, State.PRESS);
+    /**
+     * Maximize window button.
+     */
     public final CMLIcon MAXIMIZE = new CMLIcon(1417, 0, 130, 130, this, State.NORMAL, State.HOVER, State.PRESS);
+    /**
+     * Close window button.
+     */
     public final CMLIcon CLOSE = new CMLIcon(1547, 0, 130, 130, this, State.NORMAL, State.HOVER, State.PRESS);
     
     public final CMLIcon LAUNCH_C = new CMLIcon(0, 0, 256, 256, this, State.NORMAL, State.HOVER, State.PRESS, State.ERROR, State.SUCCESS);
@@ -84,6 +111,8 @@ public class CMLIconMap {
     public final CMLIcon PROFILE_LIST_W = new CMLIcon(1154, 390, 259, 130, this, State.NORMAL, State.HOVER, State.PRESS);
     public final CMLIcon DELETE_C = new CMLIcon(1024, 1170, 130, 130, this, State.NORMAL, State.HOVER, State.PRESS);
     public final CMLIcon DELETE_W = new CMLIcon(1154, 1170, 259, 130, this, State.NORMAL, State.HOVER, State.PRESS);
+    public final CMLIcon PLUGINS_C = new CMLIcon(1413, 1170, 130, 130, this, State.NORMAL, State.HOVER, State.PRESS);
+    public final CMLIcon PLUGINS_W = new CMLIcon(1543, 1170, 259, 130, this, State.NORMAL, State.HOVER, State.PRESS);
     
     public final CMLIconConditional LAUNCH = new CMLIconConditional(LAUNCH_C, LAUNCH_W, this, isCompact);
     public final CMLIconConditional SETTINGS = new CMLIconConditional(SETTINGS_C, SETTINGS_W, this, isCompact);
@@ -93,6 +122,7 @@ public class CMLIconMap {
     public final CMLIconConditional PROFILE_SETTINGS = new CMLIconConditional(PROFILE_SETTINGS_C, PROFILE_SETTINGS_W, this, isCompact);
     public final CMLIconConditional PROFILE_LIST = new CMLIconConditional(PROFILE_LIST_C, PROFILE_LIST_W, this, isCompact);
     public final CMLIconConditional DELETE = new CMLIconConditional(DELETE_C, DELETE_W, this, isCompact);
+    public final CMLIconConditional PLUGINS = new CMLIconConditional(PLUGINS_C, PLUGINS_W, this, isCompact);
     
     public Image getIcon(int x, int y, int w, int h) {
         return SwingFXUtils.toFXImage(map.getSubimage(x, y, w, h), null);
